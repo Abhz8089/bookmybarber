@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo:wght@400;500;600;700&display=swap");
+
+.login {
+    
+  background-image: url("../../../public/contentImages/scissors-hair-trimmer-copy-space.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat; 
+ 
+}
+.Login_Container {
+    
+  background-position: center center;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+
+  height: 60rem;
+ 
+}
+@media (max-width: 768px) {
+    .login {
+    background-image: url("../../../public/contentImages/sketch.jpeg");
+    
+  }
+  
+}
+
+
+
+
+
+.Login_sub {
+  margin-top: -8rem;
+  text-align: center;
+  width: 40%;
+height: 70%;
+flex-shrink: 0;
+box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
+background: #928D8DA1;
+}
+
+.divider {
+  margin: -20px 0; /* Add some spacing above and below the line */
+  border: none;
+  width: 75%;
+  margin-left: 12%;
+  border-top: 1px solid rgb(190, 183, 183); /* Customize the line color and style */
+}
+
+form{
+    margin-top: 20px;
+}
+
+label{
+    display: block;
+    margin-bottom: 5px;
+    
+}
+
+input{
+    width:75%;
+    height: 2rem; 
+    font-family: baloo;
+}
+
+.LoginButton{
+    background: rgba(65, 57, 57, 0.72);
+   width:75%;
+    height: 3rem; 
+
+    color:rgb(18, 12, 12);
+    color: #000;
+    font-family: Baloo;
+    font-size: 20px;
+    font-style: normal;
+
+    line-height: normal;
+    text-transform: capitalize;
+    margin-top: 2rem;
+
+}
+.forgot-p{
+    color:white;
+}
+.forgot-p:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #010000; /* Change border color */
+  box-shadow: 0 0 5px rgba(232, 38, 24, 0.5); /* Add a subtle box shadow */
+}
+.signUpbtn{
+    background-color: rgb(50, 43, 43);
+    height: 2.5rem;
+    outline: none;
+    color:white;
+    border-radius: 8px;
+
+}
+
+.btn1{
+   
+    margin-right: 4%;
+    
+    
+}
+.btn2{ 
+
+    height: 3.5rem;
+    
+    background-color: #484141;
+    
+}
+.btn1,
+.btn2{
+ margin-top: 20%;
+    height: 3.5rem;
+    width: 10rem;
+     cursor: pointer;
+     font-family: baloo;
+     
+      box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
+}

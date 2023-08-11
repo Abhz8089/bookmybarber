@@ -1,0 +1,127 @@
+
+.parent {
+  background-color: rgb(6, 3, 3);
+margin-bottom: 0;
+height: 16rem;
+margin-top: -3rem;
+
+
+}
+
+.child{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 3rem;
+  padding-top: 1px;
+  padding-right: 3rem;
+  color:rgb(210, 198, 198);
+  
+}
+
+.bookmybarber-sub{
+  color:rgb(91, 86, 86)
+}
+
+.sub-para {
+  font-size: x-small;
+  max-width: 20rem;
+ 
+}
+.sub-para1 {
+  font-size: x-small;
+  max-width: 20rem;
+ 
+}
+.sub-para1:hover {
+  text-decoration: underline;
+    cursor: pointer;
+ 
+}
+
+
+
+.footer-form {
+  display: flex;
+  align-items: center; 
+  outline: none;
+
+}
+
+.footer-input {
+ outline: none;
+ height: 1rem;
+ border-radius: 5px;
+}
+
+.icons{
+  margin-top: 1rem;
+  
+}
+.subIcons{
+  display: flex;
+   justify-content: space-between;
+}
+
+
+.dividerFooter{
+   border-top:  solid rgb(23, 21, 21);
+   
+   margin-top: .5%;
+}
+
+.subcopyright{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+@media (max-width: 768px){
+.sub-para {
+  font-size: 3px;
+  max-width: 20rem;
+ 
+}
+.sub-para1 {
+  font-size: 3px;
+  max-width: 20px;
+ 
+}
+.bookmybarber-sub{
+  font-size: 10px;
+}
+.h3footer{
+  font-size: 7px;
+}
+.child{
+
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  color:rgb(210, 198, 198);
+  
+}
+.parent {
+  background-color: rgb(6, 3, 3);
+margin-bottom: 0;
+height: 10rem;
+margin-top: -1rem;
+
+
+}
+.footer-input {
+ outline: none;
+ height: 12px;
+ border-radius: 5px;
+}
+
+.icons{
+  margin-top: 1rem;
+  
+}
+.socialmedias{
+  width: 17px;
+}
+}
