@@ -6,13 +6,14 @@ import styles from"../ClientStyles/Login.module.css"
 
 import Navbar from '../../components/users/Navbar'
 import Footer from '../../components/footer'
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
   const [data, setData] = useState({
     email:'',
     password:''
-
   })
+  const Navigate = useNavigate();
   const loginUser = async(e) => {
     e.preventDefault()
     const {email,password}=data;
@@ -20,13 +21,17 @@ const Login = () => {
       const {data} = await axios.post('/login',
       {email,password});
       if(data.error){
-        console.log('err')
+        toast.error(data.error)
+      }else{
+        Navigate('/home')
       }
+
     } catch (error) {
       console.log(error)
+      toast.error('something went wrong')
     }
   }
-  const Navigate = useNavigate()
+  
   return (
     <>
       <Navbar />

@@ -24,7 +24,7 @@ const Register = () => {
 
   const registerUser = async(e) => {
     e.preventDefault();
-  console.log('hello')
+    
     const {userName,email,password,cPassword}=userData;
 
     try{

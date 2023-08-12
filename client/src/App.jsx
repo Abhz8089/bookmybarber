@@ -8,6 +8,7 @@ import Footer from "./components/footer";
 import Home from "./pages/Client/Home";
 import Login from "./pages/Client/Login";
 import Register from "./pages/Client/Register";
+import Otpclient from "./pages/Client/Otp"
 
 import './App.css'
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -20,14 +21,14 @@ function App() {
   return (
     <>
       <Toaster
-        position="bottom-center"
+        position="top-center"
         toastOptions={{ duration: 4000 }}
       ></Toaster>
 
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/clientOTP" element={<Home />} /> */}
+        <Route path="/clientOTP" element={<Otpclient />} />
       </Routes>
     </>
   );

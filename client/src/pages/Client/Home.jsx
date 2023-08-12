@@ -3,7 +3,7 @@ import { useUserData } from "../../contexts/userContexts";
 
 const Home = () => {
   const {userData} = useUserData();
-  console.log(userData)
+  
   return (
     <>
       <h1>Home</h1>
