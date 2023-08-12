@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo:wght@400;500;600;700&display=swap");
+
+.login {
+    
+  background-image: url("../../../public/contentImages/scissors-hair-trimmer-copy-space.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat; 
+ 
+}
+.Login_Container {
+    
+  background-position: center center;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+ 
+  height: 35rem;
+ 
+}
+.resend{
+    margin-top: 5%;
+    height: 2rem;
+    border-radius: 6px;
+    outline: none;
+    background: rgb(114, 91, 91);
+    font-family: baloo;
+    color: black;
+}
+@media (max-width: 768px) {
+    .login {
+    background-image: url("../../../public/contentImages/sketch.jpeg");
+    
+  }
+  .resend{
+    margin-top: 14%;
+    height: 2rem;
+    border-radius: 6px;
+    outline: none;
+    background: rgb(114, 91, 91);
+    font-family: baloo;
+    color: black;
+}
+
+}
+
+
+
+
+
+.Login_sub {
+  margin-top: -8rem;
+  text-align: center;
+  width: 40%;
+height: 70%;
+flex-shrink: 0;
+box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
+background: #928D8DA1;
+}
+
+.divider {
+  margin: -20px 0; /* Add some spacing above and below the line */
+  border: none;
+  width: 75%;
+  margin-left: 12%;
+  border-top: 1px solid rgb(190, 183, 183); /* Customize the line color and style */
+}
+.divider2 {
+  margin: -20px 0; /* Add some spacing above and below the line */
+  border: none;
+  width: 75%;
+  margin-left: 12%;
+  border-top: 1px solid rgb(190, 183, 183);
+  margin-top:5%
+  
+}
+
+form{
+    margin-top: 20px;
+}
+
+label{
+    display: block;
+    margin-bottom: 5px;
+    
+}
+
+input{
+    width:75%;
+    height: 2rem; 
+    font-family: baloo;
+}
+
+.LoginButton{
+    background: rgba(65, 57, 57, 0.72);
+   width:75%;
+    height: 3rem; 
+
+    color:rgb(18, 12, 12);
+    color: #000;
+    font-family: Baloo;
+    font-size: 20px;
+    font-style: normal;
+
+    line-height: normal;
+    text-transform: capitalize;
+    margin-top: 2rem;
+
+}
+
+
+
+input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #010000; /* Change border color */
+  box-shadow: 0 0 5px rgba(232, 38, 24, 0.5); /* Add a subtle box shadow */
+}
+
+
