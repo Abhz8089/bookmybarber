@@ -17,13 +17,7 @@
   height: 60rem;
  
 }
-@media (max-width: 768px) {
-    .login {
-    background-image: url("../../../public/contentImages/sketch.jpeg");
-    
-  }
-  
-}
+
 
 
 
@@ -32,7 +26,7 @@
 .Login_sub {
   margin-top: -8rem;
   text-align: center;
-  width: 40%;
+  width: 30%;
 height: 70%;
 flex-shrink: 0;
 box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
@@ -53,14 +47,13 @@ form{
 
 label{
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     
 }
 
-input{
-    width:75%;
-    height: 2rem; 
-    font-family: baloo;
+.input{
+  margin-right: 1px;
+  margin-bottom: 6px;
 }
 
 .LoginButton{
@@ -77,15 +70,10 @@ input{
     line-height: normal;
     text-transform: capitalize;
     margin-top: 2rem;
+    
 
 }
-.forgot-p{
-    color:white;
-}
-.forgot-p:hover{
-    text-decoration: underline;
-    cursor: pointer;
-}
+
 
 
 input:focus {
@@ -102,6 +90,7 @@ input:focus {
 
 }
 
+
 .btn1{
    
     margin-right: 4%;
@@ -117,6 +106,33 @@ input:focus {
 }
 .btn1,
 .btn2{
+ margin-top: 10%;
+    height: 3.5rem;
+    width: 10rem;
+     cursor: pointer;
+     font-family: baloo;
+     
+      box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
+}
+
+
+
+@media (max-width: 768px) {
+    .login {
+    background-image: url("../../../public/contentImages/sketch.jpeg");
+    
+  }
+   .Login_sub {
+  margin-top: -8rem;
+  text-align: center;
+  width: 70%;
+height: 70%;
+flex-shrink: 0;
+box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
+background: #928D8DA1;
+}
+.btn1,
+.btn2{
  margin-top: 20%;
     height: 3.5rem;
     width: 10rem;
@@ -124,4 +140,17 @@ input:focus {
      font-family: baloo;
      
       box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
+}
+
+.btn2{
+   margin-top: 10%;
+    
+    
+}
+.btn1{
+   
+    margin-right: 2%;
+    
+    
+}
 }

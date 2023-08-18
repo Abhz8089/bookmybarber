@@ -8,7 +8,9 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 //routes
-import clientRoutes from './Routes/clientRoute.js'
+import clientRoutes from './Routes/clientRoute.js';
+import shopRoutes from './Routes/shopRoute.js';
+import adminRoutes from './Routes/adminRoute.js'
 
 //data base connection
 connectDB()
@@ -20,6 +22,8 @@ app.use(cors({ origin: "http://localhost:4004",credentials:true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 app.use('/',clientRoutes)
+app.use("/s",shopRoutes)
+app.use("/ad",adminRoutes)
 
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)

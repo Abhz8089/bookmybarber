@@ -30,11 +30,7 @@
 
 
 
-.input{
 
-  margin-left: 30px;
-  
-}
 
 
 .Login_sub {
@@ -74,7 +70,16 @@ label{
     
 }
 
+input{
+    width:75%;
+    height: 2rem; 
+    font-family: baloo;
+}
 
+.inputs{
+ margin-left: 2rem;
+  width:75%;
+}
 
 .LoginButton{
     background: rgba(65, 57, 57, 0.72);
@@ -90,6 +95,7 @@ label{
     line-height: normal;
     text-transform: capitalize;
     margin-top: 2rem;
+
 
 }
 
@@ -115,8 +121,12 @@ input:focus {
     font-family: baloo;
     color: black;
 }
-.input{
-  margin-left: 9px;
+.inputs{
+  margin-left: 4%;
+}
+.LoginButton{
+  border-radius: 7px;
 }
 
 }
+

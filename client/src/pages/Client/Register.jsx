@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 
 import Navbar from '../../components/users/Navbar';
 import Footer from '../../components/footer';
-import styles from "../ClientStyles/Register.module.css"
+ import styles from "../ClientStyles/Register.module.css"
  import { useUserData } from "../../contexts/userContexts";
 
 const Register = () => {
@@ -59,6 +59,7 @@ const Register = () => {
               <div className={styles.form_group}>
                 <label>Username</label>
                 <input
+                  className={styles.input}
                   type="text"
                   onChange={(e) => {
                     setUserData({ ...userData, userName: e.target.value });
@@ -67,6 +68,7 @@ const Register = () => {
                 />
                 <label>Email</label>
                 <input
+                  className={styles.input}
                   type="email"
                   onChange={(e) => {
                     setUserData({ ...userData, email: e.target.value });
@@ -75,6 +77,7 @@ const Register = () => {
                 />
                 <label>Password</label>
                 <input
+                  className={styles.input}
                   type="password"
                   onChange={(e) => {
                     setUserData({ ...userData, password: e.target.value });
@@ -83,6 +86,7 @@ const Register = () => {
                 />
                 <label>confirm Password</label>
                 <input
+                  className={styles.input}
                   type="password"
                   onChange={(e) => {
                     setUserData({ ...userData, cPassword: e.target.value });
@@ -106,8 +110,8 @@ const Register = () => {
                 </button>
               </div>
             </form>
-            <button className={styles.btn1}>Beautician Sign Up</button>
-            <button className={styles.btn2}>Client Sign Up</button>
+            <button className={styles.btn1} onClick={()=>Navigate('/s/sRegister')}>Beautician Sign Up</button>
+            <button className={styles.btn2} onClick={()=>Navigate('/register')} >Client Sign Up</button>
           </div>
         </div>
       </div>

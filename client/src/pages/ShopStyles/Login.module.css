@@ -13,34 +13,14 @@
   display: flex;
   justify-content: center; 
   align-items: center; 
-  
-  height: 35rem;
+ 
+  height: 53rem;
  
 }
-.resend{
-    margin-top: 5%;
-
-    height: 2rem;
-    border-radius: 6px;
-    outline: none;
-    background: rgb(114, 91, 91);
-    font-family: baloo;
-    color: black;
-}
-
-
-
-.input{
-
-  margin-left: 30px;
-  
-}
-
-
 .Login_sub {
   margin-top: -8rem;
   text-align: center;
-  width: 40%;
+  width: 30%;
 height: 70%;
 flex-shrink: 0;
 box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
@@ -48,20 +28,11 @@ background: #928D8DA1;
 }
 
 .divider {
-  margin: -20px 0; /* Add some spacing above and below the line */
+  margin: -20px 0;
   border: none;
   width: 75%;
   margin-left: 12%;
-  border-top: 1px solid rgb(190, 183, 183); /* Customize the line color and style */
-}
-.divider2 {
-  margin: -20px 0; /* Add some spacing above and below the line */
-  border: none;
-  width: 75%;
-  margin-left: 12%;
-  border-top: 1px solid rgb(190, 183, 183);
-  margin-top:5%
-  
+  border-top: 1px solid rgb(190, 183, 183); 
 }
 
 form{
@@ -74,6 +45,14 @@ label{
     
 }
 
+/* input{
+    width:75%;
+    height: 2rem; 
+    font-family: baloo;
+} */
+.input{
+  margin-left: 20px;
+}
 
 
 .LoginButton{
@@ -92,31 +71,85 @@ label{
     margin-top: 2rem;
 
 }
-
-
-
+.forgot_p{
+    color:white;
+}
+.forgot_p:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
 input:focus {
   outline: none; /* Remove default outline */
   border-color: #010000; /* Change border color */
-  box-shadow: 0 0 5px rgba(232, 38, 24, 0.5); /* Add a subtle box shadow */
+  box-shadow: 0 0 5px rgba(232, 38, 24, 0.5); 
+}
+.signUpbtn{
+    background-color: rgb(50, 43, 43);
+    height: 2.5rem;
+    outline: none;
+    color:white;
+    border-radius: 8px;
+
 }
 
+.btn1{
+   
+    margin-right: 4%;
+    
+}
+.btn2{ 
+
+    height: 3.5rem;
+    
+    background-color: #484141;
+    
+}
+.btn1,
+.btn2{
+ margin-top: 20%;
+    height: 3.5rem;
+    width: 10rem;
+     cursor: pointer;
+     font-family: baloo;
+     
+      box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
+}
 @media (max-width: 768px) {
     .login {
     background-image: url("../../../public/contentImages/sketch.jpeg");
     
   }
-  .resend{
-    margin-top: 14%;
-    height: 2rem;
-    border-radius: 6px;
-    outline: none;
-    background: rgb(114, 91, 91);
-    font-family: baloo;
-    color: black;
+  
+  .Login_sub {
+  margin-top: -8rem;
+  text-align: center;
+  width: 70%;
+height: 65%;
+flex-shrink: 0;
+box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
+background: #928D8DA1;
 }
-.input{
-  margin-left: 9px;
+.btn1,
+.btn2{
+ margin-top: 20%;
+    height: 3.5rem;
+    width: 10rem;
+     cursor: pointer;
+     font-family: baloo;
+     
+      box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
+}
+
+.btn2{
+   margin-top: 10%;
+    
+    
+}
+.btn1{
+   
+    margin-right: 2%;
+    
+    
 }
 
 }

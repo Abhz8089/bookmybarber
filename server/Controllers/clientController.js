@@ -49,7 +49,7 @@ const registerUser = async (req, res) => {
 
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        res.status(500).send({ error: "Error sending OTP email" });
+       res.status(500).send({ error: "Error sending OTP email" });
         client.close();
         return;
       }
@@ -62,7 +62,7 @@ const registerUser = async (req, res) => {
     return res.json({ success: "success" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "An error occured while registering user." });
+   return res.status(500).json({ error: "An error occured while registering user." });
   }
 };
 
@@ -87,7 +87,7 @@ const submitOtp = async (req, res) => {
       const timeDifferenceInMinutes = timeDifference / 60000;
       
 
-      if (userOtp !== decodedToken.data.otp || timeDifferenceInMinutes > 3) {
+      if (userOtp !== decodedToken.data.otp || timeDifferenceInMinutes > 1) {
         res.json({ error: "you are entered a wrong Otp" });
       } else {
         const hashedPassword = await hashPassword(password);
@@ -106,7 +106,7 @@ const submitOtp = async (req, res) => {
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: "An error occured while otp submit." });
+      res.status(500).json({ error: "An error occurred while otp submit." });
     }
   }
 };
@@ -118,7 +118,7 @@ const clientResendOtp = async(req,res)=> {
 
       let sendedOtp = await otp()
 
-      console.log(sendedOtp,"second otp")
+      
 
       const mailOptions = {
         from: "bookmybarber@gmail.com",
@@ -137,10 +137,10 @@ const clientResendOtp = async(req,res)=> {
       const currentTime = new Date();
 
       createToken(res, { otp: sendedOtp, time: currentTime });
-      res.json({success:'otp succesfully send'})
+     return res.json({success:'otp successfully sended'})
   } catch (error) {
-    res.status(500).json({error:'something went wrong'})
     console.log(error)
+   return res.status(500).json({error:'something went wrong'})
   }
 
         
@@ -149,25 +149,179 @@ const clientResendOtp = async(req,res)=> {
 //----------------client login---------------------------
 
 const clientLogin =async(req,res) => {
+ 
     try {
         const {email,password} = req.body;
        
         let emailExist = await Client.findOne({email})
 
         if(!emailExist){
-            res.json({error:'User Not found please sign up'})
+          return  res.json({error:'User Not found please sign up'})
         }else{
-            comparePassword(password,emailExist.password).then((data) =>{
-                createToken(res,{email:emailExist.email,userName:emailExist.userName,userId:emailExist._id})
-                res.json(data)
-            }).catch((error) => {
-                res.json({error:'Password did not match'})
-            })
+        let match =  await comparePassword(password,emailExist.password)
+        if(match){
+          
+          createToken(res,{email:emailExist.email,userName:emailExist.userName,userId:emailExist._id})
+          
+          const client = {userName:emailExist.userName,email:emailExist.email,id:emailExist._id}
+  
+       return  res.json(client)
+        }
+
+
+        if(!match){
+
+          return res.json({error:'Password did not match'})
+        }
+         
+          
         }
 
     } catch (error) {
-        
+        console.log(error)
+        return res.json({error:'something went wrong'})
     }
 }
 
-export { registerUser, submitOtp, clientResendOtp,clientLogin };
+//---------------change password ---------------------------------
+
+
+const changePassword =async(req,res) => {
+  try {
+    
+    const email = req.body.email
+    let emailExist = await Client.findOne({email})
+    
+    if (!emailExist){
+     return res.json({error:'user not found'})
+    }
+    
+     let sendedOtp = otp();
+     console.log(sendedOtp, " first otp");
+
+     const mailOptions = {
+       from: "bookmybarber@gmail.com",
+       to: email,
+       text: `Your OTP is   ${sendedOtp}`,
+     };
+
+     transporter.sendMail(mailOptions, (err, info) => {
+       if (err) {
+         res.status(500).send({ error: "Error sending OTP email" });
+         client.close();
+         return;
+       }
+     });
+
+     const currentTime = new Date();
+
+     createToken(res, { otp: sendedOtp, time: currentTime });
+    
+   
+    return res.json({email:email})
+
+  } catch (error) {
+    console.log("error in change password 215",error)
+   return  res.json({error:'something went wrong'})
+  }
+}
+
+const fClOtp =async(req,res)=> {
+ 
+  
+  try {
+ let token = await getToken(req);
+ if(token){
+
+   
+   const {email,userOtp }=req.body
+
+   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+  
+   const decodedTokenTime = new Date(decodedToken.data.time);
+
+   const enterOtpTime = new Date();
+
+   const timeDifference = Math.abs(enterOtpTime - decodedTokenTime);
+
+   
+   const timeDifferenceInMinutes = timeDifference / 60000;
+
+   console.log(userOtp)
+   console.log(decodedToken.data.otp)
+
+
+   console.log(timeDifferenceInMinutes)
+
+   if (userOtp !== decodedToken.data.otp || timeDifferenceInMinutes > 1) {
+   return  res.json({ error: "you are entered a wrong Otp" });
+   }else{
+
+       return res.json({success:'success'})
+
+   }
+
+ }
+
+
+  } catch (error) {
+    console.log(error)
+    return res.json({error:'Something went wrong'})
+  }
+}
+
+const updatePassword =async(req,res) => {
+   try {
+    const {email,passw,cPassw}=req.body
+    
+    
+
+
+    if(passw.trim()=='' || cPassw.trim()==''){
+      return res.json({error:'Password is empty'})
+    }
+
+    if(passw.length<6){
+     return res.json({error:'Password must be 6 character'})
+    }
+    
+    if(passw !==cPassw){
+      return res.json({error:'Confirm password is not match'})
+    }
+
+    
+    
+    const passwBcrypt = await hashPassword(passw)
+    const cPasswBcrypt = await hashPassword(cPassw)
+
+     let userDetails = await Client.findOneAndUpdate(
+       { email },
+       {
+         $set: { password: passwBcrypt, cPassword: cPasswBcrypt },
+       },
+       { new: true }
+     );
+
+     if(!userDetails){
+      return res.json({error:'failed to update password try again later'})
+     }
+     return res.json({userDetails})
+
+   } catch (error) {
+    console.log("Error in client controller 289",error)
+    return res.json({error:'Something went wrong'})
+   }
+
+}
+
+
+export {
+  registerUser,
+  submitOtp,
+  clientResendOtp,
+  clientLogin,
+  changePassword,
+  fClOtp,
+  updatePassword
+};
