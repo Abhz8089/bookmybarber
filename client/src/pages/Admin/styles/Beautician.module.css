@@ -1,0 +1,9 @@
+body{
+    background-color: rgb(80, 72, 72);
+}
+.greenButton{
+    background: green;
+}
+.redButton{
+    background: red;
+}

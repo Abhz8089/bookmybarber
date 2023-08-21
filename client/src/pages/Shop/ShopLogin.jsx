@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
@@ -27,7 +27,7 @@ const ShopLogin = () => {
     const {email,password}=data;
     try {
       const {data}= await axios.post('/s/sLogin',{email,password});
-      console.log(data)
+    
       if(data.error){
        
         toast.error(data.error)
@@ -46,8 +46,10 @@ const ShopLogin = () => {
         );
       }
       else{
-        dispatch(loginShop(data));
-        Navigate('/home')
+       
+        
+        localStorage.setItem("shopData", JSON.stringify({email:'abhi'}));
+        Navigate('/')
       }
     } catch (error) {
     
@@ -76,6 +78,16 @@ const ShopLogin = () => {
       toast.error('Something went wrong')
     }
    }
+
+
+  useEffect(() => {
+    const shopDataString = localStorage.getItem("shopData");
+
+      if (shopDataString) {
+        Navigate("/");
+      }
+  }, [])
+  
   return (
     <>
       <Navbar />

@@ -25,6 +25,7 @@ app.use('/',clientRoutes)
 app.use("/s",shopRoutes)
 app.use("/ad",adminRoutes)
 
+
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
 })

@@ -14,7 +14,7 @@
   justify-content: center; 
   align-items: center; 
  
-  height: 53rem;
+  height: 58rem;
  
 }
 
@@ -96,6 +96,8 @@ input:focus {
     outline: none;
     color:white;
     border-radius: 8px;
+    margin-bottom: 20px;
+    
 
 }
 
@@ -114,7 +116,7 @@ input:focus {
 }
 .btn1,
 .btn2{
- margin-top: 20%;
+ margin-top: 10%;
     height: 3.5rem;
     width: 10rem;
      cursor: pointer;
@@ -122,6 +124,42 @@ input:focus {
      
       box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
 }
+/* .google{
+ margin-left: 7rem;
+ margin-top: 1rem;
+ margin-bottom: -3rem;
+} */
+
+/* Login.module.css */
+.google {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style the Google button */
+.google .g-signin2 {
+  /* Apply your button styles here */
+  background-color: #db4437; /* Example background color */
+  color: white; /* Example text color */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Style the Google button on hover */
+.google .g-signin2:hover {
+  background-color: #c53030; /* Example hover background color */
+}
+
+/* Add any additional styles you need for the Google button */
+
+
+
+
+
 @media (max-width: 768px) {
     .login {
     background-image: url("../../../public/contentImages/sketch.jpeg");
@@ -158,6 +196,16 @@ background: #928D8DA1;
     margin-right: 2%;
     
     
+}
+.Login_Container {
+    
+  background-position: center center;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+ 
+  height: 65rem;
+ 
 }
 
 }

@@ -1,23 +1,57 @@
-import React, { useState } from 'react'
-import { toast } from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-import { useSelector,useDispatch } from "react-redux";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
+import styles from "../ClientStyles/Login.module.css";
 
-import styles from"../ClientStyles/Login.module.css"
-
-import Navbar from '../../components/users/Navbar'
-import Footer from '../../components/Footer'
+import Navbar from "../../components/users/Navbar";
+import Footer from "../../components/Footer";
 import { loginUser as loginClient } from "../../globelContext/userSlice";
- import { useUserData } from "../../contexts/userContexts";
+import { useUserData } from "../../contexts/userContexts";
 
+const GoogleAuthComponent = () => {
+  const Navigate = useNavigate();
+  const onSuccess = async (credentialResponse) => {
+    try {
+      console.log(credentialResponse);
+      const decoded = jwt_decode(credentialResponse.credential);
+      console.log(decoded);
+      const gName = decoded.name;
+      const gEmail = decoded.email;
+      const { data } = await axios.post("/googleLogin", { gName, gEmail });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        localStorage.setItem("userData", JSON.stringify(data));
+        Navigate("/");
+        toast.success("Login successful");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
+  const onError = () => {
+    console.log("Login Failed");
+  };
+
+  return (
+    <GoogleOAuthProvider clientId="815839922134-9i576f0a2fcpt2bje8vpjo1gs1o8gk6s.apps.googleusercontent.com">
+      <GoogleLogin onSuccess={onSuccess} onError={onError} />
+    </GoogleOAuthProvider>
+  );
+};
 
 const Login = () => {
   const [data, setData] = useState({
-    email:'',
-    password:''
-  })
+    email: "",
+    password: "",
+  });
 
   const Navigate = useNavigate();
   const { setUserData: setUserDataContext } = useUserData();
@@ -25,44 +59,49 @@ const Login = () => {
   // const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
-  const loginUser = async(e) => {
-    e.preventDefault()
-    const {email,password}=data;
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const { email, password } = data;
     try {
-      const {data} = await axios.post('/login',
-      {email,password});
-      if(data.error){
-        toast.error(data.error)
-      }else{
+      const { data } = await axios.post("/login", { email, password });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
         dispatch(loginClient(data));
-        Navigate('/home')
+        localStorage.setItem("userData", JSON.stringify(data));
+
+        Navigate("/");
       }
-
     } catch (error) {
-      console.log(error)
-      toast.error('something went wrong')
+      console.log(error);
+      toast.error("something went wrong");
     }
-  }
+  };
 
-  const forgotPassword =async()=>{
-   
-    let email = data.email
+  const forgotPassword = async () => {
+    let email = data.email;
     try {
-      const {data} = await axios.post('/chPassword',{email:email})
+      const { data } = await axios.post("/chPassword", { email: email });
 
-     
-      if(data.error){
-        toast.error(data.error)
-      }else{
-        setUserDataContext({email:data.email})
-        Navigate('/chPOtp')
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setUserDataContext({ email: data.email });
+        Navigate("/chPOtp");
       }
-
     } catch (error) {
-      console.log(error,"error in 60 Login page")
+      console.log(error, "error in 60 Login page");
     }
-  }
-  
+  };
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+
+    if (userDataString) {
+      Navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -92,13 +131,35 @@ const Login = () => {
                     setData({ ...data, password: e.target.value });
                   }}
                 />
-                <p onClick={forgotPassword} className={styles.forgot_p}>Forgot Password</p>
+                <p onClick={forgotPassword} className={styles.forgot_p}>
+                  Forgot Password
+                </p>
                 <hr className={styles.divider} />
                 <br />
                 <button type="submit" className={styles.LoginButton}>
                   Login
                 </button>
                 <br />
+                {/* <div className={styles.google}>
+                  <GoogleOAuthProvider clientId="815839922134-9i576f0a2fcpt2bje8vpjo1gs1o8gk6s.apps.googleusercontent.com">
+                    <GoogleLogin
+                      onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse)
+                        const decoded = jwt_decode(
+                          credentialResponse.credential
+                        );
+                        console.log(decoded)
+                      }}
+                      onError={() => {
+                        console.log("Login Failed")
+                      }}
+                    />
+                    ;
+                  </GoogleOAuthProvider>
+                </div> */}
+                <div className={styles.google}>
+                  <GoogleAuthComponent />
+                </div>
 
                 <h6 style={{ color: "black" }}>don’t have any account ? </h6>
                 <button
@@ -109,15 +170,22 @@ const Login = () => {
                 </button>
               </div>
             </form>
-            <button className={styles.btn1} onClick={()=>Navigate('/s/sLogin')}>Beautician Login</button>
-            <button className={styles.btn2} onClick={()=>Navigate('/login')}>Client Login</button>
+
+            <button
+              className={styles.btn1}
+              onClick={() => Navigate("/s/sLogin")}
+            >
+              Beautician Login
+            </button>
+            <button className={styles.btn2} onClick={() => Navigate("/login")}>
+              Client Login
+            </button>
           </div>
         </div>
       </div>
       <Footer />
     </>
   );
-}
+};
 
-export default Login
-
+export default Login;

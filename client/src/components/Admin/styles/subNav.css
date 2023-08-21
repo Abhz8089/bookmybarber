@@ -1,0 +1,52 @@
+
+.className {
+  background-color: rgb(154, 130, 130);
+  height: 2.5rem;
+  display: flex;
+   
+  justify-content: center;
+}
+
+.className1 {
+  display: flex;
+    justify-content: center;
+
+  align-items: center;
+  gap: 34%;
+}
+
+.className1 p {
+  margin: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.className1 a {
+  text-decoration: none;
+  color:rgb(250, 250, 250)
+}
+
+.className1 p.active {
+  background-color:hsl(0, 0%, 0%);
+  color: rgb(0, 0, 0);
+}
+
+.className1 p:hover {
+  background-color:#000000;
+  color: rgb(0, 0, 0);
+}
+.className1 a.active {
+  background-color: rgb(247, 214, 214);
+  color: rgb(0, 0, 0);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .className1 {
+   gap: 3rem;
+  }
+
+  .className1 a {
+   font-size: x-small;
+  }
+}

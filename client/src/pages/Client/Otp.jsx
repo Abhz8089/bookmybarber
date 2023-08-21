@@ -101,7 +101,7 @@ const Navigate = useNavigate();
             <form action="" onSubmit={otpSubmit}>
               <div className={styles.form_group}>
                 <label>Enter OTP</label>
-                <input
+                <input className={styles.input}
                   type="text"
                   value={otp}
                   onChange={(e) => {

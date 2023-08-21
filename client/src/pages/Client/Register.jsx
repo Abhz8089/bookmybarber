@@ -3,12 +3,51 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { toast } from "react-hot-toast";
 
-
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 import Navbar from '../../components/users/Navbar';
 import Footer from '../../components/footer';
  import styles from "../ClientStyles/Register.module.css"
  import { useUserData } from "../../contexts/userContexts";
+
+
+
+
+ const GoogleAuthComponent = () => {
+   const Navigate = useNavigate();
+   const onSuccess = async (credentialResponse) => {
+     try {
+       console.log(credentialResponse);
+       const decoded = jwt_decode(credentialResponse.credential);
+       console.log(decoded);
+       const gName = decoded.name;
+       const gEmail = decoded.email;
+       const { data } = await axios.post("/googleLogin", { gName, gEmail });
+       if (data.error) {
+         toast.error(data.error);
+       } else {
+         localStorage.setItem("userData", JSON.stringify(data));
+         Navigate("/");
+         toast.success("Login successful");
+       }
+     } catch (error) {
+       console.log(error);
+       toast.error("Something went wrong");
+     }
+   };
+
+   const onError = () => {
+     console.log("Login Failed");
+   };
+
+   return (
+     <GoogleOAuthProvider clientId="815839922134-9i576f0a2fcpt2bje8vpjo1gs1o8gk6s.apps.googleusercontent.com">
+       <GoogleLogin onSuccess={onSuccess} onError={onError} />
+     </GoogleOAuthProvider>
+   );
+ };
+
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -100,6 +139,9 @@ const Register = () => {
                   Submit
                 </button>
                 <br />
+                <div className={styles.google}>
+                  <GoogleAuthComponent />
+                </div>
 
                 <h6 style={{ color: "black" }}>Already have an account.</h6>
                 <button
@@ -110,8 +152,18 @@ const Register = () => {
                 </button>
               </div>
             </form>
-            <button className={styles.btn1} onClick={()=>Navigate('/s/sRegister')}>Beautician Sign Up</button>
-            <button className={styles.btn2} onClick={()=>Navigate('/register')} >Client Sign Up</button>
+            <button
+              className={styles.btn1}
+              onClick={() => Navigate("/s/sRegister")}
+            >
+              Beautician Sign Up
+            </button>
+            <button
+              className={styles.btn2}
+              onClick={() => Navigate("/register")}
+            >
+              Client Sign Up
+            </button>
           </div>
         </div>
       </div>

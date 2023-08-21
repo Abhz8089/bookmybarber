@@ -7,7 +7,7 @@ import {
   submitOtpShop,
   shopResendOtp,
   shopLogin,updatePassword,
-  fShOtp,updatedPassword
+  fShOtp,updatedPassword,shopLogout
 } from "../Controllers/shopController.js";
 
 
@@ -19,5 +19,6 @@ router.post('/sLogin',shopLogin);
 router.post("/chPassword", updatePassword);
 router.post("/FShOTP", fShOtp);
 router.post("/sSubPassword", updatedPassword);
+router.post("/sLogout", shopLogout);
 
 export default router;

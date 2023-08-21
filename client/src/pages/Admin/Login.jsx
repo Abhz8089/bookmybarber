@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './styles/Login.module.css'
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useAdminData } from "../../contexts/userContexts";
 
-const Login = () => {
 
+import { useDispatch,useSelector } from "react-redux";
+import { loginUser } from "../../globelContext/userSlice";
+
+
+const Login = () => {
+  const adminDatas = useSelector((state) => state.user.user);
+  console.log(adminDatas)
+const dispatch=useDispatch()
   const [data, setData] = useState({
     email:'',
     password:''
@@ -26,6 +33,13 @@ const Login = () => {
         toast.error(data.error)
       }else{
         setAdminData({adminName:data.userName,adminEmail:data.email,adminPassword:data.password})
+        dispatch(
+          loginUser({
+            adminName: data.userName,
+            adminEmail: data.email,
+            adminPassword: data.password,
+          })
+        );
         setData({})
         Navigate('/ad/Beautician')
       }
@@ -35,9 +49,16 @@ const Login = () => {
     }
 
   }
+  useEffect(() => {
+  
+    if(adminDatas){
+      Navigate('/ad/beautician')
+    }
+  }, [])
+  
 
   return (
-    <section>
+    <section className={styles.section}>
       <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
       <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
       <span></span> <span></span> <span></span> <span></span> <span></span>{" "}
@@ -97,6 +118,7 @@ const Login = () => {
             <div className={styles.form}>
               <div className={styles.inputBox}>
                 <input
+                  className={styles.input}
                   type="text"
                   value={data.email}
                   onChange={(e) => {
@@ -108,6 +130,7 @@ const Login = () => {
               </div>
               <div className={styles.inputBox}>
                 <input
+                  className={styles.input}
                   type="password"
                   value={data.password}
                   onChange={(e) => {
@@ -119,7 +142,12 @@ const Login = () => {
               </div>
 
               <div className={styles.inputBox}>
-                <input style={{marginLeft:'6%'}} type="submit" value="Login" />
+                <input
+                  className={styles.input}
+                  style={{ marginLeft: "6%" }}
+                  type="submit"
+                  value="Login"
+                />
               </div>
             </div>
           </form>

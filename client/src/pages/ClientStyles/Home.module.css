@@ -1,0 +1,214 @@
+
+
+.body{
+   
+   
+    height: 40rem;
+    margin: 0 auto;
+    max-width: 100%;
+
+    background:url(../../../public/frontImage3.jpg);
+    background-size: cover;
+      
+}
+
+.fade{
+    margin-top: -5rem;
+    height: 10rem;
+    background-image: linear-gradient(180deg,transparent,#010101,rgba(22, 19, 19, 0.989));
+     
+}
+
+.subBody{
+    height: 1020px;
+    background: linear-gradient(180deg, #1a1515 0%, rgb(255, 255, 255) 100%);
+}
+
+.container{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+   /* height: 100vh; */
+}
+
+.explore{
+    
+  margin-top: 0;
+  color: white;
+  text-decoration: underline;
+  
+}
+
+.image{
+
+ height: 80%;
+ 
+  
+}
+.image1,.image2{
+   margin-top: 7%;
+   padding-left: 15%;
+   width: 30%;
+    opacity: 0; /* Initially set opacity to 0 */
+    /* transform: translateX(0) rotate(18deg);
+   transition: opacity 3s ease, transform 3s ease; */
+      transform: scale(0); /* Initial scaling value */
+   transition: opacity 5s ease, transform 5s ease;
+}
+.image2{
+   
+   width:23%
+}
+
+.fade-in {
+   /* opacity: 1;
+    transform: translateX(0) rotate(0deg); */
+     opacity: 1;
+   transform: scale(1);
+}
+.subContainer{
+      display: flex;
+  flex-direction: column;
+ justify-content: flex-start;
+  align-items: center;
+  height: 800px;
+  background-image: url(../../../public/contentImages/haircutforclient.jpg);
+   background-size: cover;
+   position: relative;
+}
+/* .maskedImage{
+   
+  width: 100%;
+  height: 100%;
+  mask-image: url(../../../public/contentImages/splash.jpg);
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  background-color: rgb(255, 255, 255); 
+
+}  */
+
+.subContainer::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:url(../../../public/contentImages/splash1.jpg);
+    background-size: 100%;
+    background-position: center;
+    mix-blend-mode: screen;
+    opacity: .9;
+   
+    
+}
+
+.h1{
+     margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.textDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  height: 100%;
+  
+}
+
+.p {
+  flex: 1;
+  margin-left: 14%;
+  margin-top: -23%;
+   max-width: 30%;
+  word-wrap: break-word; 
+}
+
+.iphoneImage {
+  width: 100px; /* Adjust size as needed */
+  position: relative;
+  margin-right: 14%;
+}
+
+.iphone {
+
+  width: 20rem;
+  border-radius: 55px;
+  margin-right: 14%;
+}
+
+.gifInsideIphone {
+  position: absolute;
+  top: 10%; /* Adjust position within the iPhone frame */
+  left: 10%; /* Adjust position within the iPhone frame */
+  width: 80%; /* Adjust size as needed */
+  height: auto;
+}
+
+
+
+
+
+@media  (max-width: 1352px) {
+
+    .image{
+
+ height: 70%;
+
+  
+}
+.iphone {
+
+  width: 18rem;
+  border-radius: 55px;
+  margin-right: 14%;
+}
+
+ }
+@media  (max-width: 1246px) {
+
+    .image{
+
+ height: 70%;
+
+  
+}
+.iphone {
+
+  width: 15rem;
+  border-radius: 55px;
+  margin-right: 14%;
+}
+ }
+  
+@media  (max-width: 878px) {
+
+    .image{
+
+ height: 50%;
+
+  
+}
+.iphone {
+
+  width: 10rem;
+  border-radius: 25px;
+  margin-right: 14%;
+}
+}  
+@media  (max-width: 500px) {
+
+    .image{
+
+ height: 30%;
+
+  
+}
+}  

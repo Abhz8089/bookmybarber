@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import Client from "../Models/clientModel.js";
+import gClient from "../Models/googleClientModel.js";
 import { comparePassword, hashPassword } from "../Helpers/hashing.js";
 import { otp, transporter } from "../Helpers/otpCreate.js";
 import { createToken, getToken } from "../utils/generateToken.js";
@@ -110,6 +111,8 @@ const submitOtp = async (req, res) => {
     }
   }
 };
+
+
 //---------------------------------------------------------------------------------
 const clientResendOtp = async(req,res)=> {
 
@@ -155,6 +158,12 @@ const clientLogin =async(req,res) => {
        
         let emailExist = await Client.findOne({email})
 
+        if(emailExist.isBlock){
+          return res.json({
+            error: "You do not have permission to access this website.",
+          });
+        }
+
         if(!emailExist){
           return  res.json({error:'User Not found please sign up'})
         }else{
@@ -182,6 +191,64 @@ const clientLogin =async(req,res) => {
         return res.json({error:'something went wrong'})
     }
 }
+
+//--------------google client login-------------------------------
+// const gClientLogin =async (req,res) => {
+//   try {
+//     const {gName,gEmail} =req.body
+//     let gClientDetails = await gClient.find({email:gEmail})
+   
+//     if(!gClientDetails.length){
+//       console.log('enter')
+//         const client = await gClient.create({
+//           userName:gName,
+//           email : gEmail,
+         
+//         });
+//       const resultData ={ name:client.userName,email:client.email}
+//       return res.json(resultData);
+
+//     }else{
+//      return res.json({gName,gEmail})
+//     }
+    
+//   } catch (error) {
+//     console.log("Error in google login in server line 212",error)
+//   }
+
+// }
+
+const gClientLogin = async (req, res) => {
+  try {
+    const { gName, gEmail } = req.body;
+    let gClientDetails = await Client.find({ email: gEmail });
+    
+    if (!gClientDetails.length) {
+      
+      const client = await Client.create({
+        userName: gName,
+        email: gEmail,
+      });
+
+      const resultData = { name: client.userName, email: client.email };
+       createToken(res, resultData);
+      return res.json(resultData);
+    } else {
+      // if (gClientDetails[0].isBlock) {
+      //   console.log('blocked')
+      // }
+      console.log(gClientDetails[0].isBlock);
+      if (gClientDetails[0].isBlock){
+        return res.json({error:'you do not have permission to enter this website'})
+      }
+        createToken(res, { gName, gEmail });
+       return res.json({ gName, gEmail });
+    }
+  } catch (error) {
+    console.log("Error in google login in server line 212", error);
+  }
+};
+
 
 //---------------change password ---------------------------------
 
@@ -271,6 +338,8 @@ const fClOtp =async(req,res)=> {
   }
 }
 
+
+
 const updatePassword =async(req,res) => {
    try {
     const {email,passw,cPassw}=req.body
@@ -316,6 +385,28 @@ const updatePassword =async(req,res) => {
 }
 
 
+//get home page---------------------------------------
+
+const getHome =async(req,res) => {
+  try {
+    return res.json({success:'successfully entered'})
+    
+  } catch ( error) {
+    console.log(error)
+    return res.json('error in getHome line 392', error)
+  }
+}
+
+const clientLogout =async(req,res) =>{
+    let token = await getToken(req);
+    res.setHeader(
+      "Set-Cookie",
+      `abhi=${token}; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+    );
+    res.json({ success: "Logout successful" });
+}
+
+
 export {
   registerUser,
   submitOtp,
@@ -323,5 +414,8 @@ export {
   clientLogin,
   changePassword,
   fClOtp,
-  updatePassword
+  updatePassword,
+  clientLogout,
+  gClientLogin,
+  getHome
 };

@@ -420,6 +420,14 @@ const shopResendOtp = async (req, res) => {
 
     }
    }
+   const shopLogout =async(req,res) =>{
+      let token = await getToken(req);
+      res.setHeader(
+        "Set-Cookie",
+        `abhi=${token}; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+      );
+      res.json({ success: "Logout successful" });
+   }
 
 
 export {
@@ -430,4 +438,5 @@ export {
   updatePassword,
   fShOtp,
   updatedPassword,
+  shopLogout,
 };

@@ -14,7 +14,7 @@
   justify-content: center; 
   align-items: center; 
 
-  height: 60rem;
+  height: 65rem;
  
 }
 
@@ -34,11 +34,11 @@ background: #928D8DA1;
 }
 
 .divider {
-  margin: -20px 0; /* Add some spacing above and below the line */
+  margin: -20px 0; 
   border: none;
   width: 75%;
   margin-left: 12%;
-  border-top: 1px solid rgb(190, 183, 183); /* Customize the line color and style */
+  border-top: 1px solid rgb(190, 183, 183); 
 }
 
 form{
@@ -77,9 +77,9 @@ label{
 
 
 input:focus {
-  outline: none; /* Remove default outline */
-  border-color: #010000; /* Change border color */
-  box-shadow: 0 0 5px rgba(232, 38, 24, 0.5); /* Add a subtle box shadow */
+  outline: none;
+  border-color: #010000; 
+  box-shadow: 0 0 5px rgba(232, 38, 24, 0.5); 
 }
 .signUpbtn{
     background-color: rgb(50, 43, 43);
@@ -114,6 +114,33 @@ input:focus {
      
       box-shadow: 0 4px 6px rgba(0.4, 0.4, 0.4, 0.9);
 }
+
+
+/* Login.module.css */
+.google {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style the Google button */
+.google .g-signin2 {
+  /* Apply your button styles here */
+  background-color: #db4437; /* Example background color */
+  color: white; /* Example text color */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.google .g-signin2:hover {
+  background-color: #c53030; 
+}
+
+
 
 
 

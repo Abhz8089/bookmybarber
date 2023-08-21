@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Kadwa:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kaushan Script:wght@400;500;600;700&display=swap");
+
+body {
+   margin: 0;
+  padding: 0;
+  font-family: "Kadwa", sans-serif;
+  
+    
+}
+
+
+
+.container { 
+  
+  margin: 0 auto;
+  padding: 0 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+}
+
+.m{
+  color: #F00;
+font-family: Kaushan Script;
+font-size: 26px;
+font-style: normal;
+ font-weight: 100;
+line-height: normal;
+}
+
+.logo{
+    color: #FDFDFD;
+    font-family: Kadwa;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+ .specialLink{
+    color:rgb(255, 8, 8);
+}
+.navbars {
+
+  height: 60px;
+
+  
+ 
+ 
+  
+
+  
+
+   background-color: rgba(0, 0, 0, 0.0);
+  transition: background-color 0.9s;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure the navbar is above other content */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbars.scrolling {
+  /* Black background when scrolling */
+  background-color: black;
+}
+
+.line{
+    color:rgb(247, 2, 2);  
+}
+
+
+.menu-icon {
+  display: none;
+}
+
+
+
+.nav-elements ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+
+/* Apply styles to the links within .nav-elements */
+.nav-elements ul li a {
+  text-decoration: none; /* Remove default underline */
+  color: #ffffff; /* Set default text color */
+  transition: color 0.3s, text-decoration 0.3s, text-underline-offset 0.3s; /* Add transition effects */
+}
+
+/* Apply different text color and underline on hover */
+.nav-elements ul li a:hover {
+  color: hsl(0, 100%, 50%); /* Change text color on hover */
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Apply different text color on hover for different links */
+.nav-elements ul li a:nth-child(odd):hover {
+  color: rgb(253, 253, 253); /* Change text color on odd link hover */
+}
+
+.nav-elements ul li a:nth-child(even):hover {
+  color: rgb(255, 255, 255); /* Change text color on even link hover */
+}
+
+
+.liii{
+  color: white;
+  cursor: pointer;
+}
+
+
+.nav-elements ul li:not(:last-child) {
+  margin-right: 60px;
+}
+
+.nav-elements ul a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nav-elements ul a.active {
+  color: #fcfcfc;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-elements ul a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff2121;
+}
+
+@media (max-width: 768px) {
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: #000000;
+    width: 0px;
+    height: calc(100vh - 60px);
+    transition: all 0.3s ease-in;
+     overflow: hidden;
+  }
+
+  .nav-elements.active {
+    width: 270px;
+  }
+
+  .nav-elements ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-elements ul li {
+    margin-right: unset;
+    margin-top: 22px;
+  }
+ 
+}

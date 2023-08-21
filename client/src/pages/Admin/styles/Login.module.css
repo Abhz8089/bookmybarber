@@ -1,19 +1,5 @@
   @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-*
-/* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Quicksand', sans-serif;
-} */
-body 
-/* {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #000;
-} */
+
 section 
 {
    margin: 0;
@@ -136,8 +122,8 @@ section .signin .content .form .inputBox i
   transition: 0.5s;
   pointer-events: none;
 }
-.signin .content .form .inputBox input:focus ~ i,
-.signin .content .form .inputBox input:valid ~ i
+.signin .content .form .inputBox .input:focus ~ i,
+.signin .content .form .inputBox .input:valid ~ i
 {
   transform: translateY(-7.5px);
   font-size: 0.8em;
@@ -160,7 +146,7 @@ section .signin .content .form .inputBox i
   color: #0f0;
   font-weight: 600;
 }
-.signin .content .form .inputBox input[type="submit"]
+.signin .content .form .inputBox .input[type="submit"]
 {
   padding: 1px;
   background: #0f0;
@@ -170,16 +156,16 @@ section .signin .content .form .inputBox i
   letter-spacing: 0.05em;
   cursor: pointer;
 }
-input[type="text"]{
+.input[type="text"]{
   height: 1rem;
   
 }
-input[type="password"]{
+.input[type="password"]{
   height: 1rem;
   
 }
 
-input[type="submit"]:active
+.input[type="submit"]:active
 {
   opacity: 0.6;
 }
