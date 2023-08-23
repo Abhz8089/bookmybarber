@@ -4,7 +4,7 @@ import { BrowserRouter, NavLink, Route, useNavigate } from "react-router-dom";
 import Hamburger from "../subComponents/Humberger";
 import { useAdminData } from "../../contexts/userContexts";
 import {useDispatch} from 'react-redux'
-import { logoutUser } from "../../globelContext/userSlice";
+import { logoutAdmin } from "../../globelContext/adminSlice";
 
 import "./styles/Navbar.css"
 import axios from "axios";
@@ -23,7 +23,7 @@ const Navbars = () => {
    
     try {
       await axios.post('/ad/adminLogout')
-      dispatch(logoutUser())
+      dispatch(logoutAdmin());
       setAdminData({})
       Navigate('/ad/admin')
       

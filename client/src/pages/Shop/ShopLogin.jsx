@@ -7,7 +7,7 @@ import styles from "../ShopStyles/Login.module.css";
 import Navbar from '../../components/Shop/Navbar';
 import Footer from '../../components/Footer';
 import { toast } from 'react-hot-toast';
-import { loginUser as loginShop } from "../../globelContext/userSlice";
+import { loginUser as userLogin} from "../../globelContext/shopSlice";
 import { useUserData } from '../../contexts/userContexts';
 
 const ShopLogin = () => {
@@ -47,8 +47,8 @@ const ShopLogin = () => {
       }
       else{
        
-        
-        localStorage.setItem("shopData", JSON.stringify({email:'abhi'}));
+        //  dispatch(userLogin(data));
+          localStorage.setItem("shopData", JSON.stringify({data}));
         Navigate('/')
       }
     } catch (error) {
@@ -99,7 +99,7 @@ const ShopLogin = () => {
             <br />
             <form action="" onSubmit={loginUser}>
               <div className={styles.form_group}>
-                <label>Email</label>
+                <label className={styles.label}>Email</label>
                 <input
                   className={styles.input}
                   type="text"
@@ -108,7 +108,7 @@ const ShopLogin = () => {
                     setData({ ...data, email: e.target.value });
                   }}
                 />
-                <label>Password</label>
+                <label className={styles.label}>Password</label>
                 <input
                   className={styles.input}
                   type="password"

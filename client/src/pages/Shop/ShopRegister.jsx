@@ -1,79 +1,77 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-
-
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Footer from "../../components/Footer";
-import Navbar from '../../components/Shop/Navbar';
-import st from '../ShopStyles/Register.module.css';
-import { toast } from 'react-hot-toast';
+import Navbar from "../../components/Shop/Navbar";
+import st from "../ShopStyles/Register.module.css";
+import { toast } from "react-hot-toast";
 import { useUserData } from "../../contexts/userContexts";
 
 
-const ShopRegister = () => {
 
+
+
+const ShopRegister = () => {
   const [userData, setUserData] = useState({
     userName: "",
     email: "",
     password: "",
     cPassword: "",
-    phoneNumber:" ",
-    address:" ",
-    businessName:"",
-    zipCode :""
+    phoneNumber: "",
+    address: "",
+    businessName: "",
+    zipCode: "",
   });
 
   const Navigate = useNavigate();
-   const { setUserData: setUserDataContext } = useUserData();
+  const { setUserData: setUserDataContext } = useUserData();
 
-  const registerUser = async(e) => {
-    e.preventDefault()
-     const {userName,email,password,cPassword,phoneNumber,address,businessName,zipCode} = userData;
-     
+  const registerUser = async (e) => {
+    e.preventDefault();
+    const {
+      userName,
+      email,
+      password,
+      cPassword,
+      phoneNumber,
+      address,
+      businessName,
+      zipCode,
+    } = userData;
+
     try {
-      
-   let {data} = await axios.post("/s/sRegister", {
-     userName,
-     email,
-     password,
-     cPassword,
-     phoneNumber,
-     address,
-     businessName,
-     zipCode,
-   });
-   
-   if (data.error) {
-     toast.error(data.error)
-   }else{
-       setUserDataContext({
-         userName,
-         email,
-         password,
-         cPassword,
-         phoneNumber,
-         address,
-         businessName,
-         zipCode,
-       })
-       setUserData({})
-       Navigate('/s/sOtp')
-     
-   }
-   
-      
+      let { data } = await axios.post("/s/sRegister", {
+        userName,
+        email,
+        password,
+        cPassword,
+        phoneNumber,
+        address,
+        businessName,
+        zipCode,
+      });
+
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setUserDataContext({
+          userName,
+          email,
+          password,
+          cPassword,
+          phoneNumber,
+          address,
+          businessName,
+          zipCode,
+        });
+        setUserData({});
+        Navigate("/s/sOtp");
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-    
-
-      
-  }
-
+  };
 
   return (
     <>
@@ -88,6 +86,7 @@ const ShopRegister = () => {
               <div className={st.form_group}>
                 <div className={st.first_row}>
                   <input
+                    className={st.input}
                     type="text"
                     placeholder="Enter your Name...."
                     onChange={(e) => {
@@ -97,6 +96,7 @@ const ShopRegister = () => {
                   />
 
                   <input
+                    className={st.input}
                     type="email"
                     placeholder="Enter your email...."
                     onChange={(e) => {
@@ -108,6 +108,7 @@ const ShopRegister = () => {
 
                 <div className={st.first_row}>
                   <input
+                    className={st.input}
                     type="password"
                     placeholder="Enter Password...."
                     onChange={(e) => {
@@ -117,6 +118,7 @@ const ShopRegister = () => {
                   />
 
                   <input
+                    className={st.input}
                     type="number"
                     placeholder="Enter your Phone Number..."
                     onChange={(e) => {
@@ -127,6 +129,7 @@ const ShopRegister = () => {
                 </div>
                 <div className={st.first_row}>
                   <input
+                    className={st.input}
                     type="password"
                     placeholder="Confirm Password"
                     onChange={(e) => {
@@ -136,6 +139,7 @@ const ShopRegister = () => {
                   />
 
                   <input
+                    className={st.input}
                     type="text"
                     placeholder="Enter your Business Name...."
                     onChange={(e) => {
@@ -149,6 +153,7 @@ const ShopRegister = () => {
                 </div>
                 <div className={st.first_row}>
                   <input
+                    className={st.input}
                     type="number"
                     placeholder="Enter Shop Located Zip code..."
                     onChange={(e) => {
@@ -157,6 +162,7 @@ const ShopRegister = () => {
                     value={userData.zipCode}
                   />
                   <input
+                    className={st.input}
                     type="text"
                     placeholder="Enter Business Address..."
                     onChange={(e) => {
@@ -182,14 +188,21 @@ const ShopRegister = () => {
                 </button>
               </div>
             </form>
-            <button className={st.btn1} onClick={()=>Navigate('/s/sRegister')} >Beautician Sign Up</button>
-            <button className={st.btn2} onClick={()=>Navigate('/register')}>Client Sign Up</button>
+            <button
+              className={st.btn1}
+              onClick={() => Navigate("/s/sRegister")}
+            >
+              Beautician Sign Up
+            </button>
+            <button className={st.btn2} onClick={() => Navigate("/register")}>
+              Client Sign Up
+            </button>
           </div>
         </div>
       </div>
       <Footer />
     </>
   );
-}
+};
 
-export default ShopRegister
+export default ShopRegister;

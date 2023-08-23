@@ -11,8 +11,9 @@ import Home from "./pages/Client/Home";
 import Login from "./pages/Client/Login";
 import Register from "./pages/Client/Register";
 import Otpclient from "./pages/Client/Otp";
-import ChPassword from './pages/Client/ChangePOTP'
-import ChangePassword from './pages/Client/ChangePassword'
+import ChPassword from './pages/Client/ChangePOTP';
+import ChangePassword from './pages/Client/ChangePassword';
+import FirstPage from './pages/Client/FirstPage_shopSearch'
 
 import SLogin from './pages/Shop/ShopLogin';
 import SRegister from './pages/Shop/ShopRegister';
@@ -46,6 +47,7 @@ function App() {
         <Route path="/chPOtp" element={<ChPassword />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/" element={<Home />} />
+        <Route path='/search' element={<FirstPage/>}/>
 
         <Route path="/s/sLogin" element={<SLogin />} />
         <Route path="/s/sRegister" element={<SRegister />} />

@@ -14,7 +14,7 @@
   justify-content: center; 
   align-items: center; 
 
-  height: 65rem;
+  height: 62rem;
  
 }
 
@@ -24,13 +24,13 @@
 
 
 .Login_sub {
-  margin-top: -8rem;
+  margin-top: -14%;
   text-align: center;
   width: 30%;
-height: 70%;
-flex-shrink: 0;
-box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
-background: #928D8DA1;
+  height: 70%;
+  flex-shrink: 0;
+  box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
+  background: #928D8DA1;
 }
 
 .divider {
@@ -41,19 +41,13 @@ background: #928D8DA1;
   border-top: 1px solid rgb(190, 183, 183); 
 }
 
-form{
-    margin-top: 20px;
-}
 
-label{
-    display: block;
-    margin-bottom: 2px;
-    
-}
 
 .input{
   margin-right: 1px;
-  margin-bottom: 6px;
+  margin-bottom: -10%;
+  padding-left: 2%;
+ 
 }
 
 .LoginButton{

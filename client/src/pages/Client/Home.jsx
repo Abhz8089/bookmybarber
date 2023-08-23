@@ -1,6 +1,6 @@
 
 import { useEffect ,useState} from 'react';
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import axios from "axios";
 import {toast} from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
@@ -8,20 +8,22 @@ import { useNavigate } from 'react-router-dom';
 
 import client from "../../../public/contentImages/Group 21.png";
 import beautician from "../../../public/contentImages/Group 22.png";
-import iphone from '../../../public/contentImages/phonegif.gif'
+import iphone from '../../../public/contentImages/phonegif.gif';
 
 import style from '../ClientStyles/Home.module.css'
 import Navbar from '../../components/CommonNav';
+import Footer from '../../components/Footer'
 import Loader from '../../components/HelpingComponents/Loader'
-
+import {logoutUser} from '../../globelContext/shopSlice'
 import { useUserData } from "../../contexts/userContexts";
 
 
 
 
 const Home = () => {
-    // const user = useSelector((state) => state.user.user);
-    // console.log(user)
+  const dispatch = useDispatch()
+  //  const user = useSelector((state) => state.shop.user);
+   
   //  const { userData } = useUserData();
   //  console.log(userData)
    const [scrolling, setScrolling] = useState(false);
@@ -35,8 +37,9 @@ const Home = () => {
       const {data} = await axios.get('/')
 
       if(data.message){
-        localStorage.removeItem("shopData");
-         localStorage.removeItem("userData");
+        // localStorage.removeItem("shopData");
+        //  localStorage.removeItem("userData");
+         dispatch(logoutUser())
         // Navigate('/login')
       }
 
@@ -59,7 +62,7 @@ const Home = () => {
        }
      };
         const delay = setTimeout(() => {
-          setLoading(false); // Set loading to false after a delay (you can replace this with your actual loading logic)
+          setLoading(false); 
         }, 2000);
      window.addEventListener("scroll", handleScroll);
     
@@ -82,6 +85,8 @@ const Home = () => {
           <div className={style.body}></div>
           <div className={style.fade}></div>
           <div className={style.subBody}>
+            <div className={style.abovebody}>
+
             <div className={style.container}>
               <h1 className={style.explore}>Explore</h1>
             </div>
@@ -92,26 +97,85 @@ const Home = () => {
                 }`}
                 src={client}
                 alt=""
-              />
+                />
               <img
                 className={`${style.image2} ${
                   scrolling ? style["fade-in"] : ""
                 }`}
                 src={beautician}
                 alt=""
-              />
+                />
             </div>
+                </div>
 
             <div className={style.subContainer}>
               <div className={style.maskedImage}></div>
-              <h1 className={style.h1}>FOR CLIENT</h1>
+              <h1
+                className={style.h1}
+                style={{ color: "white", textDecoration: "underline" }}
+              >
+                FOR CLIENT
+              </h1>
 
               <div className={style.textDiv}>
-                <p className={style.p}>
-                  Some text
-                  odzfdsdzfszrddzrzrzssdsdsdsdsstesttztztzrtzzzteztezteettstsssssssssssssssssssssssssn
-                  the left sidefgyufjuyfjyjjgggygyg
-                </p>
+                <div className={style.text}>
+                  <p className={style.p}>
+                    More Than Just An Appointment Booking App, It’s Life Made
+                    Easy! <br />
+                    Features
+                    <br />
+                    <ul>
+                      <li>Free access from the web to your barbers’</li>
+                      <li>
+                        Free access from the web to your barbers’ profile Book
+                        your appointments
+                      </li>
+                      <li> No need to call your barber for Confirm, Decline</li>
+                      <li>
+                        Reschedule appointments Pay online for your services
+                        Receive reminders
+                      </li>
+                      <li>
+                        never miss your appointment Review your services, rate
+                        your barber
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+                <div className={style.iphoneImage}>
+                  <img className={style.iphone} src={iphone} alt="iPhone" />
+                  {/* <img
+                className={style.gifInsideIphone}
+                src="your-gif.gif"
+                alt="GIF inside iPhone"
+              /> */}
+                </div>
+              </div>
+            </div>
+            <div className={style.subSubContainer}>
+              <div className={style.maskedImage}></div>
+              <h1
+                className={style.h1}
+                style={{ color: "white", textDecoration: "underline" }}
+              >
+                FOR SHOP
+              </h1>
+
+              <div className={style.textDiv}>
+                <div className={style.text}>
+                  <p className={style.p}>
+                    Welcome to our Book My Barber website! As a barber, this
+                    platform is designed to make your life easier and your
+                    business more successful. With our user-friendly dashboard,
+                    you can effortlessly manage your schedule, services, and
+                    availability. Update your working hours, set your prices,
+                    and add or edit services to showcase your unique skills Join
+                    our community of barbers and let our website streamline your
+                    booking process, so you can focus on doing what you do best
+                    – delivering top-notch haircuts and services to your
+                    clients!
+                  </p>
+                </div>
                 <div className={style.iphoneImage}>
                   <img className={style.iphone} src={iphone} alt="iPhone" />
                   {/* <img
@@ -123,8 +187,10 @@ const Home = () => {
               </div>
             </div>
           </div>
+          <Footer/>
         </>
       )}
+
     </>
   );
 }

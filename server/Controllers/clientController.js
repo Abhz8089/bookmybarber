@@ -47,6 +47,7 @@ const registerUser = async (req, res) => {
       to: email,
       text: `Your OTP is   ${sendedOtp}`,
     };
+    
 
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {

@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import AdminNav from "../../components/Admin/AdminNav";
 import SubNav from "../../components/Admin/SubNav";
 import { useAdminData } from "../../contexts/userContexts";
-import { logoutUser } from "../../globelContext/userSlice";
+import { logoutAdmin } from "../../globelContext/adminSlice";
 
 import styles from "./styles/Beautician.module.css";
 
@@ -131,7 +131,7 @@ const BeauticianD = () => {
           toast.error(data.error);
         }
         if(data.message){{
-          dispatch(logoutUser())
+          dispatch(logoutAdmin())
           Navigate('/ad/admin')
         }}
         setRecords(data);

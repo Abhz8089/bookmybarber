@@ -20,11 +20,16 @@
 }
 
 .subBody{
-    height: 1020px;
-    background: linear-gradient(180deg, #1a1515 0%, rgb(255, 255, 255) 100%);
+    height: 100%;
+    margin-bottom: 10%;
 }
 
+.abovebody{
+   height: 49rem;
+    background: linear-gradient(180deg, #1a1515 0%, #a5a5a5 100%);
+}
 .container{
+  
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -68,15 +73,30 @@
    transform: scale(1);
 }
 .subContainer{
+  
       display: flex;
   flex-direction: column;
  justify-content: flex-start;
   align-items: center;
   height: 800px;
-  background-image: url(../../../public/contentImages/haircutforclient.jpg);
+  background-image: url(../../../public/contentImages/picc.jpg);
+
    background-size: cover;
    position: relative;
 }
+.subSubContainer{
+  margin-top: 12%;
+      display: flex;
+  flex-direction: column;
+ justify-content: flex-start;
+  align-items: center;
+  height: 800px;
+  background-image: url(../../../public/contentImages/picc.jpg);
+
+   background-size: cover;
+   position: relative;
+
+  }
 /* .maskedImage{
    
   width: 100%;
@@ -87,7 +107,7 @@
   background-color: rgb(255, 255, 255); 
 
 }  */
-
+/* 
 .subContainer::before{
     content: '';
     position: absolute;
@@ -102,33 +122,63 @@
     opacity: .9;
    
     
-}
+} */
+/* 
+.subContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../../../public/contentImages/splash1.jpg);
+    background-size: 100%;
+    background-position: center;
+    mix-blend-mode: screen;
+    opacity: .9;
+    
+} */
+
 
 .h1{
-     margin-bottom: 1rem;
+   margin-bottom: 1rem;
   text-align: center;
   position: relative;
   z-index: 2;
 }
 
 .textDiv {
+
   display: flex;
   align-items: center;
   justify-content: space-between;
  
   position: relative;
   z-index: 1;
-  width: 90%;
+  width: 85%;
   height: 100%;
   
 }
+/* .text{
+  width:100%;
+  margin-top:24%;
+  margin-top: -90%;
+  display: flex;
+  position: relative;
+} */
 
 .p {
   flex: 1;
   margin-left: 14%;
-  margin-top: -23%;
-   max-width: 30%;
+  
+   max-width: 55%;
   word-wrap: break-word; 
+  background-color: rgba(230, 228, 228, 0.623);
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-right: 15px;
+  /* position: absolute; */
 }
 
 .iphoneImage {
@@ -164,12 +214,20 @@
 
   
 }
+.subBody{
+   
+    background: linear-gradient(180deg, #1a1515 0%, rgb(205, 203, 203) 100%);
+}
+.abovebody{
+   height: 45rem;
+}
 .iphone {
 
   width: 18rem;
   border-radius: 55px;
   margin-right: 14%;
 }
+
 
  }
 @media  (max-width: 1246px) {
@@ -180,11 +238,32 @@
 
   
 }
+.abovebody{
+   height: 40rem;
+}
+.subBody{
+   
+    background: linear-gradient(180deg, #1a1515 0%, rgb(231, 230, 230) 100%);
+}
+
 .iphone {
 
   width: 15rem;
   border-radius: 55px;
   margin-right: 14%;
+}
+.p {
+  flex: 1;
+  margin-left: 14%;
+  font-size: 15px;
+   max-width: 55%;
+  word-wrap: break-word; 
+  background-color: rgba(230, 228, 228, 0.623);
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-right: 15px;
+  /* position: absolute; */
 }
  }
   
@@ -196,11 +275,28 @@
 
   
 }
+.abovebody{
+   height: 35rem;
+}
 .iphone {
 
   width: 10rem;
   border-radius: 25px;
   margin-right: 14%;
+}
+.p{
+   font-size: 10px;
+}
+} 
+
+
+@media  (max-width: 567px) {
+
+.p{
+  font-size: 8px;
+}
+.abovebody{
+   height: 30rem;
 }
 }  
 @media  (max-width: 500px) {
@@ -210,5 +306,8 @@
  height: 30%;
 
   
+}
+.abovebody{
+   height: 25rem;
 }
 }  

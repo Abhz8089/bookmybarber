@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -8,13 +9,15 @@ import jwt_decode from "jwt-decode";
 
 import styles from "../ClientStyles/Login.module.css";
 
+
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
-import { loginUser as loginClient } from "../../globelContext/userSlice";
+import { loginUser as loginClient } from "../../globelContext/shopSlice";
 import { useUserData } from "../../contexts/userContexts";
 
 const GoogleAuthComponent = () => {
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
   const onSuccess = async (credentialResponse) => {
     try {
       console.log(credentialResponse);
@@ -26,9 +29,11 @@ const GoogleAuthComponent = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        localStorage.setItem("userData", JSON.stringify(data));
+        // dispatch(loginClient(data))
+          localStorage.setItem("userData", JSON.stringify(data));
         Navigate("/");
         toast.success("Login successful");
+        
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +61,7 @@ const Login = () => {
   const Navigate = useNavigate();
   const { setUserData: setUserDataContext } = useUserData();
 
-  // const user = useSelector((state) => state.user.user);
+ 
   const dispatch = useDispatch();
 
   const loginUser = async (e) => {
@@ -67,8 +72,8 @@ const Login = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        dispatch(loginClient(data));
-        localStorage.setItem("userData", JSON.stringify(data));
+       // dispatch(loginClient(data));
+         localStorage.setItem("userData", JSON.stringify(data));
 
         Navigate("/");
       }
@@ -96,6 +101,9 @@ const Login = () => {
 
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
+    //  const userDataString = useSelector(state => state.user.user);
+
+    
 
     if (userDataString) {
       Navigate("/");
@@ -113,7 +121,7 @@ const Login = () => {
             <br />
             <form action="" onSubmit={loginUser}>
               <div className={styles.form_group}>
-                <label>Email</label>
+                <label className={styles.label}>Email</label>
                 <input
                   className={styles.input}
                   type="email"
@@ -122,7 +130,7 @@ const Login = () => {
                     setData({ ...data, email: e.target.value });
                   }}
                 />
-                <label>Password</label>
+                <label className={styles.label}>Password</label>
                 <input
                   className={styles.input}
                   type="password"
@@ -161,7 +169,7 @@ const Login = () => {
                   <GoogleAuthComponent />
                 </div>
 
-                <h6 style={{ color: "black" }}>don’t have any account ? </h6>
+                <h6 className={styles.didnt} style={{ color: "black" }}>don’t have any account ? </h6>
                 <button
                   onClick={() => Navigate("/register")}
                   className={styles.signUpbtn}

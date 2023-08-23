@@ -7,7 +7,7 @@ import { useAdminData } from "../../contexts/userContexts";
 
 
 import { useDispatch,useSelector } from "react-redux";
-import { loginUser } from "../../globelContext/userSlice";
+import { loginAdmin as adminLogin } from "../../globelContext/adminSlice";
 
 
 const Login = () => {
@@ -34,7 +34,7 @@ const dispatch=useDispatch()
       }else{
         setAdminData({adminName:data.userName,adminEmail:data.email,adminPassword:data.password})
         dispatch(
-          loginUser({
+          adminLogin({
             adminName: data.userName,
             adminEmail: data.email,
             adminPassword: data.password,
