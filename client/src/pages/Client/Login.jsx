@@ -12,8 +12,9 @@ import styles from "../ClientStyles/Login.module.css";
 
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
-import { loginUser as loginClient } from "../../globelContext/shopSlice";
+import { loginClient } from "../../globelContext/clientSlice";
 import { useUserData } from "../../contexts/userContexts";
+import { jsonParseUserDataString } from "../../../helpers/JSONparse.js";
 
 const GoogleAuthComponent = () => {
   const Navigate = useNavigate();
@@ -29,9 +30,9 @@ const GoogleAuthComponent = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        // dispatch(loginClient(data))
-          localStorage.setItem("userData", JSON.stringify(data));
-        Navigate("/");
+        dispatch(loginClient(data))
+          // localStorage.setItem("userData", JSON.stringify(data));
+        Navigate("/search");
         toast.success("Login successful");
         
       }
@@ -72,10 +73,10 @@ const Login = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-       // dispatch(loginClient(data));
-         localStorage.setItem("userData", JSON.stringify(data));
+       dispatch(loginClient(data));
+        //  localStorage.setItem("userData", JSON.stringify(data));
 
-        Navigate("/");
+        Navigate("/search");
       }
     } catch (error) {
       console.log(error);
@@ -100,13 +101,15 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const userDataString = localStorage.getItem("userData");
+    // const userDataString = localStorage.getItem("persist:client");
     //  const userDataString = useSelector(state => state.user.user);
+    let user = jsonParseUserDataString()
 
-    
+    console.log(user)
+  
 
-    if (userDataString) {
-      Navigate("/");
+    if (user) {
+      Navigate("/search");
     }
   }, []);
 

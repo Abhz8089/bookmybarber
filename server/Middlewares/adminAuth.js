@@ -1,21 +1,17 @@
-import jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const adminAuthMiddleware = (req, res, next) => {
-
   const token = req.headers.authorization || getTokenFromCookies(req);
 
   if (!token) {
-   
     return res.json({ message: "Unauthorized" });
   }
 
   try {
-   
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.adminData = decoded.data; // Attach admin data to the request object
     next();
   } catch (error) {
-  
     return res.json({ message: "Unauthorized" });
   }
 };
@@ -34,4 +30,4 @@ const getTokenFromCookies = (req) => {
   return null;
 };
 
-export default adminAuthMiddleware
+export default adminAuthMiddleware;

@@ -1,15 +1,52 @@
-import { useState } from "react";
-import { BrowserRouter, NavLink, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter, NavLink, Route, useNavigate } from "react-router-dom";
+import {
+  jsonParseShopDataString,
+
+} from "../../../helpers/JSONparse.js";
+
 
 import Hamburger from "../subComponents/Humberger";
 
 import "../users/userStyles/Navbar.css";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useSelector, useDispatch } from "react-redux";
+import {  logoutShop } from "../../globelContext/clientSlice.js"; 
 
 const Navbars = () => {
+  const dispatch =useDispatch()
+  const Navigate = useNavigate()
   const [showNavbar, setShowNavbar] = useState(false);
+  const [shop, setShop] = useState('')
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
+   const Client = useSelector((state) => state.client.shop);
+  useEffect(() => {
+    //  let shop = jsonParseShopDataString();
+    //  if(shop){
+    //   setShop(shop)
+    //  }else{
+    //   setShop('')
+    //  }
+    if(Client){
+      setShop(Client)
+    }else{
+      setShop(null)
+    }
+  }, [])
+  
+   const LogOut = async () => {
+     const { data } = await axios.post("/s/sLogout");
+     if (data.success) {
+       // localStorage.removeItem("shopData");
+       dispatch(logoutShop());
+       setShop(null);
+       Navigate("/");
+       toast.success(data.success);
+     }
+   };
 
   return (
     <nav className="navbar">
@@ -25,10 +62,10 @@ const Navbars = () => {
         <div className={`nav-elements  ${showNavbar && "active"}`}>
           <ul>
             <li>
-              <NavLink to="/">ABOUT</NavLink>
+              <NavLink to="/about">ABOUT</NavLink>
             </li>
             <li>
-              <NavLink to="/blogs">HOME</NavLink>
+              <NavLink to="/">HOME</NavLink>
             </li>
             <li>
               <span className="line">||</span>
@@ -41,9 +78,15 @@ const Navbars = () => {
                 <span className="specialLink">YOUR&nbsp;BOOKINGS</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/login">LOGIN</NavLink>
-            </li>
+            { shop ? (
+              <li className="liii" onClick={LogOut}>
+                LOGOUT
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/login">LOGIN</NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <UseDataProvider>
           <Router>
             <App />
-            {/* <AppWithLoader /> */}
+            
           </Router>
         </UseDataProvider>
       </PersistGate>

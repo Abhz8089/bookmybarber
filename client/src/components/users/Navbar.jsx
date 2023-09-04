@@ -1,16 +1,55 @@
-import { useState } from "react";
-import { BrowserRouter,NavLink,Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter,NavLink,Route, useNavigate } from "react-router-dom";
 
 import Hamburger from "../subComponents/Humberger";
 
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutClient } from "../../globelContext/clientSlice.js"; 
+
+import { jsonParseUserDataString } from "../../../helpers/JSONparse.js";
 
 import "./userStyles/Navbar.css"
 
 const Navbars = () => {
-   const [showNavbar, setShowNavbar] = useState(false)
-   const handleShowNavbar = () => {
-    setShowNavbar(!showNavbar)
-   }
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+
+  const [user, setUser] = useState("");
+
+  const [showNavbar, setShowNavbar] = useState(false);
+  const handleShowNavbar = () => {
+    setShowNavbar(!showNavbar);
+  };
+
+  const client = useSelector((state) => state.client.user); // Access user data from Redux store
+
+  useEffect(() => {
+    // let user = jsonParseUserDataString();
+    // console.log(user);
+    // if (user) {
+    //   setUser(user);
+    // } else {
+    //   setUser("");
+    // }
+    if(client){
+      setUser(client)
+    }else{
+      setUser(null)
+    }
+  }, []);
+
+  const LogOut = async () => {
+    const { data } = await axios.post("/s/sLogout");
+    if (data.success) {
+      // localStorage.removeItem("shopData");
+      dispatch(logoutClient());
+      setUser(null);
+      Navigate("/");
+      toast.success(data.success);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -26,10 +65,10 @@ const Navbars = () => {
         <div className={`nav-elements  ${showNavbar && "active"}`}>
           <ul>
             <li>
-              <NavLink to="/">ABOUT</NavLink>
+              <NavLink to="/about">ABOUT</NavLink>
             </li>
             <li>
-              <NavLink to="/blogs">HOME</NavLink>
+              <NavLink to="/">HOME</NavLink>
             </li>
             <li>
               <span className="line">||</span>
@@ -38,13 +77,19 @@ const Navbars = () => {
               <NavLink to="/projects">STYLES</NavLink>
             </li>
             <li>
-              <NavLink to="/about">
+              <NavLink to="/details">
                 <span className="specialLink">YOUR&nbsp;BOOKINGS</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/login">LOGIN</NavLink>
-            </li>
+            {user ? (
+              <li className="liii" onClick={LogOut}>
+                LOGOUT
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/login">LOGIN</NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

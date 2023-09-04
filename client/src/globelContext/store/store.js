@@ -38,6 +38,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import adminReducer from "../adminSlice";
 import userReducer from "../shopSlice"; // Import your shopSlice reducer
+import clientReducer from '../clientSlice';
 
 const adminPersistConfig = {
   key: "admin",
@@ -49,13 +50,21 @@ const userPersistConfig = {
   storage,
 };
 
+const clientPersistConfig = {
+  key:"client",
+  storage,
+}
+
 const persistedAdminReducer = persistReducer(adminPersistConfig, adminReducer);
 const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+const persistedClientReducer = persistReducer(clientPersistConfig,clientReducer)
 
 const store = configureStore({
   reducer: {
-    user: persistedAdminReducer,
-    shop: persistedUserReducer,
+    admin: persistedAdminReducer,
+    user: persistedUserReducer,
+    client:persistedClientReducer,
+
   },
 });
 

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "../ShopStyles/Login.module.css";
 import Navbar from '../../components/Shop/Navbar';
 import Footer from '../../components/Footer';
 import { toast } from 'react-hot-toast';
-import { loginUser as userLogin} from "../../globelContext/shopSlice";
+// import { loginUser} from "../../globelContext/shopSlice";
+import {loginShop} from '../../globelContext/clientSlice';
+import { jsonParseShopDataString } from "../../../helpers/JSONparse";
 import { useUserData } from '../../contexts/userContexts';
 
 const ShopLogin = () => {
@@ -22,7 +24,7 @@ const ShopLogin = () => {
 
 
 
-   const loginUser = async(e) => {
+   const shopLogin = async(e) => {
     e.preventDefault()
     const {email,password}=data;
     try {
@@ -47,9 +49,9 @@ const ShopLogin = () => {
       }
       else{
        
-        //  dispatch(userLogin(data));
-          localStorage.setItem("shopData", JSON.stringify({data}));
-        Navigate('/')
+         dispatch(loginShop(data));
+         
+        Navigate("/s/sBookings");
       }
     } catch (error) {
     
@@ -78,13 +80,14 @@ const ShopLogin = () => {
       toast.error('Something went wrong')
     }
    }
-
-
+ 
+    const userDataString = useSelector((state) => state.user.shop);
   useEffect(() => {
-    const shopDataString = localStorage.getItem("shopData");
-
-      if (shopDataString) {
-        Navigate("/");
+  let shop = jsonParseShopDataString();
+    //  console.log(userDataString)
+    console.log(shop)
+      if (shop) {
+        Navigate("/s/sBookings");
       }
   }, [])
   
@@ -97,7 +100,7 @@ const ShopLogin = () => {
             <h1 className={styles.Login_text}>Shop Login</h1>
             <hr className={styles.divider} />
             <br />
-            <form action="" onSubmit={loginUser}>
+            <form action="" onSubmit={shopLogin}>
               <div className={styles.form_group}>
                 <label className={styles.label}>Email</label>
                 <input

@@ -1,11 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Navbar from '../../components/users/Navbar'
 import Footer from '../../components/Footer'
 
+
 import Style from '../ClientStyles/FirstPage.module.css' 
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import {  shopList} from "../../globelContext/clientSlice";
+import { useNavigate } from 'react-router-dom'
 
 const FirstPage_shopSearch = () => {
+  const dispatch = useDispatch()
+  const Navigate = useNavigate()
+  const [datas, setData] = useState({
+    pincode:'',
+    name:''
+  })
+  // const [name, setName] = useState('')
+
+
+  const search = async(e)=>{
+    e.preventDefault()
+    
+    try {
+      const {data} = await axios.post('/search',datas)
+      if(data.error){
+        toast.error(data.error)
+      }else{
+        dispatch(shopList(data))
+        Navigate('/shopList');
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Something went wrong')
+    }
+  }
+
+
   return (
     <>
       <Navbar />
@@ -16,11 +49,17 @@ const FirstPage_shopSearch = () => {
             <div className={Style.inputButtonContainer}>
               <input
                 className={Style.input}
+                value={datas.pincode}
+                onChange={(e) => {
+                  setData({...datas,pincode:e.target.value})
+                }}
                 placeholder="Search  nearest shop using  zipcode...."
-                type="text"
+                type="number"
               />
 
-              <button className={Style.button}>SEARCH</button>
+              {/* <button className={Style.button} onClick={search}>
+                SEARCH
+              </button> */}
             </div>
           </form>
           <div className={Style.divider}>or</div>
@@ -29,11 +68,15 @@ const FirstPage_shopSearch = () => {
             <div className={Style.inputButtonContainer}>
               <input
                 className={Style.input}
+                value={datas.name}
+                onChange={(e) => {
+                  setData({...datas,name:e.target.value});
+                }}
                 placeholder="Search  popular shop using name..."
                 type="text"
               />
-
-              <button className={Style.button}>SEARCH</button>
+                
+              <button className={Style.button} onClick={search}>SEARCH</button>
             </div>
           </form>
         </div>

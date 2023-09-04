@@ -1,0 +1,110 @@
+
+.sclassName {
+ background:  linear-gradient(180deg, #000 0%, rgba(217, 217, 217, 0.00) 100%);
+  height: 3rem;
+  display: flex;  
+  justify-content: center;
+   position: sticky; 
+  top: 0; 
+  z-index: 1000; 
+  transition: background-color 0.3s; 
+}
+
+.sclassName1 {
+  display: flex;
+    justify-content: center;
+
+  align-items: center;
+  gap: 34%;
+}
+
+.sclassName1 p {
+  margin: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.sclassName1 a {
+  text-decoration: none;
+  color:rgb(250, 250, 250)
+}
+
+.sclassName1 p.active {
+  background-color:hsl(0, 0%, 0%);
+  color: rgb(0, 0, 0);
+}
+
+.sclassName1 p:hover {
+  background-color:#000000;
+  color: rgb(0, 0, 0);
+}
+.sclassName1 a.active {
+  background-color: rgb(247, 214, 214);
+  color: rgb(0, 0, 0);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+
+.sclassName1 p:hover,
+.sclassName1 a:hover {
+   /* background-color: #b12d2d; */
+  color: rgb(201, 15, 15); 
+   position: relative;
+}
+
+.sclassName1 a.active:hover {
+  background-color: rgb(247, 214, 214);
+  color: rgb(0, 0, 0);
+}
+
+/* Additional styling for hover effect */
+.sclassName1 p,
+.sclassName1 a {
+  transition: background-color 0.3s, color 0.3s;
+  /* ... Your existing styles ... */
+}
+
+
+
+
+
+
+
+.sclassName1 p:hover::before,
+.sclassName1 a:hover::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #000000; 
+ 
+  bottom: -5px; 
+  left: 0;
+}
+
+/* Additional hover effect */
+.sclassName1 p:hover.secondary,
+.sclassName1 a:hover.secondary {
+  position: relative;
+}
+
+.sclassName1 p:hover.secondary::before,
+.sclassName1 a:hover.secondary::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #43be0e; 
+  bottom: -5px; 
+  left: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .sclassName1 {
+   gap: 3rem;
+  }
+
+  .sclassName1 a {
+   font-size: x-small;
+  }
+}

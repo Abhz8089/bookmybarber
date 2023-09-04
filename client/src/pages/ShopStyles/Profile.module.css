@@ -1,0 +1,71 @@
+.profileBody{
+    min-height: 100vh;
+    background: linear-gradient(360deg, #0D0B0B 0%, #FFF 0.01%, #767C7D 55.43%, #2E2F2E 85.41%);
+        background-image: url('../../../public/contentImages/profileback.jpg');
+background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.profile_subBody{
+    background-color: #c7bfbfad;
+    
+    background-size: cover;
+    width: 40%;
+    height: 30rem;
+    border-radius: 7px;
+     border: 2px solid rgb(11, 10, 10); /* Add a 2px solid red border */
+  margin: 20px; /* Add margin to create space around the div */
+  padding: 20px; 
+  
+   
+}
+.profile_innerDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.profile_img{
+    width:19%;
+    padding-top: 27px;
+    border-radius: 15px;
+    filter: invert(78%) sepia(0%) saturate(5996%) hue-rotate(245deg) brightness(109%) contrast(79%);
+    
+}
+.profile_againInnerDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.h4{
+    margin-bottom: -1rem;
+}
+
+.imageInput{
+   margin-top: 8rem;
+   background-color: #3c3636;
+   height: 2rem;
+   border-radius: 4px;
+   color: wheat;
+}
+
+.upload{
+    background-color: #767C7D;
+    color:white;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 4px;
+     
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+}
+
+.upload:active {
+  background-color: #4d7aab; /* Your button's active background color */
+}

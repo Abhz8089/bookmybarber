@@ -6,8 +6,12 @@ import Hamburger from "../components/subComponents/Humberger";
 
 import "./CommonNav.css";
 import axios from "axios";
+import { useSelector,useDispatch } from "react-redux";
+import { logoutClient,logoutShop } from "../globelContext/clientSlice"; 
+import { jsonParseShopDataString,jsonParseUserDataString } from "../../helpers/JSONparse.js";
 
 const Navbars = ({ scrolling }) => {
+    const dispatch = useDispatch();
   const Navigate = useNavigate()
   const [user, setUser] = useState([]);
   const [shop,setShop]=useState([]);
@@ -18,30 +22,49 @@ const Navbars = ({ scrolling }) => {
 
   useEffect(() => {
        
-       const shopDataString= localStorage.getItem('shopData')
+      
 
-      const userDataString = localStorage.getItem("userData");
-
-      if (userDataString) {
-        const userDataObject = JSON.parse(userDataString);
-        setUser(userDataObject);
+      
+     
+      let user = jsonParseUserDataString();
+      let shop = jsonParseShopDataString();
+   
+     
+      if (user) {
+       
+       
+        setUser(user);
       } else {
         setUser(null);
       }
-      if(shopDataString){
-        const shopDataObject = JSON.parse(shopDataString)
-        setShop(shopDataObject)
+      if(shop){
+        
+        setShop(shop);
       }else{
         setShop(null)
       }
+
+
+
    
   }, [])
+
+    // useEffect(() => {
+      
+    //   dispatch(fetchUserData())
+    //     .unwrap() 
+    //     .catch((error) => {
+          
+    //       Navigate("/login");
+    //     });
+    // }, []);
 
   const LogOUT=async()=>{
     
     const {data} = await axios.post('/logout')
     if(data.success){
-      localStorage.removeItem("userData");
+      // localStorage.removeItem("userData");
+      dispatch(logoutClient())
       setUser(null)
       Navigate('/')
       toast.success(data.success)
@@ -53,7 +76,8 @@ const Navbars = ({ scrolling }) => {
   const LogOUTshop =async()=>{
     const {data} = await axios.post('/s/sLogout')
     if (data.success) {
-      localStorage.removeItem("shopData");
+      // localStorage.removeItem("shopData");
+      dispatch(logoutShop())
       setShop(null);
       Navigate("/");
       toast.success(data.success);

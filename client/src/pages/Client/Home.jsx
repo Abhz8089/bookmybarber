@@ -91,14 +91,14 @@ const Home = () => {
               <h1 className={style.explore}>Explore</h1>
             </div>
             <div className={style.image}>
-              <img
+              <img onClick={()=>Navigate('/login')}
                 className={`${style.image1} ${
                   scrolling ? style["fade-in"] : ""
                 }`}
                 src={client}
                 alt=""
                 />
-              <img
+              <img  onClick={()=>Navigate('/s/sLogin')}
                 className={`${style.image2} ${
                   scrolling ? style["fade-in"] : ""
                 }`}

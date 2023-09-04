@@ -1,0 +1,8 @@
+.successBody{
+    min-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+      background: linear-gradient(90deg, #0d0b0b 0%, #fff 0.01%, #767d77 62.23%, #5f6460 85.41%);
+}

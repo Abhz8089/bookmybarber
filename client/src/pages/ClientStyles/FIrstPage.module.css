@@ -1,5 +1,5 @@
 .container{
-     height: 80vh;
+     height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center; 
@@ -23,6 +23,9 @@
 .inputButtonContainer{
     
    display: flex;
+   flex-direction: column;
+   align-items: center;
+ 
   justify-content: center; 
   gap: 1rem; 
 }
@@ -40,7 +43,7 @@
     height: 52px;
     margin-top: 10px;
     width: 100px;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
     color: white;
     background-color: rgb(36, 33, 33);
@@ -65,3 +68,28 @@
   font-weight: bold;
 }
 
+@media  (max-width: 669px){
+.input{
+     width: 15rem;
+   padding: 0.5rem;
+}
+
+.button{  
+    
+     margin-top: 5px;
+    width: 70px;
+}
+}
+
+@media  (max-width: 461px){
+.input{
+     width: 10rem;
+   padding: 0.5rem;
+}
+
+.button{  
+    
+     margin-top: 5px;
+    width: 70px;
+}
+}

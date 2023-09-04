@@ -19,12 +19,17 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-data-table-component": "^7.5.3",
+    "react-datepicker": "^4.16.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.10.1",
+    "react-modal": "^3.16.1",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.14.2",
+    "react-select": "^5.7.4",
     "redux-persist": "^6.0.0",
-    "sweetalert2": "^11.7.25"
+    "redux-thunk": "^2.4.2",
+    "sweetalert2": "^11.7.27"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

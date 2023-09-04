@@ -1,0 +1,198 @@
+.heading {
+  display: flex;
+  justify-content: center;
+  text-shadow: 4px 4px 4px rgba(30, 26, 26, 0.596); /* Adjust values as needed */
+}
+
+
+.container {
+  min-height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #0d0b0b 0%, #fff 0.01%, #767d77 62.23%, #5f6460 85.41%);
+   flex-wrap: wrap;
+   padding-top: 7%;
+   padding-bottom: 6%;
+   
+}
+
+.pic{
+  width:25%
+}
+
+.iconBody{
+  display: flex;
+  flex-direction: column;
+}
+
+.pic_ctn {
+  width: 100vw;
+  height: 200px;
+}
+
+@keyframes display {
+  0% {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+}
+
+.pic_ctn {
+  position: relative;
+  width: 100vw;
+  height: 300px;
+  margin-top: 15vh;
+}
+
+
+.pic_ctn > .pic {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 100px);
+  opacity: 0;
+  animation: display 10s infinite;
+}
+
+.pic:nth-child(2) {
+  animation-delay: 2s;
+}
+.pic:nth-child(3) {
+  animation-delay: 4s;
+}
+.pic:nth-child(4) {
+  animation-delay: 6s;
+}
+.pic:nth-child(5) {
+  animation-delay: 8s;
+}
+.pic:nth-child(6) {
+  animation-delay: 10s;
+}
+
+
+
+
+
+
+ .hello {
+  display: flex;
+  background: linear-gradient(90deg, #0d0b0b 0%, #fff 0.01%, #767d77 62.23%, #5f6460 85.41%);
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 12rem;
+  padding-left: 12%;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+ 
+  padding: 0 12%; 
+}
+
+.contentRow {
+display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+
+.contentRow h1 {
+  margin: 0; 
+}
+
+.contentRow p {
+  margin: 0; 
+} 
+
+
+.select {
+  width: 20%;
+  margin: 0 10px; /* Add spacing between Select inputs */
+}
+.selectMulti {
+  min-width: 20%;
+  margin: 0 10px; /* Add spacing between Select inputs */
+}
+
+/* Display the Select inputs in the same line */
+.container .react-select-container {
+  display: inline-block;
+  margin: 0;
+}
+
+.button{
+    background-color: #0d0b0b;
+    color: white;
+    height: 3rem;
+    width: 10%;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+.button:hover {
+  background-color: #1a1919; 
+  transform: translateY(-2px); 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.button:active {
+  background-color: #090808; 
+  transform: translateY(1px); 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); 
+}
+
+.slot{
+  height: 16rem;
+}
+
+@media (max-width: 726px) {
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+  background: linear-gradient(90deg, #0d0b0b 0%, #fff 0.01%, #767d77 62.23%, #5f6460 85.41%);
+   flex-wrap: wrap;
+}
+.select{
+    width: 50%;
+    margin-top: 1rem;
+}
+.selectMulti{
+    margin-top: 1rem;
+    min-width: 50%;
+}
+.button{
+    width: 29%;
+    margin-top: 2rem;
+   
+}
+ /* .hello {
+margin-top: 12rem;
+} */
+
+}
+
+
+

@@ -9,7 +9,7 @@ const userAuthMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.adminData = decoded.data; // Attach admin data to the request object
+    req.adminData = decoded.data; 
     next();
   } catch (error) {
     return res.json({ message: "Unauthorized" });

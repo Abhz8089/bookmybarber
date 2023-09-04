@@ -21,9 +21,11 @@ app.use(express.json())
 app.use(cors({ origin: "http://localhost:4004",credentials:true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
+
 app.use('/',clientRoutes)
 app.use("/s",shopRoutes)
 app.use("/ad",adminRoutes)
+
 
 
 app.listen(port,()=>{

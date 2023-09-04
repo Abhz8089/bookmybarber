@@ -11,8 +11,12 @@ import {
   updatePassword,
   clientLogout,
   gClientLogin,
-  getHome
+  getHome,
+  getUser,
+  searchShop,
 } from "../Controllers/clientController.js";
+
+import {successBook ,bookedDetails } from "../Controllers/successController.js";
 
 
 router.post("/register", registerUser);
@@ -24,7 +28,13 @@ router.post("/chPassword", changePassword);
 router.post("/fClOtp", fClOtp);
 router.post("/subPassword", updatePassword);
 router.post("/logout", clientLogout);
+router.post('/search',searchShop);
 
 router.get('/',userAuth,getHome);
+router.get('/getUser',getUser);
+
+//bookingsuccess
+router.post("/booked",successBook);
+router.get("/details",userAuth,bookedDetails);
 
 export default router;

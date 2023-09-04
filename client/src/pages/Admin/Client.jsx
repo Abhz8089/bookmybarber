@@ -54,6 +54,7 @@ const Client = () => {
       selector: (row) => row.email,
       sortable: true,
     },
+ 
     {
       name: "Date",
       selector: (row) => {

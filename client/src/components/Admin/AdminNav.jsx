@@ -26,6 +26,7 @@ const Navbars = () => {
       dispatch(logoutAdmin());
       setAdminData({})
       Navigate('/ad/admin')
+      toast.success('Logout success')
       
     } catch (error) {
       console.log(error)

@@ -40,6 +40,9 @@ const shopSchema = mongoose.Schema(
       type:Boolean,
       default:false
 
+    },
+    photos:{
+      type:[String]
     }
    
 
