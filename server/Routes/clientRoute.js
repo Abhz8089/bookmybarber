@@ -16,7 +16,11 @@ import {
   searchShop,
 } from "../Controllers/clientController.js";
 
-import {successBook ,bookedDetails } from "../Controllers/successController.js";
+import {
+  successBook,
+  bookedDetails,
+  cancelBooking,
+} from "../Controllers/successController.js";
 
 
 router.post("/register", registerUser);
@@ -36,5 +40,8 @@ router.get('/getUser',getUser);
 //bookingsuccess
 router.post("/booked",successBook);
 router.get("/details",userAuth,bookedDetails);
+router.post('/cancel',cancelBooking);
+
+//-----getstyle page-------------
 
 export default router;

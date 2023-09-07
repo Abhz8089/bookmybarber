@@ -4,6 +4,10 @@ import { Toaster ,toast} from "react-hot-toast";
 
 
 import Home from "./pages/Client/Home";
+import Style from './pages/CommonPages/Style'
+import About from "./pages/CommonPages/About";
+
+
 import Login from "./pages/Client/Login";
 import Register from "./pages/Client/Register";
 import Otpclient from "./pages/Client/Otp";
@@ -15,6 +19,7 @@ import FilterPage from "./pages/Client/FilterPage";
 import SuccessPage from "./pages/Client/successPage";
 import Details from "./pages/Client/Details";
 
+
 import SLogin from './pages/Shop/ShopLogin';
 import SRegister from './pages/Shop/ShopRegister';
 import SOtp from './pages/Shop/ShopOtp';
@@ -23,6 +28,8 @@ import ChangedPassword from './pages/Shop/ChangePassword'
 import Bookings from './pages/Shop/Bookings'
 import ScheduleDetails from "./pages/Shop/ScheduleDetails";
 import Profile from "./pages/Shop/Profile";
+import StyleImg from "./pages/Shop/ShowStyleImg"
+import ShowShopImg from "./pages/Shop/ShowShopImages";
 
 import AdminLogin from "./pages/Admin/Login";
 import BeauticianD from "./pages/Admin/BeauticianD";
@@ -33,6 +40,8 @@ import ErrorPage from "./pages/Error/ErrorPage";
 import './App.css'
 import { useSelector } from "react-redux";
 import shop from "../../server/Models/shopModel";
+
+
 axios.defaults.baseURL = 'http://localhost:5000'
 axios.defaults.withCredentials = true;
 
@@ -55,7 +64,6 @@ function App() {
       ></Toaster>
 
       <Routes>
-
         <Route path="*" element={<ErrorPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -63,20 +71,18 @@ function App() {
         <Route path="/chPOtp" element={<ChPassword />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/" element={<Home />} />
-       
+        <Route path="/style" element={<Style />} />
+        <Route path="/about" element={<About />} />
 
         <Route path="/s/sLogin" element={<SLogin />} />
         <Route path="/s/sRegister" element={<SRegister />} />
         <Route path="/s/sOtp" element={<SOtp />} />
         <Route path="/s/sChOTP" element={<UpdateFOTP />} />
         <Route path="/s/sChangePassword" element={<ChangedPassword />} />
-        
 
         <Route path="/ad/admin" element={<AdminLogin />} />
         <Route path="/ad/beautician" element={<BeauticianD />} />
         <Route path="/ad/clients" element={<Client />} />
-
-      
 
         {user ? (
           <Route path="/s/sBookings" element={<Bookings />} />
@@ -92,6 +98,16 @@ function App() {
           <Route path="/s/sProfile" element={<Profile />} />
         ) : (
           <Route path="/s/sProfile" element={<ErrorPage />} />
+        )}
+        {user ? (
+          <Route path="/s/sStyleImg" element={<StyleImg />} />
+        ) : (
+          <Route path="/s/sStyleImg" element={<ErrorPage />} />
+        )}
+        {user ? (
+          <Route path="/s/sGetShopImg" element={<ShowShopImg />} />
+        ) : (
+          <Route path="/s/sGetShopImg" element={<ErrorPage />} />
         )}
 
         {/* Protect routes for clients */}

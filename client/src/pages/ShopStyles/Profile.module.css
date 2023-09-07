@@ -62,10 +62,74 @@ background-size: cover;
      
   border: none;
   cursor: pointer;
+  box-shadow: 2px 2px 2px 2px rgb(20, 20, 20);
   transition: background-color 0.3s ease;
 
 }
 
 .upload:active {
-  background-color: #4d7aab; /* Your button's active background color */
+  background-color: #4d7aab; 
 }
+
+.addImg{
+    width: 2rem;
+
+
+}
+
+.imageContainer {
+  position: relative; 
+
+  display: inline-block; 
+
+}
+
+
+.overlayText {
+  position: absolute; 
+ top: -70%;  
+  left: 50%;  
+
+  transform: translate(-50%, -50%); 
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0); 
+  padding: 5px 10px; 
+  border-radius: 4px;
+  
+  font-size: 10px; 
+  display: none; 
+}
+
+.imageContainer:hover .overlayText {
+  display: block;
+  cursor: pointer;
+}
+
+
+
+/* YourStyles.module.css */
+
+.container {
+  display: inline-block; /* Make sure the elements are inline-block to respect the adjacent sibling selector */
+  position: relative; /* Position relative so child elements can be positioned relative to this container */
+}
+
+.faeye {
+  margin-left: 20px;
+  width: 25px;
+}
+
+.viewImage {
+  display: none;
+  position: absolute;
+  color:white;
+  top: 100%; 
+  left: 50%;
+  font-size: small;
+  transform: translateX(-50%);
+}
+
+.faeye:hover + .viewImage {
+  display: block;
+}
+

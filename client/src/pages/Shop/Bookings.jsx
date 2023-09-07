@@ -12,16 +12,19 @@ import Navbar from '../../components/Shop/Navbar'
 import SubNav from '../../components/Shop/SubNav';
 import Footer from '../../components/Footer'
 import Styles from '../ShopStyles/Bookings.module.css';
+import { logoutShop } from "../../globelContext/clientSlice";
 import EmployeeFormModal from '../../components/ModalComponent/EmployeeFormModal';
 import EmployeeFormModalForDate from '../../components/ModalComponent/EmployeeFormModalForDate'
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 
 
 const Bookings = () => {
 
   const Navigate = useNavigate()
+  const dispatch = useDispatch()
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalForDateOpen, setIsModalForDateOpen] = useState(false);
@@ -29,7 +32,7 @@ const Bookings = () => {
     const [records,setRecords]=useState([])
 
 
-//search -----------
+
 
 
     //edit date-------------
@@ -59,7 +62,8 @@ const Bookings = () => {
          
           if (data.message ) {
             toast.error("Something went wrong please do re-login");
-            Navigate
+             dispatch(logoutShop())
+            Navigate('/s/sLogin')
           }else{
 
           setRecords(data);
@@ -142,6 +146,7 @@ const Bookings = () => {
           sortable: true,
           cell: renderDateWithEditIcon,
         },
+       
         {
           name: "Access",
           selector: (row) => row.access,

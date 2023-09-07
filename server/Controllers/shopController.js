@@ -426,6 +426,8 @@ const uploadFile = async (req,res) => {
  
 }
 
+
+
 const getImg = async(req,res) => {
 try {
    const id = req.params.id
@@ -440,6 +442,49 @@ try {
   console.log(error)
 }
 
+}
+
+
+const getShopImages = async (req, res) => {
+  try {
+     const token = getToken(req)
+    const data = getData(token)
+    const details = await shop.find({_id:data.id});
+    
+    if(!details.length){
+      return res.json({error:'Something went wrong please re login'})
+    }
+    return res.json(details)
+
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+const deleteShopImg =async (req,res)=> {
+  const imgName= req.params.id;
+   const token = getToken(req);
+   const data = getData(token);
+   const id = data.id;
+try {
+  const updatedShop = await Shop.findByIdAndUpdate(
+    id,
+    { $pull: { photos: imgName } },
+    { new: true }
+  );
+
+  if (!updatedShop) {
+    
+    return res.json({error:'Shop document not found'})
+  } else {
+    const details = await shop.find({_id:id})
+    return res.json(details)
+    
+  }
+} catch (error) {
+  console.error("Error:", error);
+  
+}
 }
 
 const shopLogout = async (req, res) => {
@@ -460,5 +505,8 @@ export {
   fShOtp,
   updatedPassword,
   shopLogout,
-  uploadFile,getImg
+  uploadFile,
+  getImg,
+  getShopImages,
+  deleteShopImg,
 };

@@ -12,8 +12,11 @@ import {
   updatePassword,
   fShOtp,
   updatedPassword,
-  shopLogout,uploadFile,getImg
- 
+  shopLogout,
+  uploadFile,
+  getImg,
+  getShopImages,
+  deleteShopImg,
 } from "../Controllers/shopController.js";
 
 import {
@@ -28,7 +31,8 @@ import {
 } from "../Controllers/addEmployeeController.js";
 
 
-import {Bookings } from '../Controllers/successController.js'
+import {Bookings } from '../Controllers/successController.js';
+import {uploadStyleImage,getStyleImg,getStyleImgInProfile,deleteImgStyle} from '../Controllers/styleController.js';
 
 router.post("/sRegister", ShopRegister);
 router.post("/shopOtp",submitOtpShop)
@@ -39,7 +43,10 @@ router.post("/FShOTP", fShOtp);
 router.post("/sSubPassword", updatedPassword);
 router.post("/sLogout", shopLogout);
 router.post("/sUpload",upload.array('images',5) ,uploadFile);
+
 router.get("/sGetImg/:id", userAuth, getImg);
+router.get("/sGetShopImg", getShopImages);
+router.delete("/sDeleteShopImg/:id",deleteShopImg);
 
 //addEmployee route ---------------------------
 router.post("/sAddEmployee", addEmployee);
@@ -54,5 +61,12 @@ router.delete('/delEm/:id',deletEmpl)
 //slots details.........................
 
 router.get("/sSchedule",Bookings);
+
+//style details..............................
+router.post("/sStyleImage", upload.single("images", 1), uploadStyleImage);
+router.get("/style",getStyleImg);
+router.get('/sGetImg',getStyleImgInProfile);
+router.delete("/sDeleteImg/:id",deleteImgStyle);
+
 
 export default router;

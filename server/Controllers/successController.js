@@ -8,7 +8,7 @@ import {getData} from '../utils/getDetails.js'
 
 const successBook =async(req,res)=>{
     try {
-      const { time, id, Employee, selectedDate, services } = req.body;
+      const { time, id, Employee, date, services } = req.body;
 
      const barberShopId = await Book.find(
        { _id: id },
@@ -41,7 +41,7 @@ const successBook =async(req,res)=>{
             employeeName: originalEmployee[0].employeeName,
             time: time,
             service: services,
-            date: selectedDate,
+            date: date,
           });
         
           if(successful){
@@ -69,7 +69,8 @@ const bookedDetails = async (req,res) => {
             const data = getData(token)
           
             const details = await success.find({ userId: data.userId });
-            return res.json(details)
+               const reversedDetails = details.reverse();
+            return res.json(reversedDetails)
         }else{
             return res.json({error:'Please re-Login'})
         }
@@ -97,4 +98,32 @@ const Bookings = async (req,res) => {
       }
 }
 
-export {successBook,bookedDetails,Bookings}
+    const cancelBooking = async (req,res) => {
+      try {
+         
+        const { id } = req.body;
+            const updatedDocument = await success.findOneAndUpdate(
+              { _id:id },
+              { status: false }, // Set the new status value
+              { new: true } // To get the updated document
+            );
+
+            if (!updatedDocument) {
+              return res.json({error:"Document not found"})
+            } else {
+              const token = await getToken(req)
+              const data = await getData(token)
+             
+              const booking = await success.find({userId:data.userId})
+             
+              res.json(booking)
+            }
+
+      } catch (error) {
+        console.log(error)
+      }
+
+
+    }
+
+export {successBook,bookedDetails,Bookings,cancelBooking}

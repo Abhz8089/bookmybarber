@@ -71,10 +71,10 @@ const Navbars = () => {
               <span className="line">||</span>
             </li>
             <li>
-              <NavLink to="/projects">STYLES</NavLink>
+              <NavLink to="/style">STYLES</NavLink>
             </li>
             <li>
-              <NavLink to="/about">
+              <NavLink to="/s/sBookings">
                 <span className="specialLink">YOUR&nbsp;BOOKINGS</span>
               </NavLink>
             </li>

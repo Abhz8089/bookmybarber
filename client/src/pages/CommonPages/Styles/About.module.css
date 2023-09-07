@@ -1,0 +1,68 @@
+.body {  
+    height: 55rem;
+    margin: 0 auto;
+    max-width: 100%;
+    background: url(../../../../public/contentImages/Group\ 24.png);    
+    background-size: cover; 
+    display: flex;   
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center text horizontally */
+}
+
+.head {
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 120px;
+    text-shadow: -.5px -.5px 0 #ffffff, .5px -.5px 0 #ffffff, -.5px .5px 0 #ffffff, .5px .5px 0 #ffffff;
+    animation: scrollAnimation 1s ease-in-out; 
+}
+
+/* Define the animation */
+@keyframes scrollAnimation {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-10px); 
+        opacity: 0.5; 
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.subbody {
+    min-height: 150vh;
+    background: linear-gradient(180deg, #000000 0%, rgba(217, 217, 217, 0.00) 100%);
+    text-align: center; /* Center text horizontally */
+}
+
+.text {
+    padding: 20rem 0; /* Add padding for better spacing */
+    max-width: 800px; /* Limit the text width for readability */
+    margin: 0 auto; /* Center text within the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Set text color */
+    font-size: 18px; /* Set font size */
+}
+
+.text p {
+    margin-bottom: 1rem; /* Add space between paragraphs */
+}
+
+.text ul {
+    list-style-type: disc; /* Use bullets for unordered list */
+    padding-left: 20px; /* Add left padding to the list */
+    margin-top: 1rem; /* Add space above the list */
+}
+
+.h2{
+    margin-left: -4rem;
+}

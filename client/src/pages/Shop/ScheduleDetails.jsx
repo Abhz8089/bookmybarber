@@ -88,6 +88,18 @@ const ScheduleDetails = () => {
        },
        sortable: true,
      },
+     {
+       name: "Status",
+       selector: (row) => {
+         if (row.status) {
+           return (
+           <span style={{color:'green'}}>Active</span>
+           );
+         } else {
+           return <span style={{ color: "red" }}>Cancelled</span>;
+         }
+       },
+     },
      // {
      //   name: "Access",
      //   selector: (row) => row.access,

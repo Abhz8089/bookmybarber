@@ -1,0 +1,32 @@
+.profileBody{
+    min-height: 100vh;
+    background: linear-gradient(360deg, #0D0B0B 0%, #FFF 0.01%, #767C7D 55.43%, #2E2F2E 85.41%);
+        background-image: url('../../../public/contentImages/profileback.jpg');
+background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.profile_subBody{
+    background-color: #c7bfbfad;
+    
+    background-size: cover;
+    width: 40%;
+    height: 30rem;
+    border-radius: 7px;
+     border: 2px solid rgb(11, 10, 10);
+  margin: 20px; 
+  padding: 20px; 
+  position: relative;
+  
+   
+}
+
+.styleImg{
+    height: 26rem;
+}
+
+.deleteIcon{
+    margin-top: 2rem;
+}

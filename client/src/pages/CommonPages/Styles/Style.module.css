@@ -1,0 +1,110 @@
+.body{  
+    height: 55rem;
+    margin: 0 auto;
+    max-width: 100%;
+    background:url(../../../../public/contentImages/bannerHairStyle.png);    
+    background-size: cover; 
+    display: flex;   
+    align-items: center;
+    justify-content: center;
+}
+.head{
+    color:#000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 120px;
+     text-shadow: -.5px -.5px 0 #ffffff, .5px -.5px 0 #ffffff, -.5px .5px 0 #ffffff, .5px .5px 0 #ffffff;
+}
+/* Define the animation */
+@keyframes scrollAnimation {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-10px); 
+        opacity: 0.5; 
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+.head{
+    animation: scrollAnimation 1s ease-in-out; 
+    
+
+}
+
+.heading{
+       background: linear-gradient(90deg, red, white);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.fade{
+    margin-top: -5rem;
+    height: 10rem;
+    background-image: linear-gradient(180deg,transparent,#010101,rgba(22, 19, 19, 0.989));
+}
+
+.main{
+   
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    
+}
+.first{
+
+    height: 90vh;
+     
+     background: linear-gradient(90deg, #0D0B0B 0%, #FFF 0.01%, rgba(106, 106, 106, 0.86) 43.08%, rgba(41, 41, 41, 0.91) 72.06%, #070707 98.05%);
+      background-size: cover;    
+    display: flex;
+    align-items: center;
+     justify-content: center;
+     position: relative;
+}
+.second{
+   height: 90vh;
+    background-color: rgb(0, 255, 89);
+}
+.third{
+   height: 90vh;
+    background-color: rgb(16, 39, 159);
+    margin-bottom: 3rem;
+}
+.img{
+    height: 80vh;
+   
+}
+.carousal{
+    width: 40rem;
+    position: absolute;
+}
+.headingdiv{
+     background-image: linear-gradient(0deg,transparent,rgba(91, 87, 87, 0.989),rgba(30, 29, 29, 0.989),#000000);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+.footer{
+    height: 3rem;
+}
+
+@media (max-width:678px) {
+    .carousal{
+    width: 20rem;
+    position: absolute;
+}
+.head{
+    color:#000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 70px;
+     text-shadow: -.5px -.5px 0 #ffffff, .5px -.5px 0 #ffffff, -.5px .5px 0 #ffffff, .5px .5px 0 #ffffff;
+}
+}

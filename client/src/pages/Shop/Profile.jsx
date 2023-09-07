@@ -1,21 +1,36 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Navbar from "../../components/Shop/Navbar";
 import Footer from "../../components/Footer";
 import SubNav from "../../components/Shop/SubNav";
 import Styles from "../ShopStyles/Profile.module.css";
-import { IoMdCamera } from "react-icons/io";
+
 import userIcon from "../../../public/contentImages/User_circle.png";
 import userIconGif from "../../../public/contentImages/icons8-shop.gif";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import addImg from '../../../public/contentImages/a.png'
+import { FaEye } from "react-icons/fa";
+
+import AddImageModal from "../../components/ModalComponent/AddImageModal";
 
 const Profile = () => {
   const fileInputRef = useRef(null);
-  
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const Navigate = useNavigate()
+
+     const openModal = () => {
+       setIsModalOpen(true);
+     };
+
+      const closeModal = () => {
+          setIsModalOpen(false);
+      };
 
   const handleFileSelect = (e) => {
+
     e.preventDefault();
+
 
     const formData = new FormData();
     for (const file of fileInputRef.current.files) {
@@ -24,8 +39,7 @@ const Profile = () => {
     }
 
     axios.post("/s/sUpload", formData).then(({data}) => {
-       console.log(data)
-       console.log('-----------------------------------profilepage data---------------------')
+      
        
       if(data.error){
         
@@ -63,18 +77,48 @@ const Profile = () => {
             <h4>ZIP CODE &nbsp;&nbsp;:&nbsp;&nbsp;123456</h4>
           </div>
           <form onSubmit={handleFileSelect}>
+            <label htmlFor="images">Upload your images..</label>
             <input
               type="file"
               name="images"
               accept="image/*"
+              placeholder="upload your image"
               multiple
               ref={fileInputRef}
             />
-            <button type="submit" className={Styles.upload} >Upload</button>
+
+            <button type="submit" className={Styles.upload}>
+              Upload
+            </button>
+            <div className={Styles.container}>
+              <FaEye
+                className={Styles.faeye}
+                onClick={() => Navigate("/s/sGetShopImg")}
+              />
+              <i className={Styles.viewImage}>View added Images</i>
+            </div>
           </form>
+
+          <div className={Styles.imageContainer}>
+            <div className={Styles.overlayText}>Add Hair Styles</div>
+            <img
+              className={Styles.addImg}
+              src={addImg}
+              onClick={openModal}
+              alt=""
+            />
+          </div>
+          <div className={Styles.container}>
+            <FaEye
+              className={Styles.faeye}
+              onClick={() => Navigate("/s/sStyleImg")}
+            />
+            <i className={Styles.viewImage}>View Image</i>
+          </div>
         </div>
       </div>
       <Footer />
+      <AddImageModal isOpen={isModalOpen} onRequestClose={closeModal} />
     </>
   );
 };

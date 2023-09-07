@@ -16,13 +16,14 @@ import { useNavigate } from "react-router-dom";
 
 const ShopLists = () => {
   const [shop, setShop] = useState([])
+  const [img,setImg] = useState([])
   const dispatch = useDispatch()
   const Navigate = useNavigate()
   const shoplist = useSelector((state) => state.client.shopList);
   useEffect(() => {
     if (shoplist) {
       setShop(shoplist);
-     
+      setImg(img);
     }
     
   }, [shoplist]);
@@ -49,11 +50,20 @@ const ShopLists = () => {
       <div className={Style.container}>
         {shop.map((list, key) => (
           <Card key={key} className={Style.card}>
-            <Card.Img
-              className={Style.image}
-              variant="top"
-              src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-            />
+            {list.photos.length ? (
+              <Card.Img
+                className={Style.image}
+                variant="top"
+                src={`../../../uploads/${list.photos[0]}`}
+              />
+            ) : (
+              <Card.Img
+                className={Style.image}
+                variant="top"
+                src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyc2hvcHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+              />
+            )}
+
             <Card.Body className={Style.cardBody}>
               <Card.Title>
                 {" "}
@@ -63,7 +73,11 @@ const ShopLists = () => {
                 {" "}
                 <i>{list.address}</i>{" "}
               </Card.Text>
-              <Button className={Style.button} onClick={()=>goShop(list._id)} variant="primary">
+              <Button
+                className={Style.button}
+                onClick={() => goShop(list._id)}
+                variant="primary"
+              >
                 CHECK
               </Button>
             </Card.Body>

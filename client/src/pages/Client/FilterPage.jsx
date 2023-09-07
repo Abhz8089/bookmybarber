@@ -2,26 +2,26 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import DatePicker from "react-datepicker";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 import "react-datepicker/dist/react-datepicker.css";
-
-import img1 from "../../../public/contentImages/image1.jpg";
-import img2 from "../../../public/contentImages/image2.jpg";
-import img3 from "../../../public/contentImages/image3.jpg";
-import img4 from "../../../public/contentImages/image5.png";
-
 import userIcon from "../../../public/contentImages/userIcon.gif";
+import Style from "../ClientStyles/FilterPage.module.css";
 
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
 import { employeeList as saveEmploye } from "../../globelContext/clientSlice";
-
-import Style from "../ClientStyles/FilterPage.module.css";
-
-import { useSelector, useDispatch } from "react-redux";
 import { shop } from "../../globelContext/clientSlice";
-import { toast } from "react-hot-toast";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
+import slot from "../../../../server/Models/SlotModel";
+
+
+
+
 
 const FilterPage = () => {
   const Navigate = useNavigate();
@@ -36,20 +36,29 @@ const FilterPage = () => {
   const [finalEmployee, setFinalEmployee] = useState([]);
   const [finalServices, setFinalServices] = useState([]);
   const [slots, setSlots] = useState([]);
-  const [img,setImg] = useState([])
+  const [img,setImg] = useState([]);
+  const [isCaptchaOpen,setIsCaptchaOpen] = useState(false);
+  const [timSlot,setTimeSlot]= useState('')
+  const [id,setId] = useState('')
+
+
+ 
 
   const employeeList = useSelector((state) => state.client.employeeList);
   const oneShop = useSelector((state) => state.client.shopDetails);
+
+  const setDataForCaptcha=(slot,id)=>{
+    setTimeSlot(slot)
+    setId(id)
+     setIsCaptchaOpen(true);
+  }
+
 
   useEffect(() => {
     async function getImage() {
       try {
         const { data } = await axios.get(`/s/sGetImg/${oneShop[0]._id}`);
-        console.log(data)
-        console.log('-------------------------data of images-----------------------')
         setImg(data)
-        
-
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong");
@@ -114,8 +123,7 @@ const FilterPage = () => {
 
   const submitFilterdData = async () => {
     try {
-      console.log(finalEmployee);
-      console.log(selectedDate);
+    
 
       const valuesArray = finalServices.map((option) => option.value);
 
@@ -147,32 +155,16 @@ const FilterPage = () => {
     }
   };
 
-  const bookNow = async (time, id) => {
-    try {
-      const valuesArray = finalServices.map((option) => option.value);
-      const { data } = await axios.post("/booked", {
-        time,
-        id,
-        Employee: finalEmployee.value,
-        selectedDate,
-        services: valuesArray,
-      });
-      if (data.error) {
-        toast.error(data.error);
-      } else {
-        Navigate("/success");
-        toast.success("Slot booking success");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
-    }
-  };
   const currentDate = new Date();
+
+
+
+  const closeModal =()=> {
+    setIsCaptchaOpen(false)
+  }
   return (
     <>
       <Navbar />
-
       <div className={Style.container}>
         <DatePicker
           className={Style.selectMulti}
@@ -217,7 +209,7 @@ const FilterPage = () => {
           ) : (
             <></>
           )}
-        
+
           {img.length ? (
             <>
               {img.map((imageName, index) => (
@@ -232,8 +224,6 @@ const FilterPage = () => {
           ) : (
             <></>
           )}
-
-         
         </div>
       </div>
       {active ? (
@@ -248,7 +238,7 @@ const FilterPage = () => {
                   </div>
                   {data.Time.map((timeSlot, index) => (
                     <button
-                      onClick={() => bookNow(timeSlot.time, data._id)}
+                      onClick={() => setDataForCaptcha(timeSlot.time, data._id)}
                       key={index}
                       style={{
                         color: "white",
@@ -265,9 +255,45 @@ const FilterPage = () => {
           </div>
         </>
       ) : (
+        // <>
+        //   <div className={Style.hello}>
+        //     <div className={Style.contentContainer}>
+        //       {slots.map((data, key) => (
+        //         <div className={Style.contentRow} key={key}>
+        //           <div className={Style.iconBody}>
+        //             <img src={userIcon} alt="" />
+        //             <i>{data.employeeName}</i>
+        //           </div>
+        //           {data.Time.map((timeSlot, index) => (
+        //             <button
+        //               onClick={() => bookNow(timeSlot.time, data._id)}
+        //               key={index}
+        //               style={{
+        //                 color: "white",
+        //                 background: "black",
+        //                 borderRadius: "4px",
+        //               }}
+        //             >
+        //               <span>{timeSlot.time}</span>
+        //             </button>
+        //           ))}
+        //         </div>
+        //       ))}
+        //     </div>
+        //   </div>
+        // </>
         <></>
       )}
       <Footer />
+      <CaptchaModal
+        isOpen={isCaptchaOpen}
+        onRequestClose={closeModal}
+        isSlot={timSlot}
+        id={id}
+        services={finalServices}
+        employee={finalEmployee}
+        date={selectedDate}
+      />
     </>
   );
 };

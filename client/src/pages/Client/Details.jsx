@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import DataTable from "react-data-table-component";
 import { toast } from 'react-hot-toast';
 import Styles from '../ClientStyles/Details.module.css'
-
+import Swal from 'sweetalert2'
 import Navbars from '../../components/users/Navbar';
 import Footer from '../../components/Footer';
+
 
 const Details = () => {
 const [records, setRecords] = useState([])
@@ -63,28 +64,52 @@ const [records, setRecords] = useState([])
             {
               name: "Shop Name",
               selector: (row) => row.shopName,
-              sortable:true,
-            }
-            // {
-            //   name: "Access",
-            //   selector: (row) => row.access,
+              sortable: true,
+            },
+          
 
-            //   cell: (row) => (
-            //     <div>
-            //       {/* {row.access ? "Allowed" : "Denied"} */}
-            //       <button
-            //         className={
-            //           row.access ? Styles.redButton : Styles.greenButton
-            //         }
-            //         onClick={() => handleAccessClick(row._id)}
-            //       >
-            //         {row.access ? "Hide" : "UnHide"}
-            //       </button>
-            //     </div>
-            //   ),
-            // },
+            {
+              name: "Status",
+              selector: (row) => {
+                if (row.status) {
+                  return (
+                    <button style={{backgroundColor:'blueviolet',outline:'none',width:'4rem',height:'2rem',borderRadius:'3px'}} onClick={() => handleCancel(row._id)}>Cancel</button>
+                  );
+                } else {
+                  return <span style={{ color: "red" }}>Cancelled</span>;
+                }
+              },
+             
+            },
           ];
 
+
+          const handleCancel = async(id) =>{
+            try {
+              Swal.fire({
+                title: "Do you want to Cancel Booking?",
+                // showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                denyButtonText: `NO`,
+              }).then(async(result) => {
+                
+                if (result.isConfirmed) {
+                     const {data} = await axios.post('/cancel',{id})
+              if(data.error){
+                toast.error(data.error)
+              }else{
+                setRecords(data)
+              }
+                  Swal.fire("Cancelled", "", "success");
+                }
+              });
+           
+            } catch (error) {
+              console.log(error)
+              toast.error('Something went wrong')
+            }
+          }
           useEffect(() => {
            
           async function getDetails(){
@@ -110,9 +135,10 @@ const [records, setRecords] = useState([])
     <>
     <Navbars/>
       <div className={Styles.body}>
-        <div style={{ padding: "50px 10%" }}>
+        <div style={{ padding: "50px 10%" , marginBottom:'17px'}}>
        
           <DataTable
+          
             columns={column}
             data={records}
             customStyles={customStyles}

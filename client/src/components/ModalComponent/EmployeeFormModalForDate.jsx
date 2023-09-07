@@ -45,7 +45,7 @@ const EmployeeFormModalForDate = ({
       toast.error("something went wrong");
     }
   };
-
+    const currentDate = new Date();
   return (
     <Modal
       isOpen={isOpen}
@@ -62,6 +62,7 @@ const EmployeeFormModalForDate = ({
           onChange={handleDateChange}
           dateFormat="dd/MM/yyyy"
           placeholderText="Select a date"
+          minDate={currentDate}
           showIcon={true}
         />
       </div>
@@ -69,6 +70,7 @@ const EmployeeFormModalForDate = ({
         <button className={Styles.button} onClick={handleSubmit}>
           Submit
         </button>
+       
       </div>
       <FaTimes onClick={onRequestClose}></FaTimes>
     </Modal>

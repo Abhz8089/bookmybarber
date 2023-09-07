@@ -112,7 +112,7 @@ const Home = () => {
               <div className={style.maskedImage}></div>
               <h1
                 className={style.h1}
-                style={{ color: "white", textDecoration: "underline" }}
+                style={{ color: "black", textDecoration: "underline" }}
               >
                 FOR CLIENT
               </h1>
@@ -156,7 +156,7 @@ const Home = () => {
               <div className={style.maskedImage}></div>
               <h1
                 className={style.h1}
-                style={{ color: "white", textDecoration: "underline" }}
+                style={{ color: "black", textDecoration: "underline" }}
               >
                 FOR SHOP
               </h1>

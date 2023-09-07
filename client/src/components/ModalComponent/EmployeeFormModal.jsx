@@ -70,7 +70,7 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
 
    
     }
-
+ const currentDate = new Date();
 
   return (
     <Modal
@@ -94,8 +94,8 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
       </div>
       <div className={Styles.form_group}>
         <label className={Styles.label}>Time</label>
-        <CreatableSelect 
-        placeholder='Add Time yy:yy format....'
+        <CreatableSelect
+          placeholder="Add Time yy:yy format...."
           value={time}
           onChange={(selectedOptions) => {
             setTime(selectedOptions);
@@ -107,7 +107,7 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
       <div className={Styles.form_group}>
         <label className={Styles.label}>Services</label>
         <CreatableSelect
-          placeholder='Add Services....'
+          placeholder="Add Services...."
           value={services}
           onChange={(selectedOptions) => {
             setServices(selectedOptions);
@@ -124,6 +124,7 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
           onChange={handleDateChange}
           dateFormat="dd/MM/yyyy"
           placeholderText="Select a date"
+          minDate={currentDate}
           showIcon={true}
         />
       </div>
