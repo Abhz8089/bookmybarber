@@ -6,10 +6,13 @@ import Styles from '../ClientStyles/Details.module.css'
 import Swal from 'sweetalert2'
 import Navbars from '../../components/users/Navbar';
 import Footer from '../../components/Footer';
+import { useDispatch } from 'react-redux';
+import { logoutClient } from '../../globelContext/clientSlice';
 
 
 const Details = () => {
 const [records, setRecords] = useState([])
+const dispatch = useDispatch()
        const customStyles = {
          headRow: {
            style: {
@@ -111,12 +114,16 @@ const [records, setRecords] = useState([])
             }
           }
           useEffect(() => {
+
+             
            
           async function getDetails(){
             try {
                 const {data} = await axios.get('/details')
                 if(data.message){
+                    dispatch(logoutClient())
                     toast.error('Something went wrong please do re-login')
+                    
                 }else{
 
                     console.log(data)
@@ -125,6 +132,7 @@ const [records, setRecords] = useState([])
                 }
             } catch (error) {
                 console.log(error)
+                 dispatch(logoutClient());
                 toast.error('Something went wrong ')
             }
           }
@@ -151,4 +159,4 @@ const [records, setRecords] = useState([])
   );
 }
 
-export default Details
+export default Details;

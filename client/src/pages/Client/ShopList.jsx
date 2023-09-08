@@ -1,54 +1,86 @@
 import React, { useEffect, useState } from "react";
 import {Button,Card} from "react-bootstrap";
+import Pagination from "@mui/material/Pagination";
 // import "bootstrap/dist/css/bootstrap.min.css";
-
+import Stack from "@mui/material/Stack";
 
 
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
 
 import Style from "../ClientStyles/ShopList.module.css";
-import {employeeList,shop as saveShop} from '../../globelContext/clientSlice'
+import {employeeList,logoutClient,shop as saveShop,clearShopList} from '../../globelContext/clientSlice'
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+
 const ShopLists = () => {
-  const [shop, setShop] = useState([])
-  const [img,setImg] = useState([])
-  const dispatch = useDispatch()
-  const Navigate = useNavigate()
+  const [shop, setShop] = useState([]);
+  const [img, setImg] = useState([]);
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const shoplist = useSelector((state) => state.client.shopList);
+
+  // Define items per page
+  const itemsPerPage = 3;
+
+  // Track the current page
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
+    const ifUser = async () => {
+      try {
+        const { data } = await axios.get("/ifUser");
+        if (data.error) {
+          dispatch(logoutClient());
+          toast.error(data.error);
+        }
+      } catch (error) {
+        dispatch(logoutClient());
+        toast.error("Server please re login");
+      }
+    };
+    ifUser();
+
     if (shoplist) {
       setShop(shoplist);
       setImg(img);
     }
-    
   }, [shoplist]);
 
-  const goShop=async(id)=>{
+  // Calculate the total number of pages based on the shoplist length and items per page
+  const totalPages = Math.ceil(shoplist.length / itemsPerPage);
+
+  // Calculate the start and end indices of the items to display on the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Slice the shoplist to get the items for the current page
+  const shopsToDisplay = shoplist.slice(startIndex, endIndex);
+
+  const goShop = async (id) => {
     try {
-    const {data} = await axios.post('/s/getEmployee',{id})
-    if(data.error){
-      toast.error(data.error)
-    }else{
-      dispatch(employeeList(data.employee))
-      dispatch(saveShop(data.shop))
-      Navigate('/filter')
-    }
+      const { data } = await axios.post("/s/getEmployee", { id });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        dispatch(employeeList(data.employee));
+        dispatch(saveShop(data.shop));
+        Navigate("/filter");
+      }
     } catch (error) {
-      console.log(error)
-      toast.error('Something went wrong')
+      console.log(error);
+      toast.error("Something went wrong");
     }
-  }
+  };
   return (
     <>
       <Navbar />
 
       <div className={Style.container}>
-        {shop.map((list, key) => (
+        {shopsToDisplay.map((list, key) => (
           <Card key={key} className={Style.card}>
             {list.photos.length ? (
               <Card.Img
@@ -84,6 +116,34 @@ const ShopLists = () => {
           </Card>
         ))}
       </div>
+      {/* <div className={Style.pagination}>
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
+          Previous
+        </button>
+        <span>{currentPage}</span>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </button>
+      </div> */}
+
+      <div className={Style.pagination}>
+        <Stack spacing={2}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(event, page) => setCurrentPage(page)}
+            color="primary"
+            variant="outline"
+          />
+        </Stack>
+      </div>
+
       <Footer />
     </>
   );

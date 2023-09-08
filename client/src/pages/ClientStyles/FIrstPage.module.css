@@ -25,7 +25,6 @@
    display: flex;
    flex-direction: column;
    align-items: center;
- 
   justify-content: center; 
   gap: 1rem; 
 }
@@ -51,12 +50,12 @@
 }
 
 .button:hover {
-  background-color: rgb(60, 55, 55); /* Change the background color on hover */
+  background-color: rgb(60, 55, 55); 
 }
 
 .button:active {
-  background-color: rgb(20, 18, 18); /* Change the background color on click */
-  transform: scale(0.95); /* Add a slight scale effect on click */
+  background-color: rgb(20, 18, 18); 
+  transform: scale(0.95); 
 }
 
 

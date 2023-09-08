@@ -7,6 +7,9 @@ import gClient from "../Models/googleClientModel.js";
 import { comparePassword, hashPassword } from "../Helpers/hashing.js";
 import { otp, transporter } from "../Helpers/otpCreate.js";
 import { createToken, getToken } from "../utils/generateToken.js";
+import { ifUserHave } from "../utils/ifUser.js";
+import { getData } from "../utils/getDetails.js";
+import client from "../Models/clientModel.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -458,6 +461,24 @@ const searchShop = async (req, res) => {
   }
 };
 
+const ifUser = async(req,res) => {
+  try {
+    const result = await ifUserHave(req)
+    if(!result){
+      return res.json({error:"User logged out please re login"})
+    }else{
+      const details = getData(result)
+      const userData = await client.find({_id:details.userId})
+    
+      if(userData[0].isBlock){
+        return res.json({error:'Sorry you cannot enter this website....'})
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   registerUser,
   submitOtp,
@@ -471,4 +492,5 @@ export {
   getHome,
   getUser,
   searchShop,
+  ifUser
 };

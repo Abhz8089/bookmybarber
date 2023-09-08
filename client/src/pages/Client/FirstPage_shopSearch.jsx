@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Navbar from '../../components/users/Navbar'
 import Footer from '../../components/Footer'
@@ -8,7 +8,7 @@ import Style from '../ClientStyles/FirstPage.module.css'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
-import {  shopList} from "../../globelContext/clientSlice";
+import {  logoutClient, shopList} from "../../globelContext/clientSlice";
 import { useNavigate } from 'react-router-dom'
 
 const FirstPage_shopSearch = () => {
@@ -19,6 +19,27 @@ const FirstPage_shopSearch = () => {
     name:''
   })
   // const [name, setName] = useState('')
+  
+  useEffect(() => {
+   
+    const ifUser = async ()=>{
+      try {
+        const {data} = await axios.get('/ifUser')
+        if(data.error){
+            dispatch(logoutClient());
+            toast.error(data.error);
+        }
+
+      } catch (error) {
+        dispatch(logoutClient())
+        toast.error('Server please re login')
+      }
+    }
+   ifUser()
+   
+  }, [])
+  
+
 
 
   const search = async(e)=>{

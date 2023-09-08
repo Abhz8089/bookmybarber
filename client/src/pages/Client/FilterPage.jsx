@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import DatePicker from "react-datepicker";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-
 import "react-datepicker/dist/react-datepicker.css";
 import userIcon from "../../../public/contentImages/userIcon.gif";
 import Style from "../ClientStyles/FilterPage.module.css";
-
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
-import { employeeList as saveEmploye } from "../../globelContext/clientSlice";
+import { logoutClient, employeeList as saveEmploye,clearEmployee } from "../../globelContext/clientSlice";
 import { shop } from "../../globelContext/clientSlice";
 import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
 import slot from "../../../../server/Models/SlotModel";
@@ -39,8 +35,11 @@ const FilterPage = () => {
   const [img,setImg] = useState([]);
   const [isCaptchaOpen,setIsCaptchaOpen] = useState(false);
   const [timSlot,setTimeSlot]= useState('')
-  const [id,setId] = useState('')
+  const [idfor,setId] = useState('')
+  const resultsRef = useRef(null);
+   
 
+ 
 
  
 
@@ -55,6 +54,24 @@ const FilterPage = () => {
 
 
   useEffect(() => {
+
+
+      const ifUser = async () => {
+        try {
+          const { data } = await axios.get("/ifUser");
+          if (data.error) {
+            dispatch(logoutClient());
+            toast.error(data.error);
+          }
+        } catch (error) {
+          dispatch(logoutClient());
+          toast.error("Server please re login");
+        }
+      };
+      ifUser();
+
+
+
     async function getImage() {
       try {
         const { data } = await axios.get(`/s/sGetImg/${oneShop[0]._id}`);
@@ -72,7 +89,14 @@ const FilterPage = () => {
       setShop(oneShop);
       console.log(oneShop);
     }
+
+  
+    
   }, [employeeList, oneShop]);
+  
+
+  
+
 
   useEffect(() => {
     if (employee.length > 0) {
@@ -107,12 +131,16 @@ const FilterPage = () => {
 
   const handleDateChange = async (date) => {
     setSelectedDate(date);
+    
     const dateToMatch = new Date(date);
+    const dateTo = dateToMatch.toISOString()
+    const finalDate= new Date(dateTo);
+ const matchingObjects =  employeeList.filter((item) => {
+   const itemDate = new Date(item.date);
+   return finalDate <= itemDate; 
+ });
+    
 
-    const matchingObjects = employeeList.filter((item) => {
-      const itemDate = new Date(item.date);
-      return itemDate.getTime() === dateToMatch.getTime();
-    });
 
     if (matchingObjects.length) {
       setEmployee(matchingObjects);
@@ -121,32 +149,48 @@ const FilterPage = () => {
     }
   };
 
+   const scrollToResults = () => {
+     // Scroll to the results section when called
+     resultsRef.current.scrollIntoView({ behavior: "smooth" });
+   };
+
   const submitFilterdData = async () => {
     try {
-    
+   
+         let shopIDs; 
 
+         if (shop.length > 0) {
+           let { _id: id } = shop[0];
+           shopIDs = id; 
+         }
       const valuesArray = finalServices.map((option) => option.value);
-
+       
       const { data } = await axios.post("/s/getSlot", {
         Employee: finalEmployee.value,
         selectedDate,
         services: valuesArray,
+        shopId:shopIDs,
+        
       });
+  
       if (data.error) {
         toast.error(data.error);
+        setSlots([])
       } else {
-        console.log(data.details);
-        setSlots(data.details);
-
-        if (data.details.length == 0) {
+      
+        setSlots(data);
+        
+        if (data.length == 0) {
           toast("", {
             icon: "😑Slots unavailable select another options...",
           });
         } else {
           setActive(true);
+
           toast("", {
             icon: "⏬Scroll Down⏬",
           });
+           scrollToResults(); 
         }
       }
     } catch (error) {
@@ -155,7 +199,8 @@ const FilterPage = () => {
     }
   };
 
-  const currentDate = new Date();
+   const today = new Date().toISOString().split("T")[0];
+
 
 
 
@@ -165,15 +210,14 @@ const FilterPage = () => {
   return (
     <>
       <Navbar />
+
       <div className={Style.container}>
-        <DatePicker
-          className={Style.selectMulti}
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="dd/MM/yyyy"
-          minDate={currentDate}
-          placeholderText="Select a date"
-          showIcon={true}
+        <input
+          type="date"
+          className={Style.selector}
+          min={today}
+          value={selectedDate}
+          onChange={(e) => handleDateChange(e.target.value)}
         />
         <Select
           className={Style.selectMulti}
@@ -205,7 +249,9 @@ const FilterPage = () => {
 
         <div className={Style.pic_ctn}>
           {shop.length ? (
-            <h1 className={Style.heading}>{shop[0].businessName}</h1>
+            <div className={Style.h1}>
+              <h1 className={Style.heading}>{shop[0].businessName}</h1>
+            </div>
           ) : (
             <></>
           )}
@@ -214,7 +260,7 @@ const FilterPage = () => {
             <>
               {img.map((imageName, index) => (
                 <img
-                  key={index} // Make sure to set a unique key for each image
+                  key={index}
                   src={`../../../uploads/${imageName}`}
                   alt=""
                   className={Style.pic}
@@ -226,6 +272,7 @@ const FilterPage = () => {
           )}
         </div>
       </div>
+      <div ref={resultsRef} />
       {active ? (
         <>
           <div className={Style.hello}>
@@ -238,7 +285,7 @@ const FilterPage = () => {
                   </div>
                   {data.Time.map((timeSlot, index) => (
                     <button
-                      onClick={() => setDataForCaptcha(timeSlot.time, data._id)}
+                      onClick={() => setDataForCaptcha(timeSlot, data._id)}
                       key={index}
                       style={{
                         color: "white",
@@ -246,7 +293,7 @@ const FilterPage = () => {
                         borderRadius: "4px",
                       }}
                     >
-                      <span>{timeSlot.time}</span>
+                      <span>{timeSlot}</span>
                     </button>
                   ))}
                 </div>
@@ -255,41 +302,15 @@ const FilterPage = () => {
           </div>
         </>
       ) : (
-        // <>
-        //   <div className={Style.hello}>
-        //     <div className={Style.contentContainer}>
-        //       {slots.map((data, key) => (
-        //         <div className={Style.contentRow} key={key}>
-        //           <div className={Style.iconBody}>
-        //             <img src={userIcon} alt="" />
-        //             <i>{data.employeeName}</i>
-        //           </div>
-        //           {data.Time.map((timeSlot, index) => (
-        //             <button
-        //               onClick={() => bookNow(timeSlot.time, data._id)}
-        //               key={index}
-        //               style={{
-        //                 color: "white",
-        //                 background: "black",
-        //                 borderRadius: "4px",
-        //               }}
-        //             >
-        //               <span>{timeSlot.time}</span>
-        //             </button>
-        //           ))}
-        //         </div>
-        //       ))}
-        //     </div>
-        //   </div>
-        // </>
         <></>
       )}
+
       <Footer />
       <CaptchaModal
         isOpen={isCaptchaOpen}
         onRequestClose={closeModal}
         isSlot={timSlot}
-        id={id}
+        id={idfor}
         services={finalServices}
         employee={finalEmployee}
         date={selectedDate}

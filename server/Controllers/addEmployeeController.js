@@ -3,21 +3,27 @@ import moment from "moment-timezone";
 
 import { createToken, getToken } from "../utils/generateToken.js";
 import { getData } from "../utils/getDetails.js";
+import {convertDateFormat} from '../Helpers/DateFormat.js'
 
 import Book from "../Models/SlotModel.js";
 import Shop from "../Models/shopModel.js";
-import slot from "../Models/SlotModel.js";
+import Success from '../Models/successModel.js';
+
+
 
 const addEmployee = async (req, res) => {
+  console.log(req.body)
   try {
     const utcDateString = req.body.details.selectDate;
     const istDateString = moment
       .utc(utcDateString)
       .tz("Asia/Kolkata")
       .format("LLLL");
-    req.body.details.selectDate = istDateString;
+      const formatDate= new Date(istDateString)
+      const betterDate= formatDate.toISOString()
+    req.body.details.selectDate = betterDate;
     let addedDetails = req.body.details;
-
+   
     if (!addedDetails.employeeName) {
       return res.json({ error: "Employee name is required" });
     }
@@ -114,75 +120,154 @@ const getEmployee = async (req, res) => {
 };
 
 const getSlot = async (req, res) => {
+
   try {
-    const utcDateString = req.body.selectedDate;
-    const istDateString = moment
-      .utc(utcDateString)
-      .tz("Asia/Kolkata")
-      .format("LLLL");
-    req.body.selectedDate = istDateString;
+    
 
-    const stringDate = req.body.selectedDate.toString();
 
+    const utcDateString = req.body.selectedDate + "T00:00:00.000Z";
+  
+
+
+    const inputDate=new Date()
+    const outputDateString = convertDateFormat(inputDate);
+    
     if (req.body.Employee == "allBarber") {
-      var details = await Book.find(
+      const bookedDetails = await Success.find(
         {
-          date: stringDate,
-          service: { $in: req.body.services },
-          access: true,
+          shopID: req.body.shopId,
+          date: { $not: { $lte: outputDateString } },
         },
-        { Time: 1, employeeName: 1, _id: 1 }
+        { employeeName: 1, time: 1, date: 1 }
       );
+ 
+   
 
-      if (details.length) {
-        details.forEach((detail) => {
-          detail.Time = detail.Time.filter((timeObj) => timeObj.isAvailable);
+      const details = {
+        date: {$gte:utcDateString},
+        leave:{$ne:utcDateString},
+        shopID: req.body.shopId,
+        service: {
+          $in: req.body.services,
+        },
+        access: true,
+      };
+      let docs = await Book.find(details, {
+        Time: 1,
+        employeeName: 1,
+        _id: 1,
+        date: 1,
+      }).exec();
+     
+    
+   
+      // Iterate through bookedDetails
+      bookedDetails.forEach((booked) => {
+        // Find the matching documentDetails
+        const matchingDocument = docs.find((document) => {
+          return (
+            document.employeeName === booked.employeeName 
+          
+          );
         });
-        const availableTimeObjects = details.filter(
-          (item) => item.Time.length > 0
-        );
 
-        details = availableTimeObjects;
+        // If a matching document is found, filter out the matching time
+        if (matchingDocument) {
+          matchingDocument.Time = matchingDocument.Time.filter((time) => {
+            return time !== booked.time;
+          });
+        }
+      });
 
-        return res.json({ details });
+
+      if (docs.length) {
+         docs = docs.filter((doc) => doc.Time.length > 0);
+         if (docs.length) {
+           return res.json(docs);
+         } else {
+           return res.json({
+             error: "Slot Not available please chose another date",
+           });
+         }
       } else {
         return res.json({ error: "Slot not available" });
       }
     } else {
-      let details = await Book.find(
-        {
-          employeeName: req.body.Employee,
-          date: req.body.selectedDate,
-          service: { $in: req.body.services },
-          access: true,
+
+     
+       const bookedDetails = await Success.find(
+         {
+           employeeName:req.body.Employee,
+           shopID: req.body.shopId,
+           date: { $not: { $lte: outputDateString } },
+         },
+         { employeeName: 1, time: 1, date: 1 }
+       );
+
+      
+      const details = {
+        date: { $gte: utcDateString },
+        employeeName:req.body.Employee,
+        shopID: req.body.shopId,
+        service: {
+          $in: req.body.services,
         },
-        { Time: 1, employeeName: 1, _id: 1 }
-      );
-      if (details.length) {
-        details.forEach((detail) => {
-          detail.Time = detail.Time.filter((timeObj) => timeObj.isAvailable);
-        });
-        let availableTimeObjects = details.filter(
-          (item) => item.Time.length > 0
-        );
-        details = availableTimeObjects;
-        return res.json({ details });
-      } else {
-        return res.json({ error: "Slot not available" });
-      }
+        access: true,
+      };
+      let docs = await Book.find(details, {
+        Time: 1,
+        employeeName: 1,
+        _id: 1,
+        date: 1,
+      }).exec();
+
+       //filtering for get available slots-----------------------------------
+           bookedDetails.forEach((booked) => {
+             // Find the matching documentDetails
+             const matchingDocument = docs.find((document) => {
+               return (
+                 document.employeeName === booked.employeeName &&
+                 document.date === booked.date
+               );
+             });
+
+             // If a matching document is found, filter out the matching time
+             if (matchingDocument) {
+               matchingDocument.Time = matchingDocument.Time.filter((time) => {
+                 return time !== booked.time;
+               });
+             }
+           });
+  //---------------------------------------------------------------------------------------------
+        if (docs.length) {
+          docs = docs.filter((doc) => doc.Time.length > 0);
+          if (docs.length) {
+            return res.json(docs);
+          } else {
+            return res.json({
+              error: "Slot Not available please chose another date",
+            });
+          }
+        } else {
+          return res.json({
+            error: "Slot Not available please chose another date",
+          });
+        }
+         
     }
+  
   } catch (error) {
     console.log(error);
   }
 };
 
  const editDate = async (req, res) => {
-   console.log(req.body)
+  
    
   try {
-     const { selectDate, empId } = req.body.details;
+     let { selectDate, empId } = req.body.details;
      
-     
+      selectDate = convertDateFormat(selectDate)
      
     await Book.findById(empId)
       .then((doc) => {
@@ -190,17 +275,9 @@ const getSlot = async (req, res) => {
           console.error("Document not found");
           return res.Json({error:"Document not found"})
         }
-            const istDateString = moment
-              .utc(selectDate)
-              .tz("Asia/Kolkata")
-              .format("LLLL");
+           
         // Update the date field
-        doc.date = istDateString;
-
-        // Update the Time field
-        doc.Time.forEach((timeSlot) => {
-          timeSlot.isAvailable = true;
-        });
+        doc.date = selectDate;
 
         // Save the updated document
         return doc.save();
@@ -227,10 +304,10 @@ const getSlot = async (req, res) => {
  const deletEmpl = async (req,res) => {
    try {
     const id = req.params.id ;
-   slot.findOneAndDelete({ _id: id })
+   Book.findOneAndDelete({ _id: id })
      .then(async(deletedEmployee) => {
        if (deletedEmployee) {
-    let details  =  await slot.find()
+    let details  =  await Book.find()
        return res.json(details)
 
        } else {
@@ -250,6 +327,42 @@ const getSlot = async (req, res) => {
    }
  }
 
+ const takeLeave =async (req,res) => {
+   try {
+   
+    const {selectDate,empId}=req.body.details;
+    const formatDate=  convertDateFormat(selectDate)
+
+    const isBooking= await Success.find({empId:empId,date:formatDate})
+    if(isBooking.length){
+      const empName= isBooking[0].employeeName;
+      console.log(empName)
+      console.log(selectDate)
+
+      let remainder = `Unfortunately,${empName} is fully booked on the ${selectDate}. Leave requests cannot be accommodated at this Day.`;
+      // return res.json({
+      //   remainder: `Unfortunately,${empName} is fully booked on the ${selectDate}. Leave requests cannot be accommodated at this Day.`,
+      // });
+      return res.json({error:remainder})
+    }
+    
+   const result = await Book.findOneAndUpdate(
+     { _id: empId },
+     { $set: { leave: formatDate } },
+     { new: true } 
+   );
+   if(result){
+    const details= await Book.find()
+    return res.json(details)
+   }else{
+    return res.json({error:'Something went wrong when updating leave try again later'})
+   }
+
+   } catch (error) {
+    console.log(error)
+   }
+ }
+
 export {
   addEmployee,
   getBookings,
@@ -258,4 +371,5 @@ export {
   getSlot,
   editDate,
   deletEmpl,
+  takeLeave
 };

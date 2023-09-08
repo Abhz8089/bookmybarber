@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import Styles from "./Styles/EmployeeForm.module.css"; 
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import {convertToISO8601} from '../../../helpers/ChangeDateFormat.js'
+
 
 import "react-datepicker/dist/react-datepicker.css";
 import CreatableSelect from "react-select/creatable";
@@ -18,12 +20,19 @@ const isValidTime = (time) => {
 };
 
 const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
+
+
  
 
        const [selectedDate, setSelectedDate] = useState(null);
 
        const handleDateChange = (date) => {
          setSelectedDate(date);
+         console.log(date);
+        //  let newDate=  convertToISO8601(date);
+        //  console.log(newDate)
+
+         console.log('somthingwent rong')
        };
 
     const [employeeName, setEmployeeName] = useState('');
@@ -44,15 +53,20 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
      
       try {
            let employee = employeeName.value;
+          //  let selectedDateFormat= new Date(selectedDate);
+          //  let stringDate= selectedDateFormat.toISOString();
+          //  console.log(selectedDateFormat.toISOString());
            const details = {
              employeeName: employee,
-             time: time.map((timeSlot) => ({
-               time: timeSlot.value,
-               isAvailable: true,
-             })),
+             //  time: time.map((timeSlot) => ({
+             //    time: timeSlot.value,
+             //    isAvailable: true,
+             //  })),
+             time: time.map((item) => item.value),
              services: services.map((option) => option.value),
              selectDate: selectedDate,
            };
+
            console.log(details);
            const { data } = await axios.post("/s/sAddEmployee", {
              details,
@@ -70,7 +84,8 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
 
    
     }
- const currentDate = new Date();
+ const today = new Date().toISOString().split("T")[0];
+
 
   return (
     <Modal
@@ -118,14 +133,21 @@ const EmployeeFormModal = ({ isOpen, onRequestClose }) => {
       </div>
       <div className={Styles.form_group}>
         <label className={Styles.label}>Date</label>
-        <DatePicker
+        {/* <DatePicker
           className={Styles.selector}
           selected={selectedDate}
           onChange={handleDateChange}
-          dateFormat="dd/MM/yyyy"
+         
           placeholderText="Select a date"
           minDate={currentDate}
           showIcon={true}
+        /> */}
+        <input
+          type="date"
+          className={Styles.selector}
+          min={today}
+          onChange={(e) => handleDateChange(e.target.value)}
+          value={selectedDate}
         />
       </div>
 

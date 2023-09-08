@@ -14,6 +14,7 @@ import {
   getHome,
   getUser,
   searchShop,
+  ifUser,
 } from "../Controllers/clientController.js";
 
 import {
@@ -36,6 +37,7 @@ router.post('/search',searchShop);
 
 router.get('/',userAuth,getHome);
 router.get('/getUser',getUser);
+router.get("/ifUser",ifUser);
 
 //bookingsuccess
 router.post("/booked",successBook);

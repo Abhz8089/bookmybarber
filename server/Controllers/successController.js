@@ -3,7 +3,8 @@ import success from '../Models/successModel.js'
 import shop from '../Models/shopModel.js';
 import client from '../Models/clientModel.js';
 import {getToken} from '../utils/generateToken.js';
-import {getData} from '../utils/getDetails.js'
+import {getData} from '../utils/getDetails.js';
+import {convertDateFormat} from  '../Helpers/DateFormat.js'
 
 
 const successBook =async(req,res)=>{
@@ -14,34 +15,34 @@ const successBook =async(req,res)=>{
        { _id: id },
        { shopID: 1}
      );
+     let FormattedDate = convertDateFormat(date)
+      
 
      const shopName = await shop.find({ _id: barberShopId[0].shopID });
    
 
-      const result = await Book.updateOne(
-        { _id: id, "Time.time": time },
-        { $set: { "Time.$.isAvailable": false } }
-      );
+      
  
-      const originalEmployee = await Book.find({_id:id},{employeeName:1})
+      const originalEmployee = await Book.find({_id:id},{employeeName:1},)
       
     
-      
-      if(result.modifiedCount>0){
+       
+  
           const token = getToken(req);
 
           const userData = getData(token);
          
           const successful = await success.create({
             shopID: barberShopId[0].shopID,
-            shopName:shopName[0].businessName,
-            shopAddress:shopName[0].address,
+            shopName: shopName[0].businessName,
+            shopAddress: shopName[0].address,
             userId: userData.userId,
-            userName:userData.userName,
+            userName: userData.userName,
             employeeName: originalEmployee[0].employeeName,
+            empId:originalEmployee[0]._id,
             time: time,
             service: services,
-            date: date,
+            date: FormattedDate,
           });
         
           if(successful){
@@ -49,9 +50,7 @@ const successBook =async(req,res)=>{
           }else{
          return res.json({error:'Server error please wait few second or retry'})
           }
-      }else{
-        return res.json({error:"Server error"})
-      }
+    
      
 
         
@@ -81,12 +80,12 @@ const bookedDetails = async (req,res) => {
 }
 
 const Bookings = async (req,res) => {
-  console.log('yah')
+ 
       try {
         const token = getToken(req);
         if (token) {
           const data = getData(token);
-          console.log(data.id)
+       
           const details = await success.find({ shopID: data.id });
           
           return res.json(details);
@@ -122,8 +121,6 @@ const Bookings = async (req,res) => {
       } catch (error) {
         console.log(error)
       }
-
-
     }
 
 export {successBook,bookedDetails,Bookings,cancelBooking}

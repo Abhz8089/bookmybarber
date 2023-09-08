@@ -1,20 +1,4 @@
 import mongoose from "mongoose";
-const timeSlotSchema = mongoose.Schema(
-  {
-    time: {
-      type: String,
-      required: true,
-    },
-    isAvailable: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  {
-    _id: false,
-  }
-);
-
 
 const bookingSchema = mongoose.Schema(
   {
@@ -38,6 +22,10 @@ const bookingSchema = mongoose.Schema(
     },
     employeeName: {
       type: String,
+    },
+    empId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Employee'
     },
     time: {
       type: String,

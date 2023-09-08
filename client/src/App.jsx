@@ -87,54 +87,54 @@ function App() {
         {user ? (
           <Route path="/s/sBookings" element={<Bookings />} />
         ) : (
-          <Route path="/s/sBookings" element={<ErrorPage />} />
+          <Route path="/s/sBookings" element={<Login />} />
         )}
         {user ? (
           <Route path="/s/sSchedule" element={<ScheduleDetails />} />
         ) : (
-          <Route path="/s/sSchedule" element={<ErrorPage />} />
+          <Route path="/s/sSchedule" element={<Login />} />
         )}
         {user ? (
           <Route path="/s/sProfile" element={<Profile />} />
         ) : (
-          <Route path="/s/sProfile" element={<ErrorPage />} />
+          <Route path="/s/sProfile" element={<Login />} />
         )}
         {user ? (
           <Route path="/s/sStyleImg" element={<StyleImg />} />
         ) : (
-          <Route path="/s/sStyleImg" element={<ErrorPage />} />
+          <Route path="/s/sStyleImg" element={<Login />} />
         )}
         {user ? (
           <Route path="/s/sGetShopImg" element={<ShowShopImg />} />
         ) : (
-          <Route path="/s/sGetShopImg" element={<ErrorPage />} />
+          <Route path="/s/sGetShopImg" element={<Login />} />
         )}
 
         {/* Protect routes for clients */}
         {client ? (
           <Route path="/search" element={<FirstPage />} />
         ) : (
-          <Route path="/search" element={<ErrorPage />} />
+          <Route path="/search" element={<Login />} />
         )}
         {client ? (
           <Route path="/shopList" element={<ShopList />} />
         ) : (
-          <Route path="/shopList" element={<ErrorPage />} />
+          <Route path="/shopList" element={<Login />} />
         )}
         {client ? (
           <Route path="/filter" element={<FilterPage />} />
         ) : (
-          <Route path="/filter" element={<ErrorPage />} />
+          <Route path="/filter" element={<Login />} />
         )}
         {client ? (
           <Route path="/success" element={<SuccessPage />} />
         ) : (
-          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/success" element={<Login />} />
         )}
         {client ? (
           <Route path="/details" element={<Details />} />
         ) : (
-          <Route path="/details" element={<Details />} />
+          <Route path="/details" element={<Login />} />
         )}
       </Routes>
     </>

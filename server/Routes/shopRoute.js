@@ -17,6 +17,7 @@ import {
   getImg,
   getShopImages,
   deleteShopImg,
+
 } from "../Controllers/shopController.js";
 
 import {
@@ -27,6 +28,7 @@ import {
   getSlot,
   editDate,
   deletEmpl,
+  takeLeave
   
 } from "../Controllers/addEmployeeController.js";
 
@@ -55,8 +57,8 @@ router.post("/sEditAccess",editAccess);
 router.post('/getEmployee',getEmployee);
 router.post("/getSlot",getSlot);
 router.post("/sEditDate",editDate);
-
-router.delete('/delEm/:id',deletEmpl)
+router.delete('/delEm/:id',deletEmpl);
+router.post("/sTakeLeave", takeLeave);
 
 //slots details.........................
 

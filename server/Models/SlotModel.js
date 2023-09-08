@@ -41,6 +41,10 @@ const slotSchema = mongoose.Schema(
     access:{
       type:Boolean,
       default:false
+    },
+    leave:{
+      type:String,
+      default:"null"
     }
   },
   {

@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 
-const EmployeeFormModalForDate = ({
+const EmployeeFormModalLeave = ({
   isOpen,
   onRequestClose,
   empId,
@@ -31,12 +31,14 @@ const EmployeeFormModalForDate = ({
         empId: empId,
       };
 
-      const { data } = await axios.post("/s/sEditDate", {
+      const { data } = await axios.post("/s/sTakeLeave", {
         details,
       });
       if (data.error) {
-        toast.error(data.error);
-      } else {
+        toast.error(data.error);  
+      } 
+     
+      else {
         onDateUpdate(data);
         onRequestClose();
       }
@@ -45,7 +47,7 @@ const EmployeeFormModalForDate = ({
       toast.error("something went wrong");
     }
   };
-   const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0];
   return (
     <Modal
       isOpen={isOpen}
@@ -53,21 +55,26 @@ const EmployeeFormModalForDate = ({
       className={Styles.modal}
       overlayClassName={Styles.overlay}
     >
-      <h2>Add Employee</h2>
+      <h2>Add Leave</h2>
       <div className={Styles.form_group}>
         <label className={Styles.label}>Date</label>
-  
-        <input type="date" className={Styles.selector} value={selectedDate} min={today} onChange={(e)=>handleDateChange(e.target.value)}  />
+
+        <input
+          type="date"
+          className={Styles.selector}
+          value={selectedDate}
+          min={today}
+          onChange={(e) => handleDateChange(e.target.value)}
+        />
       </div>
       <div className={Styles.button_container}>
         <button className={Styles.button} onClick={handleSubmit}>
           Submit
         </button>
-       
       </div>
       <FaTimes onClick={onRequestClose}></FaTimes>
     </Modal>
   );
 };
 
-export default EmployeeFormModalForDate;
+export default EmployeeFormModalLeave;
