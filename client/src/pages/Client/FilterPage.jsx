@@ -16,6 +16,10 @@ import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
 import slot from "../../../../server/Models/SlotModel";
 
 
+//chat
+import SupportEngine from "../../components/Chat/supportEngine/supportEngine";
+
+import iconLocation from '../../../public/contentImages/map.gif'
 
 
 
@@ -23,7 +27,7 @@ const FilterPage = () => {
   const Navigate = useNavigate();
   const animatedComponents = makeAnimated();
   const dispatch = useDispatch();
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState('');
   const [active, setActive] = useState(false);
   const [employee, setEmployee] = useState([]);
   const [shop, setShop] = useState([]);
@@ -154,9 +158,9 @@ console.log(img)
    };
 
   const submitFilterdData = async () => {
-   
+     console.log("----------------------------------------")
     try {
- 
+         
          let shopIDs; 
 
          if (shop.length > 0) {
