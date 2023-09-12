@@ -53,7 +53,7 @@ const EmployeeFormModalForDate = ({
       className={Styles.modal}
       overlayClassName={Styles.overlay}
     >
-      <h2>Add Employee</h2>
+      <h2>Edit Date</h2>
       <div className={Styles.form_group}>
         <label className={Styles.label}>Date</label>
   

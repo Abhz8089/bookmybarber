@@ -96,14 +96,14 @@ const getEmployee = async (req, res) => {
   try {
     const { id } = req.body;
     const data = await Book.find({ shopID: id });
-    const shopData = await Shop.find({ _id: id }, { businessName: 1 });
+    const shopData = await Shop.find({ _id: id }, { businessName: 1,phoneNumber:1,location:1,address:1 });
 
     if (data) {
-      const currentDate = new Date(); // Get the current date
+      const currentDate = new Date(); 
 
       const filteredData = data.filter((item) => {
-        const itemDate = new Date(item.date); // Convert the item's date to a Date object
-        return itemDate >= currentDate; // Compare the dates
+        const itemDate = new Date(item.date); 
+        return itemDate >= currentDate; 
       });
 
       if (!filteredData.length) {
@@ -120,7 +120,7 @@ const getEmployee = async (req, res) => {
 };
 
 const getSlot = async (req, res) => {
-
+   console.log('coming')
   try {
     
 
@@ -140,6 +140,8 @@ const getSlot = async (req, res) => {
         },
         { employeeName: 1, time: 1, date: 1 }
       );
+
+      
  
    
 
@@ -158,27 +160,35 @@ const getSlot = async (req, res) => {
         _id: 1,
         date: 1,
       }).exec();
+
+      
+
      
-    
+     
+     docs.forEach((entry) => {
+       entry.date = utcDateString;
+     });
+
+     const matchingBookings = bookedDetails.filter(
+       (entry) => entry.date === utcDateString
+     );
+
+
+     matchingBookings.forEach((booking) => {
+       const availabilityEntry = docs.find(
+         (available) => available.employeeName === booking.employeeName
+       );
+       if (availabilityEntry) {
+         const index = availabilityEntry.Time.indexOf(booking.time);
+         if (index !== -1) {
+           availabilityEntry.Time.splice(index, 1);
+         }
+       }
+     });
    
-      // Iterate through bookedDetails
-      bookedDetails.forEach((booked) => {
-        // Find the matching documentDetails
-        const matchingDocument = docs.find((document) => {
-          return (
-            document.employeeName === booked.employeeName 
-          
-          );
-        });
-
-        // If a matching document is found, filter out the matching time
-        if (matchingDocument) {
-          matchingDocument.Time = matchingDocument.Time.filter((time) => {
-            return time !== booked.time;
-          });
-        }
-      });
-
+    
+      
+     
 
       if (docs.length) {
          docs = docs.filter((doc) => doc.Time.length > 0);
@@ -193,21 +203,23 @@ const getSlot = async (req, res) => {
         return res.json({ error: "Slot not available" });
       }
     } else {
+      const bookedDetails = await Success.find(
+        {
+          employeeName: req.body.Employee,
+          shopID: req.body.shopId,
+          date: { $not: { $lte: outputDateString } },
+        },
+        { employeeName: 1, time: 1, date: 1 }
+      );
+      console.log(
+        bookedDetails,
+        "...............booked details........................"
+      );
 
-     
-       const bookedDetails = await Success.find(
-         {
-           employeeName:req.body.Employee,
-           shopID: req.body.shopId,
-           date: { $not: { $lte: outputDateString } },
-         },
-         { employeeName: 1, time: 1, date: 1 }
-       );
-
-      
       const details = {
         date: { $gte: utcDateString },
-        employeeName:req.body.Employee,
+        employeeName: req.body.Employee,
+        leave:{$ne:utcDateString},
         shopID: req.body.shopId,
         service: {
           $in: req.body.services,
@@ -220,40 +232,71 @@ const getSlot = async (req, res) => {
         _id: 1,
         date: 1,
       }).exec();
+      console.log(docs, "------------------------------this is docs");
 
-       //filtering for get available slots-----------------------------------
-           bookedDetails.forEach((booked) => {
-             // Find the matching documentDetails
-             const matchingDocument = docs.find((document) => {
-               return (
-                 document.employeeName === booked.employeeName &&
-                 document.date === booked.date
-               );
-             });
+      if(docs.length){
 
-             // If a matching document is found, filter out the matching time
-             if (matchingDocument) {
-               matchingDocument.Time = matchingDocument.Time.filter((time) => {
-                 return time !== booked.time;
-               });
-             }
-           });
-  //---------------------------------------------------------------------------------------------
-        if (docs.length) {
-          docs = docs.filter((doc) => doc.Time.length > 0);
-          if (docs.length) {
-            return res.json(docs);
-          } else {
-            return res.json({
-              error: "Slot Not available please chose another date",
-            });
-          }
+        docs[0].date=utcDateString;
+      }else{
+        return res.json({
+          error: "Slot Not available please chose another date",
+        });
+      }
+       
+      console.log(docs,'-----------------------------------------availablity')
+     
+      const employeeNameToMatch = req.body.Employee;
+      const dateToMatch = utcDateString;
+
+      // Find the booked time slots for the specified employee on the given date
+      const bookedTimeSlots = bookedDetails
+        .filter(
+          (booking) =>
+            booking.employeeName === employeeNameToMatch &&
+            booking.date === dateToMatch
+        )
+        .map((booking) => booking.time);
+
+      // Find the availability entry for the specified employee on the given date
+      const availabilityEntry = docs.find(
+        (entry) =>
+          entry.employeeName === employeeNameToMatch &&
+          entry.date === dateToMatch
+      );
+
+      // Calculate the available time slots by filtering out the booked time slots
+      const availableTimeSlots = availabilityEntry
+        ? availabilityEntry.Time.filter(
+            (timeSlot) => !bookedTimeSlots.includes(timeSlot)
+          )
+        : [];
+   
+      
+      const fullAvailabilityDetails = {
+        _id: availabilityEntry ? availabilityEntry._id : null,
+        employeeName: employeeNameToMatch,
+        date: dateToMatch,
+        Time: availableTimeSlots,
+      };
+
+      console.log(fullAvailabilityDetails,'-----------------------------------------full availabitity')
+   
+
+      //====================================================
+      if (fullAvailabilityDetails) {
+       
+        if (fullAvailabilityDetails.Time.length) {
+          return res.json(docs);
         } else {
           return res.json({
             error: "Slot Not available please chose another date",
           });
         }
-         
+      } else {
+        return res.json({
+          error: "Slot Not available please chose another date",
+        });
+      }
     }
   
   } catch (error) {

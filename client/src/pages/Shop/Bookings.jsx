@@ -29,46 +29,119 @@ const Bookings = () => {
   const [records, setRecords] = useState([]);
 
   //edit date-------------
-  const renderDateWithEditIcon = (row) => (
-    <div>
-      <span>{row.date}</span>
-      <button
-        onClick={() => openModalForDate(row._id)}
-        style={{
-          marginLeft: "5px",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        <BsPencil />
-      </button>
-    </div>
-  );
+  // const renderDateWithEditIcon = (row) => (
+  
+  //   <div>
+  //     <span>{row.date}</span>
+  //     <button
+  //       onClick={() => openModalForDate(row._id)}
+  //       style={{
+  //         marginLeft: "5px",
+  //         background: "none",
+  //         border: "none",
+  //         cursor: "pointer",
+  //       }}
+  //     >
+  //       <BsPencil />
+  //     </button>
+  //   </div>
+  // );
+
+
   //take leave-------------------------------
-  const takeLeave = (row) => (
-    <div>
-      <span>{row.leave}</span>
-      <button
-        onClick={() => openModalForLeave(row._id)}
-        style={{
-          marginLeft: "5px",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        <BsPencil />
-      </button>
-    </div>
-  );
+  // const takeLeave = (row) => (
+  //   <div>
+  //     <span>{row.leave}</span>
+  //     <button
+  //       onClick={() => openModalForLeave(row._id)}
+  //       style={{
+  //         marginLeft: "5px",
+  //         background: "none",
+  //         border: "none",
+  //         cursor: "pointer",
+  //       }}
+  //     >
+  //       <BsPencil />
+  //     </button>
+  //   </div>
+  // );
+
+  const renderDateWithEditIcon = (row) => {
+    const date = new Date(row.date);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString(undefined, options);
+
+    return (
+      <div>
+        <span>{formattedDate}</span>
+        <button
+          onClick={() => openModalForDate(row._id)}
+          style={{
+            marginLeft: "5px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          <BsPencil />
+        </button>
+      </div>
+    );
+  };
+  
+  const takeLeave = (row) => {
+    const date = new Date(row.leave);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString(undefined, options);
+
+    return (
+      <div>
+        <span>{formattedDate}</span>
+        <button
+          onClick={() => openModalForLeave(row._id)}
+          style={{
+            marginLeft: "5px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          <BsPencil />
+        </button>
+      </div>
+    );
+  };
 
   useEffect(() => {
+
+
+       const ifShop = async () => {
+          try {
+            const { data } = await axios.get("/s/sIfShop");
+            if (data.error) {
+              dispatch(logoutShop());
+            }
+          } catch (error) {
+            dispatch(logoutShop());
+            toast.error("Server please re login");
+          }
+        };
+        ifShop();
+
     async function getEmployee() {
       try {
         const { data } = await axios.get("/s/sBookings");
+      
 
-        if (data.message) {
+        if (data.message ) {
           toast.error("Something went wrong please do re-login");
           dispatch(logoutShop());
           Navigate("/s/sLogin");
@@ -181,11 +254,21 @@ const Bookings = () => {
           </div>
         </div>
       ),
-    },{
-      name:'Leave Date',
-      cell:takeLeave,
-      selector:(row)=>row.leave
-    }
+    },
+    {
+      name: "Leave Date",
+      cell: takeLeave,
+      // selector: (row) => row.leave,
+      // selector: (row) => {
+      //   const date = new Date(row.leave);
+      //   const options = {
+      //     year: "numeric",
+      //     month: "long",
+      //     day: "numeric",
+      //   };
+      //   return date.toLocaleDateString(undefined, options);
+      // },
+    },
   ];
 
   const deleteEmployee = async (id) => {

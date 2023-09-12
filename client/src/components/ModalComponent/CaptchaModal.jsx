@@ -21,9 +21,11 @@ const CaptchaModal = ({ isOpen, onRequestClose, isSlot, id,services ,employee,da
   };
 
   const bookNow = async (time, id,dates) => {
+    console.log('daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     
     try {
       const valuesArray = services.map((option) => option.value);
+      
       const { data } = await axios.post("/booked", {
         time,
         id,

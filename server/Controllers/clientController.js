@@ -6,7 +6,7 @@ import Shops from "../Models/shopModel.js";
 import gClient from "../Models/googleClientModel.js";
 import { comparePassword, hashPassword } from "../Helpers/hashing.js";
 import { otp, transporter } from "../Helpers/otpCreate.js";
-import { createToken, getToken } from "../utils/generateToken.js";
+import {createTokenForUser as createToken, getTokenForUser as getToken } from "../utils/generateToken.js";
 import { ifUserHave } from "../utils/ifUser.js";
 import { getData } from "../utils/getDetails.js";
 import client from "../Models/clientModel.js";
@@ -45,7 +45,7 @@ const registerUser = async (req, res) => {
     }
 
     let sendedOtp = otp();
-    console.log(sendedOtp, " first otp");
+    
 
     const mailOptions = {
       from: "bookmybarber@gmail.com",
@@ -152,16 +152,17 @@ const clientResendOtp = async (req, res) => {
 const clientLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+  
     let emailExist = await Client.findOne({ email });
-
+  
     if (emailExist.isBlock) {
       return res.json({
         error: "You do not have permission to access this website.",
       });
     }
-
+     
     if (!emailExist) {
+      
       return res.json({ error: "User Not found please sign up" });
     } else {
       let match = await comparePassword(password, emailExist.password);
@@ -235,7 +236,7 @@ const gClientLogin = async (req, res) => {
       // if (gClientDetails[0].isBlock) {
       //   console.log('blocked')
       // }
-      console.log(gClientDetails[0].isBlock);
+     
       if (gClientDetails[0].isBlock) {
         return res.json({
           error: "you do not have permission to enter this website",
@@ -373,7 +374,7 @@ const clientLogout = async (req, res) => {
   let token = await getToken(req);
   res.setHeader(
     "Set-Cookie",
-    `abhi=${token}; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+    `user=${token}; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
   );
   res.json({ success: "Logout successful" });
 };
@@ -451,7 +452,7 @@ const searchShop = async (req, res) => {
   );
 
   if (shops.length) {
-    console.log(shops);
+   
     return res.json(shops);
   } else {
     return res.json({
@@ -464,11 +465,23 @@ const searchShop = async (req, res) => {
 const ifUser = async(req,res) => {
   try {
     const result = await ifUserHave(req)
+   
     if(!result){
       return res.json({error:"User logged out please re login"})
     }else{
       const details = getData(result)
-      const userData = await client.find({_id:details.userId})
+     
+
+      let userData
+      if(details && !details.userId ){
+        
+          userData = await client.find({ email: details.gEmail });
+      }else{
+   userData = await client.find({ _id: details.userId });
+ 
+    
+      }
+      
     
       if(userData[0].isBlock){
         return res.json({error:'Sorry you cannot enter this website....'})

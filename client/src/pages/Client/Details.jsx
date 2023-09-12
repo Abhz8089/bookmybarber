@@ -8,6 +8,7 @@ import Navbars from '../../components/users/Navbar';
 import Footer from '../../components/Footer';
 import { useDispatch } from 'react-redux';
 import { logoutClient } from '../../globelContext/clientSlice';
+import { FaCheckCircle } from "react-icons/fa"; 
 
 
 const Details = () => {
@@ -33,6 +34,7 @@ const dispatch = useDispatch()
            },
          },
        };
+       const currentDate = new Date();
 
           const column = [
             {
@@ -74,9 +76,23 @@ const dispatch = useDispatch()
             {
               name: "Status",
               selector: (row) => {
-                if (row.status) {
+                 const rowDate = new Date(row.date);
+                if (rowDate < currentDate && row.status) {
+                  return <FaCheckCircle size={20} color="green" />;
+                } else if (row.status) {
                   return (
-                    <button style={{backgroundColor:'blueviolet',outline:'none',width:'4rem',height:'2rem',borderRadius:'3px'}} onClick={() => handleCancel(row._id)}>Cancel</button>
+                    <button
+                      style={{
+                        backgroundColor: "blueviolet",
+                        outline: "none",
+                        width: "4rem",
+                        height: "2rem",
+                        borderRadius: "3px",
+                      }}
+                      onClick={() => handleCancel(row._id)}
+                    >
+                      Cancel
+                    </button>
                   );
                 } else {
                   return <span style={{ color: "red" }}>Cancelled</span>;
@@ -113,10 +129,7 @@ const dispatch = useDispatch()
               toast.error('Something went wrong')
             }
           }
-          useEffect(() => {
-
-             
-           
+          useEffect(() => {          
           async function getDetails(){
             try {
                 const {data} = await axios.get('/details')
@@ -126,9 +139,8 @@ const dispatch = useDispatch()
                     
                 }else{
 
-                    console.log(data)
-                    setRecords(data)
-                    
+                   
+                    setRecords(data)                   
                 }
             } catch (error) {
                 console.log(error)
@@ -138,6 +150,8 @@ const dispatch = useDispatch()
           }
            getDetails()
           }, [])
+
+          
           
   return (
     <>

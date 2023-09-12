@@ -61,8 +61,10 @@ const ShopLists = () => {
   const shopsToDisplay = shoplist.slice(startIndex, endIndex);
 
   const goShop = async (id) => {
+    
     try {
       const { data } = await axios.post("/s/getEmployee", { id });
+     
       if (data.error) {
         toast.error(data.error);
       } else {

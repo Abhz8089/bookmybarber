@@ -6,6 +6,7 @@ import { otp, transporter } from "../Helpers/otpCreate.js";
 import { createToken, getToken } from "../utils/generateToken.js";
 import { getData } from "../utils/getDetails.js";
 import shop from "../Models/shopModel.js";
+import {ifShopHave as ifUserHave} from "../utils/ifUser.js";
 
 const ShopRegister = async (req, res) => {
   try {
@@ -429,6 +430,7 @@ const uploadFile = async (req,res) => {
 
 
 const getImg = async(req,res) => {
+ 
 try {
    const id = req.params.id
    const img = await shop.find({_id:id},{photos:1})
@@ -487,6 +489,59 @@ try {
 }
 }
 
+const ifShop  = async (req,res) => {
+  try {
+    const result = await ifUserHave(req);
+    console.log(result);
+    console.log("result");
+    if (!result) {
+      return res.json({ error: "User logged out please re login" });
+    } else {
+      const details = getData(result);
+      console.log(details);
+      console.log('-----------')
+      
+
+      let userData;
+    
+        userData = await shop.find({ _id: details.id });
+        console.log(userData);
+        console.log("userdata------------------------");
+      
+      console.log(userData, "this is userData");
+
+      if (!userData[0].access) {
+        return res.json({ error: "Sorry you cannot enter this website...." });
+      }else{
+        return res.json(userData[0].businessName)
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const addLocation =async (req,res) => {
+  const { markerLat, markerLng, shopId } = req.body;
+  
+  const setData = { latitude: markerLat, longitude: markerLng };
+ try {
+   const result = await shop.findOneAndUpdate(
+     { _id: shopId },
+     { $set: { location: setData } }
+   );
+
+   if (result) {
+     
+     return res.json({success:'data added'})
+   } else {
+     return res.json({error:'No matching document found'})
+   }
+ } catch (error) {
+   console.error("Error while saving data:", error);
+ }
+}
+
 const shopLogout = async (req, res) => {
   let token = await getToken(req);
   res.setHeader(
@@ -509,4 +564,6 @@ export {
   getImg,
   getShopImages,
   deleteShopImg,
+  ifShop,
+  addLocation,
 };

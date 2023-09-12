@@ -2,9 +2,10 @@ import Book from '../Models/SlotModel.js'
 import success from '../Models/successModel.js'
 import shop from '../Models/shopModel.js';
 import client from '../Models/clientModel.js';
-import {getToken} from '../utils/generateToken.js';
+import { getTokenForUser as getToken } from "../utils/generateToken.js";
 import {getData} from '../utils/getDetails.js';
-import {convertDateFormat} from  '../Helpers/DateFormat.js'
+import {convertDateFormat} from  '../Helpers/DateFormat.js';
+
 
 
 const successBook =async(req,res)=>{
@@ -103,8 +104,8 @@ const Bookings = async (req,res) => {
         const { id } = req.body;
             const updatedDocument = await success.findOneAndUpdate(
               { _id:id },
-              { status: false }, // Set the new status value
-              { new: true } // To get the updated document
+              { status: false }, 
+              { new: true } 
             );
 
             if (!updatedDocument) {

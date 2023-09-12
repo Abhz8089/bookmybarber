@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-
+//shop
 const createToken = (res,data) => {
 
     
@@ -38,6 +38,50 @@ const createToken = (res,data) => {
 
     }
 
+
+//user
+
+const createTokenForUser = (res, data) => {
+  let token = jwt.sign(
+    { data, exp: Math.floor(Date.now() / 1000) * (60 * 60) },
+    process.env.JWT_SECRET
+  );
+
+  const expiration = new Date(new Date().getTime() + 3600000);
+  res.set(
+    "Set-Cookie",
+    `user=${token};httpOnly:false;SameSite=Strict;Expires=${expiration.toUTCString()}`
+  );
+};
+
+  const getTokenForUser = (req) => {
+    let cookieHeaderValue = req.headers.cookie;
+    let token = null;
+
+    if (cookieHeaderValue) {
+      let cookies = cookieHeaderValue.split(";");
+
+      for (let cookie of cookies) {
+        let [cookieName, cookieValue] = cookie.trim().split("=");
+
+        if (cookieName === "user") {
+          token = cookieValue;
+          return token;
+          break;
+        }
+      }
+    }
+  };
+
+
+
+
+
+
+//admin
+
+
+
     
 const createTokenForAdmin = (res, data) => {
   let token = jwt.sign(
@@ -74,7 +118,7 @@ const getTokenForAdmin = (req) => {
 
     
     
-    export {createToken,getToken,createTokenForAdmin,getTokenForAdmin};
+    export {createToken,getToken,createTokenForAdmin,getTokenForAdmin,createTokenForUser,getTokenForUser};
 
 
     

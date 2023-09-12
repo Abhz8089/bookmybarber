@@ -1,5 +1,23 @@
 import mongoose from "mongoose";
 
+const locationSchema = mongoose.Schema(
+  {
+    latitude: {
+      type: Number,
+      
+    },
+    longitude: {
+      type: Number,
+     
+    },
+  },
+  {
+    _id: false, 
+  }
+);
+
+
+
 const shopSchema = mongoose.Schema(
   {
     userName: {
@@ -19,34 +37,34 @@ const shopSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    businessName:{
-        type:String,
-        required:true
+    businessName: {
+      type: String,
+      required: true,
     },
-    address:{
-        type:String,
-        required:true
+    address: {
+      type: String,
+      required: true,
     },
-    phoneNumber:{
-        type:Number,
-        required:true,
-        unique:true
+    phoneNumber: {
+      type: Number,
+      required: true,
+      unique: true,
     },
-    zipcode:{
-        type:Number,
-        required:true
+    zipcode: {
+      type: Number,
+      required: true,
     },
-    access:{
-      type:Boolean,
-      default:false
-
+    access: {
+      type: Boolean,
+      default: false,
     },
-    photos:{
-      type:[String]
-    }
-   
-
-    
+    photos: {
+      type: [String],
+    },
+    location: {
+      type: locationSchema,
+      default: null,
+    },
   },
   {
     timestamps: true,

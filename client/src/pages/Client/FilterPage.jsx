@@ -10,12 +10,12 @@ import userIcon from "../../../public/contentImages/userIcon.gif";
 import Style from "../ClientStyles/FilterPage.module.css";
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
-import { logoutClient, employeeList as saveEmploye,clearEmployee } from "../../globelContext/clientSlice";
+import { logoutClient, employeeList as saveEmploye,clearEmployee,shopList } from "../../globelContext/clientSlice";
 import { shop } from "../../globelContext/clientSlice";
 import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
 import slot from "../../../../server/Models/SlotModel";
 
-
+import iconLocation from '../../../public/contentImages/map.gif'
 
 
 
@@ -40,8 +40,8 @@ const FilterPage = () => {
    
 
  
+console.log(img)
 
- 
 
   const employeeList = useSelector((state) => state.client.employeeList);
   const oneShop = useSelector((state) => state.client.shopDetails);
@@ -54,28 +54,28 @@ const FilterPage = () => {
 
 
   useEffect(() => {
-
-
-      const ifUser = async () => {
-        try {
-          const { data } = await axios.get("/ifUser");
-          if (data.error) {
-            dispatch(logoutClient());
-            toast.error(data.error);
-          }
-        } catch (error) {
+    const ifUser = async () => {
+      try {
+        const { data } = await axios.get("/ifUser");
+        if (data.error) {
           dispatch(logoutClient());
-          toast.error("Server please re login");
+
         }
-      };
-      ifUser();
-
-
+      } catch (error) {
+        dispatch(logoutClient());
+        toast.error("Server please re login");
+      }
+    };
+    ifUser();
 
     async function getImage() {
+      console.log('---------------------------------okey1')
+     
       try {
-        const { data } = await axios.get(`/s/sGetImg/${oneShop[0]._id}`);
-        setImg(data)
+        const { data } = await axios.get(`/s/sGetImgs/${oneShop[0]._id}`);
+        console.log(data)
+        console.log('--------------------------------the dataaaaaaaaaaaaaaaaa')
+        setImg(data);
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong");
@@ -90,12 +90,11 @@ const FilterPage = () => {
       console.log(oneShop);
     }
 
-  
     
   }, [employeeList, oneShop]);
   
 
-  
+ 
 
 
   useEffect(() => {
@@ -155,8 +154,9 @@ const FilterPage = () => {
    };
 
   const submitFilterdData = async () => {
-    try {
    
+    try {
+ 
          let shopIDs; 
 
          if (shop.length > 0) {
@@ -202,6 +202,17 @@ const FilterPage = () => {
    const today = new Date().toISOString().split("T")[0];
 
 
+   const goToLocation = async() =>{
+
+      if(shop[0].location){
+        dispatch(shopList(shop[0].location))
+        Navigate('/map')
+      }else{
+        toast.error(
+          `We're sorry, but ${shop[0].businessName} has not provided their location yet. Please check back later or contact the shop for more information.`
+        );
+      }
+   }
 
 
   const closeModal =()=> {
@@ -251,6 +262,17 @@ const FilterPage = () => {
           {shop.length ? (
             <div className={Style.h1}>
               <h1 className={Style.heading}>{shop[0].businessName}</h1>
+              <pre>
+                <i className={Style.heading1}>
+                  <b>Mobile</b> : {shop[0].phoneNumber}
+                </i>
+              </pre>
+              <pre>
+                <i className={Style.heading1}>
+                  <b>Address</b> : {shop[0].address}
+                </i>
+              </pre>
+              <img src={iconLocation} onClick={()=>goToLocation()} alt="" />
             </div>
           ) : (
             <></>
