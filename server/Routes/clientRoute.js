@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import userAuth from "../Middlewares/useAuth.js"
+import userAuth from "../Middlewares/clientAuth.js"
 import {
   registerUser,
   submitOtp,

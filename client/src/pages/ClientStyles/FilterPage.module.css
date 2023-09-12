@@ -3,6 +3,10 @@
   justify-content: center;
   text-shadow: 4px 4px 4px rgba(30, 26, 26, 0.596); 
 }
+.heading1{
+  font-size: 18px;
+  text-shadow: 4px 4px 4px rgba(30, 26, 26, 0.596); 
+}
 
 
 .container {
@@ -25,10 +29,14 @@
 }
 
 .h1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: -2rem;
   display: flex;
   margin-left: 15rem;
-  background-color: rgb(232, 221, 221);
+  background-color: rgb(255, 255, 255);
   position: absolute;
   width: 30%;
   justify-content: center;
@@ -175,6 +183,90 @@
   height: 16rem;
 }
 
+@keyframes display {
+  0% {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+}
+
+
+
+
+@media (max-width: 928px) {
+  
+.h1{
+  margin-top: -2rem;
+  display: flex;
+  margin-left: 9rem;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  width: 30%;
+  justify-content: center;
+  height: 15rem;
+  border-radius: 4px;
+    /* border: 5px solid rgb(46, 44, 44);  */
+    border: 4px solid #333732;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5)
+
+}
+.heading1{
+  font-size: 15px;
+}
+
+  
+}
+@media (max-width:644px) {
+  
+  .h1{
+  margin-top: -2rem;
+  display: flex;
+  margin-left:5rem;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  width: 30%;
+  justify-content: center;
+  height: 15rem;
+  border-radius: 4px;
+    /* border: 5px solid rgb(46, 44, 44);  */
+    border: 4px solid #333732;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5)
+
+}
+.heading{
+  font-size: 20px;
+}
+.heading1{
+  font-size: 10px;
+}
+}
+
+@media (max-width:348px) {
+  .heading{
+  font-size: 15px;
+}
+.heading1{
+  font-size: 8px;
+}
+}
+
+
 
 @media (max-width: 726px) {
 .container {
@@ -207,36 +299,15 @@
     margin-top: 2rem;
    
 }
+.heading1{
+  font-size: 10px;
+}
 
 
- /* .hello {
-margin-top: 12rem;
-} */
+
 
 }
 
-@keyframes display {
-  0% {
-    transform: translateX(200px);
-    opacity: 0;
-  }
-  10% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  20% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  30% {
-    transform: translateX(-200px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(-200px);
-    opacity: 0;
-  }
-}
 
 
 

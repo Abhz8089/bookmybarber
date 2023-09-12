@@ -19,6 +19,7 @@ import FilterPage from "./pages/Client/FilterPage";
 import SuccessPage from "./pages/Client/successPage";
 import Details from "./pages/Client/Details";
 
+import Map from "./pages/Client/Map";
 
 import SLogin from './pages/Shop/ShopLogin';
 import SRegister from './pages/Shop/ShopRegister';
@@ -64,6 +65,8 @@ function App() {
       ></Toaster>
 
       <Routes>
+
+        <Route  path="/map" element={<Map/>} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

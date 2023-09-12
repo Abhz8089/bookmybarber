@@ -5,7 +5,7 @@ import {
 
 } from "../../../helpers/JSONparse.js";
 
-
+import icon from '../../../public/contentImages/animatedicon.gif'
 import Hamburger from "../subComponents/Humberger";
 
 import "../users/userStyles/Navbar.css";
@@ -13,6 +13,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import {  logoutShop } from "../../globelContext/clientSlice.js"; 
+
 
 const Navbars = () => {
   const dispatch =useDispatch()
@@ -24,12 +25,7 @@ const Navbars = () => {
   };
    const Client = useSelector((state) => state.client.shop);
   useEffect(() => {
-    //  let shop = jsonParseShopDataString();
-    //  if(shop){
-    //   setShop(shop)
-    //  }else{
-    //   setShop('')
-    //  }
+
     if(Client){
       setShop(Client)
     }else{
@@ -78,10 +74,18 @@ const Navbars = () => {
                 <span className="specialLink">YOUR&nbsp;BOOKINGS</span>
               </NavLink>
             </li>
-            { shop ? (
-              <li className="liii" onClick={LogOut}>
-                LOGOUT
-              </li>
+            {shop ? (
+              <>
+                <li>
+                  <NavLink to='/map'>
+                    {" "}
+                    <img src={icon} className="custom-icon" alt="" />{" "}
+                  </NavLink>
+                </li>
+                <li className="liii" onClick={LogOut}>
+                  LOGOUT
+                </li>
+              </>
             ) : (
               <li>
                 <NavLink to="/login">LOGIN</NavLink>
@@ -95,3 +99,26 @@ const Navbars = () => {
 };
 
 export default Navbars;
+
+
+
+
+
+  //  let shop = jsonParseShopDataString();
+    //  if(shop){
+    //   setShop(shop)
+    //  }else{
+    //   setShop('')
+    //  }
+        // const ifShop = async () => {
+        //   try {
+        //     const { data } = await axios.get("/s/sIfShop");
+        //     if (data.error) {
+        //       dispatch(logoutShop());
+        //     }
+        //   } catch (error) {
+        //     dispatch(logoutShop());
+        //     toast.error("Server please re login");
+        //   }
+        // };
+        // ifShop();

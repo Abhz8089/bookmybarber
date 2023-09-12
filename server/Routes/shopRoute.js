@@ -2,6 +2,7 @@ import express from "express";
 
 const router = express.Router();
 import userAuth from "../Middlewares/useAuth.js";
+import  clientAuth    from '../Middlewares/clientAuth.js'
 import { upload } from "../Helpers/multer.js";
 
 import {
@@ -17,7 +18,8 @@ import {
   getImg,
   getShopImages,
   deleteShopImg,
-
+  ifShop,
+  addLocation,
 } from "../Controllers/shopController.js";
 
 import {
@@ -36,6 +38,9 @@ import {
 import {Bookings } from '../Controllers/successController.js';
 import {uploadStyleImage,getStyleImg,getStyleImgInProfile,deleteImgStyle} from '../Controllers/styleController.js';
 
+
+
+
 router.post("/sRegister", ShopRegister);
 router.post("/shopOtp",submitOtpShop)
 router.post("/shopResendOtp", shopResendOtp);
@@ -46,9 +51,12 @@ router.post("/sSubPassword", updatedPassword);
 router.post("/sLogout", shopLogout);
 router.post("/sUpload",upload.array('images',5) ,uploadFile);
 
-router.get("/sGetImg/:id", userAuth, getImg);
+router.get("/sGetImgs/:id", clientAuth, getImg);
 router.get("/sGetShopImg", getShopImages);
 router.delete("/sDeleteShopImg/:id",deleteShopImg);
+router.post("/sAddLocation",addLocation);
+
+router.get("/sIfShop",ifShop);
 
 //addEmployee route ---------------------------
 router.post("/sAddEmployee", addEmployee);
