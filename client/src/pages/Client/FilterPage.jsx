@@ -15,7 +15,8 @@ import { shop } from "../../globelContext/clientSlice";
 import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
 import slot from "../../../../server/Models/SlotModel";
 
-
+//chat
+import SupportEngine from "../../components/Chat/supportEngine/supportEngine";
 
 
 
@@ -210,7 +211,6 @@ const FilterPage = () => {
   return (
     <>
       <Navbar />
-
       <div className={Style.container}>
         <input
           type="date"
@@ -304,7 +304,7 @@ const FilterPage = () => {
       ) : (
         <></>
       )}
-
+      <SupportEngine />
       <Footer />
       <CaptchaModal
         isOpen={isCaptchaOpen}
