@@ -33,6 +33,23 @@ const Navbars = () => {
     // } else {
     //   setUser("");
     // }
+
+          // const ifUser = async () => {
+          //   try {
+          //     const { data } = await axios.get("/ifUser");
+          //     if (data.error) {
+          //       dispatch(logoutClient());
+                
+          //     }
+          //   } catch (error) {
+          //     dispatch(logoutClient());
+          //     toast.error("Server please re login");
+          //   }
+          // };
+          // ifUser();
+
+
+
     if(client){
       setUser(client)
     }else{

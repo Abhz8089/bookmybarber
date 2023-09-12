@@ -6,9 +6,10 @@
   justify-content: center;
    position: sticky; 
   top: 0; 
-  z-index: 1000; 
+  
   transition: background-color 0.3s; 
 }
+
 
 .sclassName1 {
   display: flex;
@@ -16,6 +17,8 @@
 
   align-items: center;
   gap: 34%;
+  
+
 }
 
 .sclassName1 p {
@@ -23,15 +26,18 @@
   padding: 5px 10px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+    
 }
 .sclassName1 a {
   text-decoration: none;
-  color:rgb(250, 250, 250)
+  color:rgb(250, 250, 250);
+
 }
 
 .sclassName1 p.active {
   background-color:hsl(0, 0%, 0%);
   color: rgb(0, 0, 0);
+
 }
 
 .sclassName1 p:hover {
@@ -66,7 +72,11 @@
 
 
 
-
+.custom-icon{
+  margin-top: 1px;
+  border-radius: 15px;
+  width: 1.6rem;
+}
 
 
 

@@ -1,0 +1,39 @@
+.body{
+    margin-bottom:8rem;
+    z-index: 1000;   
+}
+
+
+.map{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      min-height: 105vh; 
+    
+      
+}
+
+.buttons{
+    margin-top:-2rem;
+     display:flex;
+     align-items:center;
+     justify-content:center;
+}
+
+.button1{
+    color: green;
+    background-color: black;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(72, 71, 71, 0.55);
+    outline: none;
+}
+
+.button2{
+    color:yellow;
+    background-color: black;
+    width:5rem;
+    height: 2rem;
+    border-radius: 5px;
+}
