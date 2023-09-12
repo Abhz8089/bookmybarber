@@ -17,9 +17,9 @@ import slot from "../../../../server/Models/SlotModel";
 
 
 //chat
-import SupportEngine from "../../components/Chat/supportEngine/supportEngine";
+// import SupportEngine from "../../components/Chat/supportEngine/supportEngine";
 
-import iconLocation from '../../../public/contentImages/map.gif'
+// import iconLocation from '../../../public/contentImages/map.gif'
 
 
 
@@ -275,7 +275,7 @@ console.log(img)
                   <b>Address</b> : {shop[0].address}
                 </i>
               </pre>
-              <img src={iconLocation} onClick={()=>goToLocation()} alt="" />
+              {/* <img src={iconLocation} onClick={()=>goToLocation()} alt="" /> */}
             </div>
           ) : (
             <></>
@@ -329,7 +329,7 @@ console.log(img)
       ) : (
         <></>
       )}
-      <SupportEngine />
+      {/* <SupportEngine /> */}
       <Footer />
       <CaptchaModal
         isOpen={isCaptchaOpen}
