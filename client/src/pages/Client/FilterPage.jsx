@@ -15,7 +15,12 @@ import { shop } from "../../globelContext/clientSlice";
 import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
 import slot from "../../../../server/Models/SlotModel";
 
+
 import iconLocation from '../../../public/contentImages/map.gif'
+
+//chat
+import SupportEngine from "../../components/Chat/supportEngine/supportEngine";
+
 
 
 
@@ -221,7 +226,6 @@ console.log(img)
   return (
     <>
       <Navbar />
-
       <div className={Style.container}>
         <input
           type="date"
@@ -326,7 +330,7 @@ console.log(img)
       ) : (
         <></>
       )}
-
+      <SupportEngine />
       <Footer />
       <CaptchaModal
         isOpen={isCaptchaOpen}
