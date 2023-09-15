@@ -1,0 +1,30 @@
+
+.notification_modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px; 
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ffffff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; 
+}
+
+.notification_modal_overlay {
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 100; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+  .bordered {
+  border: 1px solid black; 
+  padding: 10px; 
+}
+
+

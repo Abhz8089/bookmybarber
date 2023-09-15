@@ -1,6 +1,6 @@
 .body{
     margin-bottom:8rem;
-    z-index: 1000;   
+    z-index: 999;   
 }
 
 
@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
       min-height: 105vh; 
+    
     
       
 }

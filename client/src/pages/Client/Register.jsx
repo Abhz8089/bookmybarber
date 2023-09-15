@@ -18,9 +18,9 @@ import Footer from '../../components/footer';
    const Navigate = useNavigate();
    const onSuccess = async (credentialResponse) => {
      try {
-       console.log(credentialResponse);
+     
        const decoded = jwt_decode(credentialResponse.credential);
-       console.log(decoded);
+     
        const gName = decoded.name;
        const gEmail = decoded.email;
        const { data } = await axios.post("/googleLogin", { gName, gEmail });

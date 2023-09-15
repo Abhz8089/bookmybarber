@@ -80,7 +80,6 @@ const ShopLists = () => {
   return (
     <>
       <Navbar />
-
       <div className={Style.container}>
         {shopsToDisplay.map((list, key) => (
           <Card key={key} className={Style.card}>
@@ -133,7 +132,6 @@ const ShopLists = () => {
           Next
         </button>
       </div> */}
-
       <div className={Style.pagination}>
         <Stack spacing={2}>
           <Pagination
@@ -145,7 +143,7 @@ const ShopLists = () => {
           />
         </Stack>
       </div>
-
+      
       <Footer />
     </>
   );

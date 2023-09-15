@@ -14,6 +14,28 @@ import { FaCheckCircle } from "react-icons/fa";
 const Details = () => {
 const [records, setRecords] = useState([])
 const dispatch = useDispatch()
+
+     useEffect(() => {
+       async function getDetails() {
+         try {
+           const { data } = await axios.get("/details");
+           if (data.message) {
+             dispatch(logoutClient());
+             toast.error("Something went wrong please do re-login");
+           } else {
+             setRecords(data);
+           }
+         } catch (error) {
+           console.log(error);
+           dispatch(logoutClient());
+           toast.error("Something went wrong ");
+         }
+       }
+       getDetails();
+     }, [setRecords]);
+
+
+
        const customStyles = {
          headRow: {
            style: {
@@ -129,27 +151,7 @@ const dispatch = useDispatch()
               toast.error('Something went wrong')
             }
           }
-          useEffect(() => {          
-          async function getDetails(){
-            try {
-                const {data} = await axios.get('/details')
-                if(data.message){
-                    dispatch(logoutClient())
-                    toast.error('Something went wrong please do re-login')
-                    
-                }else{
-
-                   
-                    setRecords(data)                   
-                }
-            } catch (error) {
-                console.log(error)
-                 dispatch(logoutClient());
-                toast.error('Something went wrong ')
-            }
-          }
-           getDetails()
-          }, [])
+     
 
           
           

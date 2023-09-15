@@ -5,7 +5,7 @@ import {
 
 } from "../../../helpers/JSONparse.js";
 
-import icon from '../../../public/contentImages/animatedicon.gif'
+import icon from '../../../public/contentImages/animatedicon.gif';
 import Hamburger from "../subComponents/Humberger";
 
 import "../users/userStyles/Navbar.css";
@@ -36,7 +36,7 @@ const Navbars = () => {
    const LogOut = async () => {
      const { data } = await axios.post("/s/sLogout");
      if (data.success) {
-       // localStorage.removeItem("shopData");
+      
        dispatch(logoutShop());
        setShop(null);
        Navigate("/");
@@ -103,22 +103,3 @@ export default Navbars;
 
 
 
-
-  //  let shop = jsonParseShopDataString();
-    //  if(shop){
-    //   setShop(shop)
-    //  }else{
-    //   setShop('')
-    //  }
-        // const ifShop = async () => {
-        //   try {
-        //     const { data } = await axios.get("/s/sIfShop");
-        //     if (data.error) {
-        //       dispatch(logoutShop());
-        //     }
-        //   } catch (error) {
-        //     dispatch(logoutShop());
-        //     toast.error("Server please re login");
-        //   }
-        // };
-        // ifShop();

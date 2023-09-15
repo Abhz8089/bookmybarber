@@ -78,9 +78,7 @@ const FirstPage_shopSearch = () => {
                 type="number"
               />
 
-              {/* <button className={Style.button} onClick={search}>
-                SEARCH
-              </button> */}
+         
             </div>
           </form>
           <div className={Style.divider}>or</div>

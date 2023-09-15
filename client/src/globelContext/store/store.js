@@ -1,36 +1,4 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import useReducer from "../userSlice";
 
-// const store = configureStore({
-//     reducer : {
-//         user : useReducer
-//     }
-// })
-
-// export default store;
-
-
-// import { configureStore } from "@reduxjs/toolkit";
-// import { persistStore, persistReducer } from "redux-persist";
-// import storage from "redux-persist/lib/storage"; 
-// import adminReducer from "../userSlice";
-
-// const persistConfig = {
-//   key: "root", 
-//   storage, 
-// };
-
-// const persistedadminReducer = persistReducer(persistConfig, adminReducer);
-
-// const store = configureStore({
-//   reducer: {
-//     user: persistedadminReducer,
-//   },
-// });
-
-// export const persistor = persistStore(store);
-
-// export default store;
 
 
 import { configureStore } from "@reduxjs/toolkit";

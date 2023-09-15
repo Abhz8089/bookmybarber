@@ -7,6 +7,7 @@ const Hamburger = () => (
     width="52"
     height="24"
     viewBox="0 0 52 24"
+    
   >
     <g id="Group_9" data-name="Group 9" transform="translate(-294 -47)">
       <rect

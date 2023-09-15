@@ -13,12 +13,16 @@ import {
   jsonParseUserDataString,
 } from "../../helpers/JSONparse.js";
 
+
 const Navbars = ({ scrolling }) => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [shop, setShop] = useState([]);
   const [showNavbar, setShowNavbar] = useState(false);
+
+
+
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
@@ -39,15 +43,7 @@ const Navbars = ({ scrolling }) => {
     }
   }, []);
 
-  // useEffect(() => {
 
-  //   dispatch(fetchUserData())
-  //     .unwrap()
-  //     .catch((error) => {
-
-  //       Navigate("/login");
-  //     });
-  // }, []);
 
   const LogOUT = async () => {
     const { data } = await axios.post("/logout");
@@ -68,6 +64,8 @@ const Navbars = ({ scrolling }) => {
       toast.success(data.success);
     }
   };
+
+
 
   return (
     <nav className={`navbars ${scrolling ? "scrolling" : ""}`}>
@@ -95,7 +93,7 @@ const Navbars = ({ scrolling }) => {
               <NavLink to="/style">STYLES</NavLink>
             </li>
             <li>
-              <NavLink to="/bookings">
+              <NavLink to="/details">
                 <span className="specialLink">YOUR&nbsp;BOOKINGS</span>
               </NavLink>
             </li>
@@ -115,6 +113,7 @@ const Navbars = ({ scrolling }) => {
                 <NavLink to="/login">LOGIN</NavLink>
               </li>
             )}
+         
           </ul>
         </div>
       </div>

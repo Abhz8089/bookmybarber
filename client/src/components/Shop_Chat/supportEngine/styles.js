@@ -109,8 +109,34 @@ export const styles = {
 
   //-------
 
+  userMessage: {
+    alignSelf: "flex-end",
+    backgroundColor: "#fff",
+    color: "black",
+  },
+
+  chatContainer: {
+    display: "flex",
+    height: "100%",
+  },
+  contactList: {
+    width: "20%",
+    background:
+      "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD9dxBV2UU2Z8UyF3sDligT7uz2-PG9Y9n_sz2Z3jKP_vObMAhfcm0lC2EWNquUNpLJ6w&usqp=CAU')",
+    padding: "10px",
+  },
+  contact: {
+    padding: "10px",
+    borderBottom: "1px solid #ccc",
+    cursor: "pointer",
+    background: "gray",
+  
+    width: "4rem",
+    height: "4rem",
+    borderRadius:'10px'
+  },
   chatWindow: {
-    width: "100%",
+    width: "80%",
     height: "100%",
     display: "flex",
     flexDirection: "column",
@@ -127,10 +153,8 @@ export const styles = {
     flex: 1,
     maxHeight: "100%", // Limit the height
     overflowY: "auto", // Enable vertical scrolling
-
     padding: "10px",
     display: "flex",
-
     flexDirection: "column",
   },
   message: {
@@ -140,11 +164,6 @@ export const styles = {
     marginBottom: "10px",
     backgroundColor: "black",
     color: "white",
-  },
-  userMessage: {
-    alignSelf: "flex-end",
-    backgroundColor: "#fff",
-    color: "black",
   },
   inputContainer: {
     display: "flex",
@@ -156,12 +175,12 @@ export const styles = {
   inputField: {
     flex: 1,
     marginRight: "10px",
-    padding: "5px",
-    fontSize: "16px",
-    borderRadius: "5px",
-    border:'none',
-
+    padding: "5px 10px",
+    border: "1px solid #ccc",
   },
-
-
+  sendButton: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+  },
 };

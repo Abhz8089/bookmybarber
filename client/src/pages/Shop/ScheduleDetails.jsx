@@ -11,11 +11,14 @@ import { toast } from "react-hot-toast";
 const ScheduleDetails = () => {
   
   const [records, setRecords] = useState([]);
+ 
 
   useEffect(() => {
     async function getSlots() {
       try {
         const { data } = await axios.get("/s/sSchedule");
+        console.log(data)
+        console.log('-----')
         if (data.message) {
           toast.error("Something went wrong please do re-login");
         } else {

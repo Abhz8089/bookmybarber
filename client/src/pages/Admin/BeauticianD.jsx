@@ -11,12 +11,15 @@ import SubNav from "../../components/Admin/SubNav";
 import { useAdminData } from "../../contexts/userContexts";
 import { logoutAdmin } from "../../globelContext/adminSlice";
 
+
 import styles from "./styles/Beautician.module.css";
 
 const BeauticianD = () => {
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const { adminData, setAdminData } = useAdminData();
   const Navigate = useNavigate();
+
+  //---------------------
   const customStyles = {
     headRow: {
       style: {
@@ -98,12 +101,12 @@ const BeauticianD = () => {
       if (result.isConfirmed) {
         try {
           let { data } = await axios.post("/ad/update-access", { id });
-          
+
           if (data.error) {
             toast.error(data.error);
           } else {
             setRecords(data);
-            setAdminData(data)
+            setAdminData(data);
           }
         } catch (error) {
           console.log(error);
@@ -120,9 +123,6 @@ const BeauticianD = () => {
   };
 
   useEffect(() => {
-    
-    
-
     async function getShop() {
       try {
         const { data } = await axios.get("/ad/beautician");
@@ -130,10 +130,12 @@ const BeauticianD = () => {
         if (data.error) {
           toast.error(data.error);
         }
-        if(data.message){{
-          dispatch(logoutAdmin())
-          Navigate('/ad/admin')
-        }}
+        if (data.message) {
+          {
+            dispatch(logoutAdmin());
+            Navigate("/ad/admin");
+          }
+        }
         setRecords(data);
       } catch (error) {
         console.log(error);
@@ -142,17 +144,7 @@ const BeauticianD = () => {
     }
 
     getShop();
-   
-   
   }, []);
-
-
-
- 
-  
-
-  
-  
 
   const [records, setRecords] = useState([]);
 

@@ -31,7 +31,7 @@ const GoogleAuthComponent = () => {
         toast.error(data.error);
       } else {
         dispatch(loginClient(data))
-          // localStorage.setItem("userData", JSON.stringify(data));
+       
         Navigate("/search");
         toast.success("Login successful");
         
@@ -74,7 +74,6 @@ const Login = () => {
         toast.error(data.error);
       } else {
        dispatch(loginClient(data));
-        //  localStorage.setItem("userData", JSON.stringify(data));
 
         Navigate("/search");
       }
@@ -101,8 +100,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    // const userDataString = localStorage.getItem("persist:client");
-    //  const userDataString = useSelector(state => state.user.user);
+  
     let user = jsonParseUserDataString()
 
     console.log(user)
@@ -151,23 +149,7 @@ const Login = () => {
                   Login
                 </button>
                 <br />
-                {/* <div className={styles.google}>
-                  <GoogleOAuthProvider clientId="815839922134-9i576f0a2fcpt2bje8vpjo1gs1o8gk6s.apps.googleusercontent.com">
-                    <GoogleLogin
-                      onSuccess={(credentialResponse) => {
-                        console.log(credentialResponse)
-                        const decoded = jwt_decode(
-                          credentialResponse.credential
-                        );
-                        console.log(decoded)
-                      }}
-                      onError={() => {
-                        console.log("Login Failed")
-                      }}
-                    />
-                    ;
-                  </GoogleOAuthProvider>
-                </div> */}
+           
                 <div className={styles.google}>
                   <GoogleAuthComponent />
                 </div>

@@ -6,7 +6,7 @@ const uploadStyleImage = async (req, res) => {
   const { cat, name } = req.body;
   let CatUpp= cat.toUpperCase()
   let NameUpp= name.toUpperCase()
-   console.log(req.file)
+
   try {
     if(!cat){
         return res.json({error:'category is required'})
@@ -71,7 +71,7 @@ const deleteImgStyle = async (req, res) => {
   try {
     const result = await Style.findOneAndRemove({ _id: req.params.id });
     if (!result) {
-      console.log("Document not found");
+   
       return res.json({ error: "Document not found" });
     }
         let token = await getToken(req);

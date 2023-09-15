@@ -16,12 +16,12 @@ const CaptchaModal = ({ isOpen, onRequestClose, isSlot, id,services ,employee,da
  
  
   const onChange = (value) => {
-    console.log("Captcha value:", value);
+   
     setButton(false);
   };
 
   const bookNow = async (time, id,dates) => {
-    console.log('daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
     
     try {
       const valuesArray = services.map((option) => option.value);

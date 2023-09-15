@@ -36,7 +36,7 @@ const adminLogin = async (req,res) => {
 }
 
 const getBeauticians = async(req,res) => {
-    console.log('ok')
+   
   try {
     let bDatas = await Shop.find()
    

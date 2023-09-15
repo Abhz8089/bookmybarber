@@ -16,10 +16,8 @@ import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
 import slot from "../../../../server/Models/SlotModel";
 
 
-//chat
-// import SupportEngine from "../../components/Chat/supportEngine/supportEngine";
-
-// import iconLocation from '../../../public/contentImages/map.gif'
+import Chat from '../../components/Chat/supportEngine/supportEngine';
+import iconForLocation from '../../../public/contentImages/map.gif' 
 
 
 
@@ -44,7 +42,7 @@ const FilterPage = () => {
    
 
  
-console.log(img)
+
 
 
   const employeeList = useSelector((state) => state.client.employeeList);
@@ -73,12 +71,11 @@ console.log(img)
     ifUser();
 
     async function getImage() {
-      console.log('---------------------------------okey1')
+  
      
       try {
         const { data } = await axios.get(`/s/sGetImgs/${oneShop[0]._id}`);
-        console.log(data)
-        console.log('--------------------------------the dataaaaaaaaaaaaaaaaa')
+      
         setImg(data);
       } catch (error) {
         console.log(error);
@@ -91,7 +88,6 @@ console.log(img)
     }
     if (oneShop) {
       setShop(oneShop);
-      console.log(oneShop);
     }
 
     
@@ -158,7 +154,6 @@ console.log(img)
    };
 
   const submitFilterdData = async () => {
-     console.log("----------------------------------------")
     try {
          
          let shopIDs; 
@@ -275,7 +270,12 @@ console.log(img)
                   <b>Address</b> : {shop[0].address}
                 </i>
               </pre>
-              {/* <img src={iconLocation} onClick={()=>goToLocation()} alt="" /> */}
+            
+              <img
+                src={iconForLocation}
+                onClick={() => goToLocation()}
+                alt=""
+              />
             </div>
           ) : (
             <></>
@@ -329,7 +329,7 @@ console.log(img)
       ) : (
         <></>
       )}
-      {/* <SupportEngine /> */}
+    <Chat/>
       <Footer />
       <CaptchaModal
         isOpen={isCaptchaOpen}

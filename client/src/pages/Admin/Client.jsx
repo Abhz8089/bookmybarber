@@ -99,7 +99,7 @@ const Client = () => {
       if (result.isConfirmed) {
         try {
           let { data } = await axios.post("/ad/update-client-access", { id });
-          console.log(data);
+       
           if (data.error) {
             toast.error(data.error);
           } else {

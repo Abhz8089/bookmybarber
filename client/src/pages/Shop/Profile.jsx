@@ -14,6 +14,8 @@ import { FaEye } from "react-icons/fa";
 
 import AddImageModal from "../../components/ModalComponent/AddImageModal";
 
+import Chat from '../../components/Shop_Chat/supportEngine/supportEngine'
+
 const Profile = () => {
   const fileInputRef = useRef(null);
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,6 +119,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Chat/>
       <Footer />
       <AddImageModal isOpen={isModalOpen} onRequestClose={closeModal} />
     </>

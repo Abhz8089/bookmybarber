@@ -21,7 +21,10 @@ import {
   successBook,
   bookedDetails,
   cancelBooking,
+  getNotification,
 } from "../Controllers/successController.js";
+
+import {chat,getChatsUser } from '../Controllers/chatController.js'
 
 
 router.post("/register", registerUser);
@@ -43,7 +46,12 @@ router.get("/ifUser",ifUser);
 router.post("/booked",successBook);
 router.get("/details",userAuth,bookedDetails);
 router.post('/cancel',cancelBooking);
+router.get("/getNotification",getNotification);
 
 //-----getstyle page-------------
+
+//message-------
+router.post("/sendedMsg",chat);
+router.get("/getChats",getChatsUser);
 
 export default router;

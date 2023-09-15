@@ -94,8 +94,7 @@ const Maps = () => {
       const { longitude, latitude } = position.coords;
       setLn(longitude);
       setLat(latitude);
-      // setMarkerLng(longitude);
-      // setMarkerLat(latitude);
+ 
     });
 
     if(Shop){
@@ -132,7 +131,6 @@ const Maps = () => {
       confirmButtonText: "save",
       denyButtonText: `Don't save`,
     }).then(async(result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         
     try {
@@ -171,7 +169,7 @@ const Maps = () => {
               height: "500px",
               borderRadius: "15px",
               border: "2px solid red",
-              zIndex: "1000",
+              zIndex: "999",
             }}
             initialViewState={{ longitude: ln, latitude: lat, zoom: 12 }}
             mapStyle="mapbox://styles/mapbox/streets-v9"

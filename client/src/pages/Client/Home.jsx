@@ -22,10 +22,7 @@ import { useUserData } from "../../contexts/userContexts";
 
 const Home = () => {
   const dispatch = useDispatch()
-  //  const user = useSelector((state) => state.shop.user);
-   
-  //  const { userData } = useUserData();
-  //  console.log(userData)
+  
    const [scrolling, setScrolling] = useState(false);
      const [loading, setLoading] = useState(true); 
     const Navigate = useNavigate()
@@ -37,10 +34,9 @@ const Home = () => {
       const {data} = await axios.get('/')
 
       if(data.message){
-        // localStorage.removeItem("shopData");
-        //  localStorage.removeItem("userData");
+      
          dispatch(logoutUser())
-        // Navigate('/login')
+       
       }
 
 
@@ -144,11 +140,7 @@ const Home = () => {
                 </div>
                 <div className={style.iphoneImage}>
                   <img className={style.iphone} src={iphone} alt="iPhone" />
-                  {/* <img
-                className={style.gifInsideIphone}
-                src="your-gif.gif"
-                alt="GIF inside iPhone"
-              /> */}
+       
                 </div>
               </div>
             </div>
@@ -178,11 +170,7 @@ const Home = () => {
                 </div>
                 <div className={style.iphoneImage}>
                   <img className={style.iphone} src={iphone} alt="iPhone" />
-                  {/* <img
-                className={style.gifInsideIphone}
-                src="your-gif.gif"
-                alt="GIF inside iPhone"
-              /> */}
+       
                 </div>
               </div>
             </div>

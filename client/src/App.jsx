@@ -38,9 +38,12 @@ import Client from './pages/Admin/Client'
 
 import ErrorPage from "./pages/Error/ErrorPage";
 
+import UserPrivate from './Private/UserPrivateRoute';
+import ShopPrivate from "./Private/ShopPrivateRoute";
+
 import './App.css'
-import { useSelector } from "react-redux";
-import shop from "../../server/Models/shopModel";
+// import { useSelector } from "react-redux";
+// import shop from "../../server/Models/shopModel";
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -48,13 +51,10 @@ axios.defaults.withCredentials = true;
 
 
 function App() {
-  const user = useSelector((state) => state.client.shop); // Access user data from Redux store
-  const client = useSelector((state) => state.client.user); // Access user data from Redux store
+  // const user = useSelector((state) => state.client.shop); 
+  // const client = useSelector((state) => state.client.user); 
   
-  console.log(user)
-  console.log('shop')
-  console.log(client)
-  console.log('user')
+ 
   
 
   return (
@@ -65,8 +65,7 @@ function App() {
       ></Toaster>
 
       <Routes>
-
-        <Route  path="/map" element={<Map/>} />
+        <Route path="/map" element={<Map />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -87,6 +86,22 @@ function App() {
         <Route path="/ad/beautician" element={<BeauticianD />} />
         <Route path="/ad/clients" element={<Client />} />
 
+        <Route path="" element={<ShopPrivate />}>
+          <Route path="/s/sGetShopImg" element={<ShowShopImg />} />
+          <Route path="/s/sStyleImg" element={<StyleImg />} />
+          <Route path="/s/sProfile" element={<Profile />} />{" "}
+          <Route path="/s/sSchedule" element={<ScheduleDetails />} />{" "}
+          <Route path="/s/sBookings" element={<Bookings />} />{" "}
+        </Route>
+        <Route path="" element={<UserPrivate />}>
+          <Route path="/details" element={<Details />} />
+          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/filter" element={<FilterPage />} />
+          <Route path="/shopList" element={<ShopList />} />
+          <Route path="/search" element={<FirstPage />} />
+        </Route>
+
+        {/* 
         {user ? (
           <Route path="/s/sBookings" element={<Bookings />} />
         ) : (
@@ -111,10 +126,10 @@ function App() {
           <Route path="/s/sGetShopImg" element={<ShowShopImg />} />
         ) : (
           <Route path="/s/sGetShopImg" element={<Login />} />
-        )}
+        )} */}
 
         {/* Protect routes for clients */}
-        {client ? (
+        {/* {client ? (
           <Route path="/search" element={<FirstPage />} />
         ) : (
           <Route path="/search" element={<Login />} />
@@ -138,7 +153,7 @@ function App() {
           <Route path="/details" element={<Details />} />
         ) : (
           <Route path="/details" element={<Login />} />
-        )}
+        )} */}
       </Routes>
     </>
   );

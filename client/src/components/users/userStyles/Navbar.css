@@ -143,6 +143,7 @@ line-height: normal;
     height: calc(100vh - 60px);
     transition: all 0.3s ease-in;
      overflow: hidden;
+     z-index: 1000;
   }
 
   .nav-elements.active {

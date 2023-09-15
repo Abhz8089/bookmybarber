@@ -12,7 +12,7 @@ import { loginAdmin as adminLogin } from "../../globelContext/adminSlice";
 
 const Login = () => {
   const adminDatas = useSelector((state) => state.user.user);
-  console.log(adminDatas)
+ 
 const dispatch=useDispatch()
   const [data, setData] = useState({
     email:'',

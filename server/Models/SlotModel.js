@@ -1,21 +1,5 @@
 import mongoose from "mongoose";
 
-// const timeSlotSchema = mongoose.Schema(
-//   {
-//     time: {
-//       type: String,
-//       required: true,
-//     },
-//     isAvailable: {
-//       type: Boolean,
-//       default: true, 
-//     },
-//   },
-//   {
-//     _id: false, 
-//   }
-// );
-
 
 const slotSchema = mongoose.Schema(
   {

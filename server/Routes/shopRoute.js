@@ -38,7 +38,11 @@ import {
 import {Bookings } from '../Controllers/successController.js';
 import {uploadStyleImage,getStyleImg,getStyleImgInProfile,deleteImgStyle} from '../Controllers/styleController.js';
 
-
+import {
+  addedChatShop,
+  getChatShop,
+  getDualChat,
+} from "../Controllers/chatController.js";
 
 
 router.post("/sRegister", ShopRegister);
@@ -77,6 +81,11 @@ router.post("/sStyleImage", upload.single("images", 1), uploadStyleImage);
 router.get("/style",getStyleImg);
 router.get('/sGetImg',getStyleImgInProfile);
 router.delete("/sDeleteImg/:id",deleteImgStyle);
+
+//chat ----
+router.post("/sendedShopMsg",addedChatShop);
+router.get("/getChatShop",getChatShop);
+router.get("/getDualChat",getDualChat);
 
 
 export default router;

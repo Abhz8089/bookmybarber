@@ -28,6 +28,8 @@ const Bookings = () => {
   const [id, setId] = useState("");
   const [records, setRecords] = useState([]);
 
+ 
+
   //edit date-------------
   // const renderDateWithEditIcon = (row) => (
   

@@ -9,47 +9,37 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutClient } from "../../globelContext/clientSlice.js"; 
 
 import { jsonParseUserDataString } from "../../../helpers/JSONparse.js";
+import notification from "../../../public/contentImages/notification.png";
+import NotificationModal from "../ModalComponent/NotificationModal";
 
 import "./userStyles/Navbar.css"
 
 const Navbars = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-
+const users = useSelector((state) => state.client.user); 
   const [user, setUser] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+
+    const handleShowModal = () => {
+     if (users) {
+       setOpenModal(true);
+     }
+     
+    };
+
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
 
   const [showNavbar, setShowNavbar] = useState(false);
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
 
-  const client = useSelector((state) => state.client.user); // Access user data from Redux store
+  const client = useSelector((state) => state.client.user); 
 
   useEffect(() => {
-    // let user = jsonParseUserDataString();
-    // console.log(user);
-    // if (user) {
-    //   setUser(user);
-    // } else {
-    //   setUser("");
-    // }
-
-          // const ifUser = async () => {
-          //   try {
-          //     const { data } = await axios.get("/ifUser");
-          //     if (data.error) {
-          //       dispatch(logoutClient());
-                
-          //     }
-          //   } catch (error) {
-          //     dispatch(logoutClient());
-          //     toast.error("Server please re login");
-          //   }
-          // };
-          // ifUser();
-
-
-
     if(client){
       setUser(client)
     }else{
@@ -58,7 +48,9 @@ const Navbars = () => {
   }, []);
 
   const LogOut = async () => {
-    const { data } = await axios.post("/s/sLogout");
+  
+    const { data } = await axios.post("/logout");
+    console.log(data)
     if (data.success) {
       // localStorage.removeItem("shopData");
       dispatch(logoutClient());
@@ -107,6 +99,18 @@ const Navbars = () => {
                 <NavLink to="/login">LOGIN</NavLink>
               </li>
             )}
+            <li>
+              <img
+                style={{ width: "18px" }}
+                onClick={handleShowModal}
+                src={notification}
+                alt=""
+              />
+              <NotificationModal
+                isOpen={openModal}
+                onRequestClose={handleCloseModal}
+              />
+            </li>
           </ul>
         </div>
       </div>

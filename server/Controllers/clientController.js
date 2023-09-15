@@ -219,31 +219,31 @@ const clientLogin = async (req, res) => {
 // }
 
 const gClientLogin = async (req, res) => {
+
   try {
     const { gName, gEmail } = req.body;
     let gClientDetails = await Client.find({ email: gEmail });
-
+    
     if (!gClientDetails.length) {
       const client = await Client.create({
         userName: gName,
         email: gEmail,
       });
-
-      const resultData = { name: client.userName, email: client.email };
+   
+      const resultData = { name: client.userName, email: client.email ,id:client._id };
       createToken(res, resultData);
       return res.json(resultData);
     } else {
-      // if (gClientDetails[0].isBlock) {
-      //   console.log('blocked')
-      // }
+    
      
       if (gClientDetails[0].isBlock) {
         return res.json({
           error: "you do not have permission to enter this website",
         });
       }
-      createToken(res, { gName, gEmail });
-      return res.json({ gName, gEmail });
+
+      createToken(res, { gName, gEmail  });
+      return res.json({ gName, gEmail, id: gClientDetails[0]._id });
     }
   } catch (error) {
     console.log("Error in google login in server line 212", error);
