@@ -15,6 +15,7 @@ const EmailForm = (props) => {
 
   const [message, setMessage] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [click,setClick]=useState(false)
 
   const [clickedContactIndex, setClickedContactIndex] = useState(null);
 
@@ -114,6 +115,7 @@ const EmailForm = (props) => {
               onClick={() => {
                 connectedChat(content._id, content.userID);
                 setClickedContactIndex(key);
+                setClick(true);
               }}
             >
               <img src={frndIcon} alt="" />
@@ -153,9 +155,11 @@ const EmailForm = (props) => {
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
           />
-          <button style={styles.sendButton} onClick={handleSendMessage}>
-            <img src={sendIcon} alt="" />
-          </button>
+          {click && (
+            <button style={styles.sendButton} onClick={handleSendMessage}>
+              <img src={sendIcon} alt="" />
+            </button>
+          )}
         </div>
       </div>
     </div>
