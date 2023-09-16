@@ -13,7 +13,7 @@ import Footer from "../../components/Footer";
 import { logoutClient, employeeList as saveEmploye,clearEmployee,shopList } from "../../globelContext/clientSlice";
 import { shop } from "../../globelContext/clientSlice";
 import CaptchaModal from "../../components/ModalComponent/CaptchaModal";
-import slot from "../../../../server/Models/SlotModel";
+
 
 
 import Chat from '../../components/Chat/supportEngine/supportEngine';
