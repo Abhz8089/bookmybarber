@@ -5,7 +5,6 @@ import Chat from '../Models/ChatModal.js'
 const chat = async (req,res) => {
   const {msg,shopId,userId,sender}=req.body;
    
- console.log(req.body,"------------------------------------------cc8")
   try {
     if(!(msg.trim())){
      return res.json({not:'empty'})
@@ -18,7 +17,6 @@ const chat = async (req,res) => {
     }
 
     const room = await Room.find({shopID:shopId,userID:userId})
-    console.log(room,'------------------------this is the room')
     if(room.length){
       let roomId=room[0]._id;
       let details = await Chat.create({
@@ -28,16 +26,13 @@ const chat = async (req,res) => {
         message: msg,
         sender:sender
       });
-      console.log(details,'---------------------------this is already have room')
        
       return res.json(details)
       
     }else{
       let roomDetails = await Room.create({shopID:shopId,userID:userId})
-      console.log(roomDetails,'-----------------------------------this is room Details')
       const thisRoomId= roomDetails._id;
       let chatDetails = await Chat.create({roomID:thisRoomId,shopID:shopId,userID:userId,message:msg,sender:sender})
-      console.log(chatDetails,'------------------------------------------------chatDetails')
    
       res.json(chatDetails)
     }
@@ -50,7 +45,6 @@ const chat = async (req,res) => {
 }
 
 const getChatsUser =async(req,res)=>{
-  console.log(req.query,'********************')
     const {shopId,userId}=req.query;
    
     
@@ -91,7 +85,6 @@ const getDualChat =async(req,res)=>{
   try {
     const chats = await Chat.find({roomID:roomId})
     if(chats.length){
-    console.log(chats, "------------------------chats");
 
     return res.json(chats);
     }else{
@@ -105,11 +98,9 @@ const getDualChat =async(req,res)=>{
 
 
 const addedChatShop = async (req,res) => {
-  console.log(req.body)
   try {
     const {msg,roomId,userId,shopId,sender}=req.body;
     const result = await Chat.create({roomID:roomId,shopID:shopId,userID:userId,message:msg,sender:sender})
-    console.log(result)
 
     return res.json(result)
 

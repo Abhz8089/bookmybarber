@@ -152,19 +152,24 @@ const clientResendOtp = async (req, res) => {
 const clientLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+   
   
     let emailExist = await Client.findOne({ email });
-  
-    if (emailExist.isBlock) {
-      return res.json({
-        error: "You do not have permission to access this website.",
-      });
-    }
+   
+
      
     if (!emailExist) {
       
       return res.json({ error: "User Not found please sign up" });
     } else {
+
+          if (emailExist.isBlock) {
+            return res.json({
+              error: "You do not have permission to access this website.",
+            });
+          }
+
+
       let match = await comparePassword(password, emailExist.password);
       if (match) {
         createToken(res, {
@@ -262,7 +267,6 @@ const changePassword = async (req, res) => {
     }
 
     let sendedOtp = otp();
-    console.log(sendedOtp, " first otp");
 
     const mailOptions = {
       from: "bookmybarber@gmail.com",
@@ -305,10 +309,7 @@ const fClOtp = async (req, res) => {
 
       const timeDifferenceInMinutes = timeDifference / 60000;
 
-      console.log(userOtp);
-      console.log(decodedToken.data.otp);
 
-      console.log(timeDifferenceInMinutes);
 
       if (userOtp !== decodedToken.data.otp || timeDifferenceInMinutes > 1) {
         return res.json({ error: "you are entered a wrong Otp" });
@@ -433,8 +434,15 @@ const searchShop = async (req, res) => {
   if (!pincode && name) {
     const regexPattern = new RegExp(name, "i");
     const shops = await Shops.find(
-      { businessName: { $regex: regexPattern } ,access:true},
-      { businessName: 1, address: 1, phoneNumber: 1, zipcode: 1, _id: 1 }
+      { businessName: { $regex: regexPattern }, access: true },
+      {
+        businessName: 1,
+        address: 1,
+        phoneNumber: 1,
+        zipcode: 1,
+        _id: 1,
+        photos: 1,
+      }
     );
 
     if (shops.length) {
@@ -448,7 +456,14 @@ const searchShop = async (req, res) => {
   }
   const shops = await Shops.find(
     { businessName: name, access: true },
-    { businessName: 1, address: 1, phoneNumber: 1, zipcode: 1, _id: 1 }
+    {
+      businessName: 1,
+      address: 1,
+      phoneNumber: 1,
+      zipcode: 1,
+      _id: 1,
+      photos: 1,
+    }
   );
 
   if (shops.length) {

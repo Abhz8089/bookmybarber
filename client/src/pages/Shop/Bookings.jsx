@@ -260,16 +260,7 @@ const Bookings = () => {
     {
       name: "Leave Date",
       cell: takeLeave,
-      // selector: (row) => row.leave,
-      // selector: (row) => {
-      //   const date = new Date(row.leave);
-      //   const options = {
-      //     year: "numeric",
-      //     month: "long",
-      //     day: "numeric",
-      //   };
-      //   return date.toLocaleDateString(undefined, options);
-      // },
+
     },
   ];
 

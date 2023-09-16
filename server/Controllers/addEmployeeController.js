@@ -120,7 +120,6 @@ const getEmployee = async (req, res) => {
 };
 
 const getSlot = async (req, res) => {
-  
   try {
     const utcDateString = req.body.selectedDate + "T00:00:00.000Z";
 
@@ -135,6 +134,7 @@ const getSlot = async (req, res) => {
         },
         { employeeName: 1, time: 1, date: 1 }
       );
+
 
       const details = {
         date: { $gte: utcDateString },
@@ -156,9 +156,11 @@ const getSlot = async (req, res) => {
         entry.date = utcDateString;
       });
 
+
       const matchingBookings = bookedDetails.filter(
         (entry) => entry.date === utcDateString
       );
+
 
       matchingBookings.forEach((booking) => {
         const availabilityEntry = docs.find(
@@ -171,6 +173,7 @@ const getSlot = async (req, res) => {
           }
         }
       });
+
 
       if (docs.length) {
         docs = docs.filter((doc) => doc.Time.length > 0);

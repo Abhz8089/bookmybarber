@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import  Style from  "../ModalComponent/Styles/NotificationModal.module.css"; 
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import {Notification} from '../../globelContext/clientSlice'
 import axios from "axios";
+import {toast} from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const NotificationModal = ({ isOpen, onRequestClose }) => {
 
     const user = useSelector((state)=>state.client.user);
- 
+    const dispatch = useDispatch()
+    const [noti, setNoti] = useState([]) ;
+    const Navigate = useNavigate()
 
+   
     useEffect(() => {
      async function  getNotification (){
         const id = user.id;
@@ -18,12 +24,17 @@ const NotificationModal = ({ isOpen, onRequestClose }) => {
                     userId:id
                 }
             })
-            console.log(data)
+         const details = data.details
+         setNoti(details)
+         dispatch(Notification(data.count))
+
+         
         } catch (error) {
             console.log(error)
+            toast.error('Something went wrong please re login')
         }
      }
-    //  getNotification()
+     getNotification()
     
   
     }, [])
@@ -39,9 +50,22 @@ const NotificationModal = ({ isOpen, onRequestClose }) => {
       className={Style.notification_modal}
       overlayClassName={Style.notification_modal_overlay}
     >
-     
-      <p className={Style.bordered}>This is a notification message.</p>
-      <button onClick={onRequestClose}>Close</button>
+      {noti.length ? (
+        noti.map((datas, key) => (
+          <>
+            <p key={key} onClick={()=>Navigate('/details')} className={Style.bordered}>
+              ⏰ <i>You have an upcoming appointment scheduled for today at </i>
+              <b>{datas.time}</b>
+            </p>
+          </>
+        ))
+      ) : (
+        <></>
+      )}
+
+      <button className={Style.clearButton} onClick={onRequestClose}>
+        Close
+      </button>
     </Modal>
   );
 };

@@ -184,10 +184,10 @@ const submitOtpShop = async (req, res) => {
 const shopResendOtp = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(email);
+  
     let sendedOtp = await otp();
 
-    console.log(sendedOtp, "resended otp");
+ 
 
     const mailOptions = {
       from: "bookmybarber@gmail.com",
@@ -287,7 +287,6 @@ const updatePassword = async (req, res) => {
       return res.json({ error: "Please enter valid email or userName" });
     }
     let sendedOtp = otp();
-    console.log(sendedOtp, " first otp");
 
     const mailOptions = {
       from: "bookmybarber@gmail.com",
@@ -332,10 +331,7 @@ const fShOtp = async (req, res) => {
 
       const timeDifferenceInMinutes = timeDifference / 60000;
 
-      console.log(userOtp);
-      console.log(decodedToken.data.otp);
-
-      console.log(timeDifferenceInMinutes);
+    
 
       if (userOtp !== decodedToken.data.otp || timeDifferenceInMinutes > 1) {
         return res.json({ error: "you are entered a wrong Otp" });
@@ -350,8 +346,7 @@ const fShOtp = async (req, res) => {
 };
 
 const updatedPassword = async (req, res) => {
-  console.log(req.body);
-  console.log("ethiyillaaa");
+
   try {
     const { email, passw, cPassw } = req.body;
 
@@ -492,23 +487,18 @@ try {
 const ifShop  = async (req,res) => {
   try {
     const result = await ifUserHave(req);
-    console.log(result);
-    console.log("result");
+
     if (!result) {
       return res.json({ error: "User logged out please re login" });
     } else {
       const details = getData(result);
-      console.log(details);
-      console.log('-----------')
+   
       
 
       let userData;
     
         userData = await shop.find({ _id: details.id });
-        console.log(userData);
-        console.log("userdata------------------------");
-      
-      console.log(userData, "this is userData");
+   
 
       if (!userData[0].access) {
         return res.json({ error: "Sorry you cannot enter this website...." });

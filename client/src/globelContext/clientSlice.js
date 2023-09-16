@@ -33,6 +33,7 @@ const clientSlice = createSlice({
       state.shopList =null;
       state.employeeList=null;
       state.shopDetails= null;
+       state.notificationCount=null;
     },
     loginShop:(state,action) => {
         state.shop =action.payload
@@ -54,9 +55,12 @@ const clientSlice = createSlice({
     },
     clearShopList: (state) => {
       state.shopDetails=null;
+    },
+    Notification: (state,action) => {
+      state.notificationCount = action.payload
     }
   },
 });
 
-export const { loginClient, logoutClient,loginShop,logoutShop,shopList,employeeList,shop,clearEmployee,clearShopList} = clientSlice.actions;
+export const { loginClient, logoutClient,loginShop,logoutShop,shopList,employeeList,shop,clearEmployee,clearShopList,Notification} = clientSlice.actions;
 export default clientSlice.reducer;

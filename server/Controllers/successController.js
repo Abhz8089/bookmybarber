@@ -8,6 +8,7 @@ import {
 } from "../utils/generateToken.js";
 import { getData } from "../utils/getDetails.js";
 import { convertDateFormat } from "../Helpers/DateFormat.js";
+import { resolveContent } from "nodemailer/lib/shared/index.js";
 
 const successBook = async (req, res) => {
   try {
@@ -23,6 +24,19 @@ const successBook = async (req, res) => {
     const token = getToken(req);
 
     const userData = getData(token);
+
+    const alreadyBooked = await success.find({
+      shopID: barberShopId[0].shopID,
+      userId: userData.userId,
+      time: time,
+      date: FormattedDate,
+    });
+    if(alreadyBooked.length){
+      return res.json({
+        error:
+          "The selected time slot is already booked. Please choose another time.",
+      });
+    }
 
     const successful = await success.create({
       shopID: barberShopId[0].shopID,
@@ -109,9 +123,24 @@ const cancelBooking = async (req, res) => {
 
 const getNotification =async (req,res) => {
   try {
-   const {userId}=  req.params;
-   const currentDate = 
+    const { userId } = req.query;
+    const currentDate = new Date();
    
+    var originalDate = new Date(currentDate);
+
+    
+    originalDate.setUTCHours(0, 0, 0, 0);
+
+    
+    var desiredDateStr = originalDate.toISOString();
+
+  
+   
+    const details = await success.find({userId:userId,date:desiredDateStr})
+    const count = details.length;
+    
+      return res.json({details,count})
+    
   } catch (error) {
     console.log(error)
   }

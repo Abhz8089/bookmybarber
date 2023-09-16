@@ -47,6 +47,7 @@ const FirstPage_shopSearch = () => {
     
     try {
       const {data} = await axios.post('/search',datas)
+   
       if(data.error){
         toast.error(data.error)
       }else{

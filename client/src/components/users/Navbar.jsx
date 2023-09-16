@@ -18,6 +18,7 @@ const Navbars = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 const users = useSelector((state) => state.client.user); 
+const count = useSelector((state) => state.client.notificationCount); 
   const [user, setUser] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
@@ -50,7 +51,6 @@ const users = useSelector((state) => state.client.user);
   const LogOut = async () => {
   
     const { data } = await axios.post("/logout");
-    console.log(data)
     if (data.success) {
       // localStorage.removeItem("shopData");
       dispatch(logoutClient());
@@ -100,12 +100,32 @@ const users = useSelector((state) => state.client.user);
               </li>
             )}
             <li>
-              <img
-                style={{ width: "18px" }}
-                onClick={handleShowModal}
-                src={notification}
-                alt=""
-              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                {count ? <>    <div
+                  style={{
+                    backgroundColor: "red",
+                    borderRadius: "50%",
+                    width: "20px",
+                    height: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginRight: "8px", 
+                  }}
+                >
+                  <span style={{ color: "white", fontSize: "10px" }}>{count}</span>
+                </div></>:
+                <>
+                </>
+                }
+            
+                <img
+                  style={{ width: "18px" }}
+                  onClick={handleShowModal}
+                  src={notification}
+                  alt=""
+                />
+              </div>
               <NotificationModal
                 isOpen={openModal}
                 onRequestClose={handleCloseModal}

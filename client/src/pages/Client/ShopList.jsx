@@ -23,6 +23,7 @@ const ShopLists = () => {
   const Navigate = useNavigate();
   const shoplist = useSelector((state) => state.client.shopList);
 
+
   // Define items per page
   const itemsPerPage = 3;
 
@@ -60,6 +61,7 @@ const ShopLists = () => {
   // Slice the shoplist to get the items for the current page
   const shopsToDisplay = shoplist.slice(startIndex, endIndex);
 
+
   const goShop = async (id) => {
     
     try {
@@ -81,8 +83,9 @@ const ShopLists = () => {
     <>
       <Navbar />
       <div className={Style.container}>
-        {shopsToDisplay.map((list, key) => (
+        {/* {shopsToDisplay.map((list, key) => (
           <Card key={key} className={Style.card}>
+        
             {list.photos.length ? (
               <Card.Img
                 className={Style.image}
@@ -115,23 +118,38 @@ const ShopLists = () => {
               </Button>
             </Card.Body>
           </Card>
+        ))} */}
+        {shopsToDisplay.map((list, key) => (
+          <Card key={key} className={Style.card}>
+            <Card.Img
+              className={Style.image}
+              variant="top"
+              src={
+                list.photos && list.photos.length
+                  ? `../../../uploads/${list.photos[0]}`
+                  : "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyc2hvcHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+              }
+            />
+            <Card.Body className={Style.cardBody}>
+              <Card.Title>
+                {" "}
+                <b>{list.businessName}</b>
+              </Card.Title>
+              <Card.Text>
+                {" "}
+                <i>{list.address}</i>{" "}
+              </Card.Text>
+              <Button
+                className={Style.button}
+                onClick={() => goShop(list._id)}
+                variant="primary"
+              >
+                CHECK
+              </Button>
+            </Card.Body>
+          </Card>
         ))}
       </div>
-      {/* <div className={Style.pagination}>
-        <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage(currentPage - 1)}
-        >
-          Previous
-        </button>
-        <span>{currentPage}</span>
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage(currentPage + 1)}
-        >
-          Next
-        </button>
-      </div> */}
       <div className={Style.pagination}>
         <Stack spacing={2}>
           <Pagination
@@ -143,7 +161,7 @@ const ShopLists = () => {
           />
         </Stack>
       </div>
-      
+
       <Footer />
     </>
   );
