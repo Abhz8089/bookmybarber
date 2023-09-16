@@ -4,7 +4,7 @@ import Navbar from '../../components/users/Navbar'
 import Footer from '../../components/Footer'
 
 
-import Style from '../ClientStyles/FirstPage.module.css' 
+import Style from '../ClientStyles/FIrstPage.module.css' 
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'

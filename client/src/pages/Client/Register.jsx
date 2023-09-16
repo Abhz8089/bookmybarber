@@ -7,7 +7,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 
 import Navbar from '../../components/users/Navbar';
-import Footer from '../../components/footer';
+import Footer from '../../components/Footer';
  import styles from "../ClientStyles/Register.module.css"
  import { useUserData } from "../../contexts/userContexts";
 
