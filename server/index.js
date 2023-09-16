@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-const port = 5000;
+const port = process.env.PORT_NUMBER;
 dotenv.config();
 import cors from 'cors';
 import connectDB from "./config/config.js";
@@ -18,7 +18,7 @@ connectDB()
 
 //middlewares
 app.use(express.json())
-app.use(cors({ origin: "http://localhost:4004",credentials:true }));
+app.use(cors({ origin: process.env.FRONT_END_URL,credentials:true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
