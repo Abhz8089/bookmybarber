@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import styles from "../ClientStyles/Otp.module.css";
 
 import Navbar from "../../components/users/Navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { useUserData } from "../../contexts/userContexts";
 
 const ChangePOTP = () => {
