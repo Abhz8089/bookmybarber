@@ -40,7 +40,7 @@ const FirstPage_shopSearch = () => {
   }, [])
   
 
-
+console.log('ok')
 
   const search = async(e)=>{
     e.preventDefault()
