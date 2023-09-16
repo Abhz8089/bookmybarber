@@ -18,15 +18,7 @@ connectDB()
 
 //middlewares
 app.use(express.json())
-app.use(
-  cors({
-    origin: [
-      "http://localhost:4004",
-      "https://65059ea064037812a9a39b73--curious-trifle-e503e7.netlify.app/",
-    ],
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "http://localhost:4004",credentials:true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
