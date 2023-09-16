@@ -42,8 +42,7 @@ import UserPrivate from './Private/UserPrivateRoute';
 import ShopPrivate from "./Private/ShopPrivateRoute";
 
 import './App.css'
-// import { useSelector } from "react-redux";
-// import shop from "../../server/Models/shopModel";
+
 
 
 axios.defaults.baseURL = 'http://localhost:5000'
@@ -51,12 +50,6 @@ axios.defaults.withCredentials = true;
 
 
 function App() {
-  // const user = useSelector((state) => state.client.shop); 
-  // const client = useSelector((state) => state.client.user); 
-  
- 
-  
-
   return (
     <>
       <Toaster
@@ -101,59 +94,7 @@ function App() {
           <Route path="/search" element={<FirstPage />} />
         </Route>
 
-        {/* 
-        {user ? (
-          <Route path="/s/sBookings" element={<Bookings />} />
-        ) : (
-          <Route path="/s/sBookings" element={<Login />} />
-        )}
-        {user ? (
-          <Route path="/s/sSchedule" element={<ScheduleDetails />} />
-        ) : (
-          <Route path="/s/sSchedule" element={<Login />} />
-        )}
-        {user ? (
-          <Route path="/s/sProfile" element={<Profile />} />
-        ) : (
-          <Route path="/s/sProfile" element={<Login />} />
-        )}
-        {user ? (
-          <Route path="/s/sStyleImg" element={<StyleImg />} />
-        ) : (
-          <Route path="/s/sStyleImg" element={<Login />} />
-        )}
-        {user ? (
-          <Route path="/s/sGetShopImg" element={<ShowShopImg />} />
-        ) : (
-          <Route path="/s/sGetShopImg" element={<Login />} />
-        )} */}
 
-        {/* Protect routes for clients */}
-        {/* {client ? (
-          <Route path="/search" element={<FirstPage />} />
-        ) : (
-          <Route path="/search" element={<Login />} />
-        )}
-        {client ? (
-          <Route path="/shopList" element={<ShopList />} />
-        ) : (
-          <Route path="/shopList" element={<Login />} />
-        )}
-        {client ? (
-          <Route path="/filter" element={<FilterPage />} />
-        ) : (
-          <Route path="/filter" element={<Login />} />
-        )}
-        {client ? (
-          <Route path="/success" element={<SuccessPage />} />
-        ) : (
-          <Route path="/success" element={<Login />} />
-        )}
-        {client ? (
-          <Route path="/details" element={<Details />} />
-        ) : (
-          <Route path="/details" element={<Login />} />
-        )} */}
       </Routes>
     </>
   );
