@@ -1,7 +1,8 @@
+import path from 'path';
 import express from "express";
 import dotenv from "dotenv";
-const port = process.env.PORT_NUMBER;
 dotenv.config();
+const port = process.env.PORT;
 import cors from 'cors';
 import connectDB from "./config/config.js";
 import cookieParser from "cookie-parser";
@@ -18,7 +19,7 @@ connectDB()
 
 //middlewares
 app.use(express.json())
-app.use(cors({ origin: process.env.FRONT_END_URL,credentials:true }));
+app.use(cors({ origin: process.env.FRONT_END_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
@@ -26,6 +27,14 @@ app.use('/',clientRoutes)
 app.use("/s",shopRoutes)
 app.use("/ad",adminRoutes)
 
+if(process.env.NODE_ENV === 'production') {
+    const __dirname = path.resolve();
+    app.use(express.static(path.join(__dirname,'client/dist')));
+
+    app.get('*',(req,res) => res.sendFile(path.resolve(__dirname,'client','dist','index.html')))
+}else{
+    app.get('/',(req,res) => res.send('Server is ready'))
+}
 
 
 app.listen(port,()=>{
