@@ -6,8 +6,8 @@ import {toast} from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
 
 
-import client from "../../../public/contentImages/Group 21.png";
-import beautician from "../../../public/contentImages/Group 22.png";
+import client from "../../../public/contentImages/Group21.png";
+import beautician from "../../../public/contentImages/Group22.png";
 import iphone from '../../../public/contentImages/phonegif.gif';
 
 import style from '../ClientStyles/Home.module.css'
