@@ -16,8 +16,10 @@ const NotificationModal = ({ isOpen, onRequestClose }) => {
 
    
     useEffect(() => {
+     let id
+       
      async function  getNotification (){
-        const id = user.id;
+       
         try {
             const {data} = await axios.get('/getNotification',{
                 params:{
@@ -34,7 +36,13 @@ const NotificationModal = ({ isOpen, onRequestClose }) => {
             toast.error('Something went wrong please re login')
         }
      }
-     getNotification()
+      if (user) {
+       id = user.id;
+      }
+     if(id){
+getNotification();
+     }
+     
     
   
     }, [])
