@@ -45,7 +45,7 @@ import './App.css'
 
 
 
-axios.defaults.baseURL = 'http://localhost:4000'
+axios.defaults.baseURL = "http://35.154.202.157:4000";
 axios.defaults.withCredentials = true;
 
 
