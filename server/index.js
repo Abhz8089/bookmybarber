@@ -19,22 +19,35 @@ connectDB()
 
 //middlewares
 app.use(express.json())
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:8000", credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
+
+
 
 app.use('/',clientRoutes)
 app.use("/s",shopRoutes)
 app.use("/ad",adminRoutes)
 
-if(process.env.NODE_ENV === 'production') {
-    const __dirname = path.resolve();
-    app.use(express.static(path.join(__dirname,'client/dist')));
 
-    app.get('*',(req,res) => res.sendFile(path.resolve(__dirname,'client','dist','index.html')))
-}else{
-    app.get('/',(req,res) => res.send('Server is ready'))
-}
+// if (process.env.NODE_ENV === "production") {
+
+//   const __dirname = path.resolve();
+//   app.use(express.static(path.join(__dirname, "./client/dist")));
+//   console.log(path.join(__dirname, "client/dist"));
+
+//   app.get("*", (req, res) =>{
+
+     
+//         res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+//   }
+//   );
+// } else {
+    
+//   app.get("/", (req, res) => res.send("Server is ready"));
+
+// }
+
 
 
 app.listen(port,()=>{
