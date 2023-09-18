@@ -47,7 +47,7 @@ app.get("/*", function (req, res) {
       console.error("Error sending index.html:", err);
       res.status(500).send(err);
     } else {
-      console.log("Index.html sent successfully");
+      console.log("Index.html sentuccessfully");
     }
   });
 });
