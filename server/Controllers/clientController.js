@@ -150,6 +150,7 @@ const clientResendOtp = async (req, res) => {
 //----------------client login---------------------------
 
 const clientLogin = async (req, res) => {
+  
   try {
     const { email, password } = req.body;
    
