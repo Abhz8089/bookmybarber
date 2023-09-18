@@ -19,34 +19,38 @@ connectDB()
 
 //middlewares
 app.use(express.json())
-app.use(cors({ origin: "http://localhost:8000", credentials: true }));
+app.use(cors({ origin: process.env.FRONT_END_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
+//dirname configuration
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const buildPath = path.join(__dirname, "../client/dist");
+app.use(express.static(buildPath));
 
 
 app.use('/',clientRoutes)
 app.use("/s",shopRoutes)
 app.use("/ad",adminRoutes)
 
+app.get("/*", function (req, res) {
+  const indexPath = path.join(buildPath, "index.html");
 
-// if (process.env.NODE_ENV === "production") {
+  console.log("Index HTML Path:", indexPath);
 
-//   const __dirname = path.resolve();
-//   app.use(express.static(path.join(__dirname, "./client/dist")));
-//   console.log(path.join(__dirname, "client/dist"));
-
-//   app.get("*", (req, res) =>{
-
-     
-//         res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
-//   }
-//   );
-// } else {
-    
-//   app.get("/", (req, res) => res.send("Server is ready"));
-
-// }
+  res.sendFile(indexPath, function (err) {
+    if (err) {
+      console.error("Error sending index.html:", err);
+      res.status(500).send(err);
+    } else {
+      console.log("Index.html sentuccessfully");
+    }
+  });
+});
 
 
 
