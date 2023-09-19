@@ -2,12 +2,12 @@ import multer from 'multer'
 
 
 
-
-
 const storage = multer.diskStorage({
+
   destination: (req, file, cb) => {
+   
   
-    cb(null, "../client/uploads/");
+    cb(null, "./client/uploads/");
   },
   filename: (req, file, cb) => {
    
@@ -16,8 +16,9 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  
   if (file.mimetype.startsWith("image/")) {
-   
+
     cb(null, true);
   } else {
    

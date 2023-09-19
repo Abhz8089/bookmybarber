@@ -392,6 +392,7 @@ const updatedPassword = async (req, res) => {
 };
 
 const uploadFile = async (req,res) => {
+  console.log('(((((')
   try {
    
     if(!req.files.length){
