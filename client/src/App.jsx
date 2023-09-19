@@ -45,7 +45,7 @@ import './App.css'
 
 
 
-axios.defaults.baseURL = "https://dabj.online";
+axios.defaults.baseURL = "https://www.dabj.online";
 axios.defaults.withCredentials = true;
 
 
