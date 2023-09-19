@@ -270,7 +270,7 @@ const FilterPage = () => {
                   <b>Address</b> : {shop[0].address}
                 </i>
               </pre>
-            
+
               <img
                 src={iconForLocation}
                 onClick={() => goToLocation()}
@@ -286,7 +286,7 @@ const FilterPage = () => {
               {img.map((imageName, index) => (
                 <img
                   key={index}
-                  src={`../../../uploads/${imageName}`}
+                  src={`http://www.dabj.online/uploads/${imageName}`}
                   alt=""
                   className={Style.pic}
                 />
@@ -329,7 +329,7 @@ const FilterPage = () => {
       ) : (
         <></>
       )}
-    <Chat/>
+      <Chat />
       <Footer />
       <CaptchaModal
         isOpen={isCaptchaOpen}

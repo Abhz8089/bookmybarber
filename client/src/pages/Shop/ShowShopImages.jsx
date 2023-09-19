@@ -83,7 +83,7 @@ const ShowShopImg = () => {
                     <div>
                       <img
                         className={Styles.styleImg}
-                        src={`../../../uploads/${data}`}
+                        src={`http://www.dabj.online/uploads/${data}`}
                         alt=""
                       />
                     </div>

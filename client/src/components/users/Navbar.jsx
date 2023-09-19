@@ -83,7 +83,7 @@ const count = useSelector((state) => state.client.notificationCount);
               <span className="line">||</span>
             </li>
             <li>
-              <NavLink to="/projects">STYLES</NavLink>
+              <NavLink to="/style">STYLES</NavLink>
             </li>
             <li>
               <NavLink to="/details">

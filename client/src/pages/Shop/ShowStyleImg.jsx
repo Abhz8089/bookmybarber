@@ -12,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 import { Carousel } from "react-responsive-carousel";
-
 const ShowStyleImg = () => {
     const [records, setRecords] = useState([])
+
+    console.log(records)
  useEffect(() => {
    const getImg =async()=>{
     try {
@@ -91,7 +92,7 @@ const ShowStyleImg = () => {
                   <div>
                     <img
                       className={Styles.styleImg}
-                      src={`../../../uploads/${data.photos}`}
+                      src={`http://www.dabj.online/uploads/${data.photos}`}
                       alt=""
                     />
                   </div>
