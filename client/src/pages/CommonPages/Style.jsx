@@ -15,7 +15,6 @@ import Loader from "../../components/HelpingComponents/Loader";
 
 
 
-
 const Styles = () => {
   const dispatch = useDispatch();
 
@@ -93,12 +92,7 @@ const Styles = () => {
           <div className={style.fade}></div>
           <div className={style.main}>
             <div className={style.headingdiv}>
-              <h1
-                className={style.heading}
-             
-              >
-                MEN
-              </h1>
+              <h1 className={style.heading}>MEN</h1>
             </div>
             <div className={style.first}>
               <Carousel
@@ -116,7 +110,7 @@ const Styles = () => {
                     <div key={styleItem._id}>
                       <img
                         className={style.img}
-                        src={`../../../uploads/${styleItem.photos}`}
+                        src={`http://www.dabj.online/uploads/${styleItem.photos}`}
                         alt={styleItem.styleName}
                       />
                       <p className={style.p}>{styleItem.styleName}</p>
@@ -131,9 +125,7 @@ const Styles = () => {
 
           <div className={style.main}>
             <div className={style.headingdiv}>
-              <h1 className={style.heading} >
-                WOMANS
-              </h1>
+              <h1 className={style.heading}>WOMANS</h1>
             </div>
             <div className={style.first}>
               <Carousel
@@ -151,7 +143,7 @@ const Styles = () => {
                     <div key={styleItem._id}>
                       <img
                         className={style.img}
-                        src={`../../../uploads/${styleItem.photos}`}
+                        src={`http://www.dabj.online/uploads/${styleItem.photos}`}
                         alt={styleItem.styleName}
                       />
                       <p className={style.p}>{styleItem.styleName}</p>
@@ -166,9 +158,7 @@ const Styles = () => {
 
           <div className={style.main}>
             <div className={style.headingdiv}>
-              <h1 className={style.heading} >
-                BOYS
-              </h1>
+              <h1 className={style.heading}>BOYS</h1>
             </div>
             <div className={style.first}>
               <Carousel
@@ -186,7 +176,7 @@ const Styles = () => {
                     <div key={styleItem._id}>
                       <img
                         className={style.img}
-                        src={`../../../uploads/${styleItem.photos}`}
+                        src={`http://www.dabj.online/uploads/${styleItem.photos}`}
                         alt={styleItem.styleName}
                       />
                       <p className={style.p}>{styleItem.styleName}</p>
@@ -201,9 +191,7 @@ const Styles = () => {
 
           <div className={style.main}>
             <div className={style.headingdiv}>
-              <h1 className={style.heading}>
-                GIRLS
-              </h1>
+              <h1 className={style.heading}>GIRLS</h1>
             </div>
             <div className={style.first}>
               <Carousel
@@ -221,7 +209,7 @@ const Styles = () => {
                     <div key={styleItem._id}>
                       <img
                         className={style.img}
-                        src={`../../../uploads/${styleItem.photos}`}
+                        src={`http://www.dabj.online/uploads/${styleItem.photos}`}
                         alt={styleItem.styleName}
                       />
                       <p className={style.p}>{styleItem.styleName}</p>

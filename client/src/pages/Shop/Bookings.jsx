@@ -29,45 +29,6 @@ const Bookings = () => {
   const [records, setRecords] = useState([]);
 
  
-
-  //edit date-------------
-  // const renderDateWithEditIcon = (row) => (
-  
-  //   <div>
-  //     <span>{row.date}</span>
-  //     <button
-  //       onClick={() => openModalForDate(row._id)}
-  //       style={{
-  //         marginLeft: "5px",
-  //         background: "none",
-  //         border: "none",
-  //         cursor: "pointer",
-  //       }}
-  //     >
-  //       <BsPencil />
-  //     </button>
-  //   </div>
-  // );
-
-
-  //take leave-------------------------------
-  // const takeLeave = (row) => (
-  //   <div>
-  //     <span>{row.leave}</span>
-  //     <button
-  //       onClick={() => openModalForLeave(row._id)}
-  //       style={{
-  //         marginLeft: "5px",
-  //         background: "none",
-  //         border: "none",
-  //         cursor: "pointer",
-  //       }}
-  //     >
-  //       <BsPencil />
-  //     </button>
-  //   </div>
-  // );
-
   const renderDateWithEditIcon = (row) => {
     const date = new Date(row.date);
     const options = {

@@ -12,13 +12,6 @@ const SubNav = () => {
   return (
     <div className="className">
       <div className="className1">
-        {/* <NavLink
-          to="/ad/dashboard"
-          activeClassName="active"
-          className={location.pathname === "/dashboard" ? "active" : ""}
-        >
-          DASHBOARD
-        </NavLink> */}
         <NavLink
           to="/ad/Beautician"
           activeClassName="active"

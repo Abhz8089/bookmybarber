@@ -1,88 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import {styles} from '../styles.js';
-import Style from '../../style.module.css';
-// import { LoadingOutlined } from "@ant-design/icons"; 
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import { styles } from "../styles.js";
+import Style from "../../style.module.css";
+// import { LoadingOutlined } from "@ant-design/icons";
+import axios from "axios";
 
-import Avatar from '../Avatar.jsx';
-import sendIcon from '../../../../../public/contentImages/sendIcon.png'
-import {toast} from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-
-
- 
+import Avatar from "../Avatar.jsx";
+import sendIcon from "../../../../../public/contentImages/sendIcon.png";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const EmailForm = (props) => {
-   
-    const [chat,setChat]=useState(false);
-    const [messageText,setMessageText] = useState('')
-    const [sendedMessage,setSendedMessage] = useState([])
-    const [message, setMessage] = useState([]);
+  const [chat, setChat] = useState(false);
+  const [messageText, setMessageText] = useState("");
+  const [sendedMessage, setSendedMessage] = useState([]);
+  const [message, setMessage] = useState([]);
 
-    const user = useSelector((state)=>state.client.user)
-     const shop = useSelector((state) => state.client.shopDetails);
+  const user = useSelector((state) => state.client.user);
+  const shop = useSelector((state) => state.client.shopDetails);
 
-     console.log(message)
-     useEffect(() => {
-        
-      async function getChats(){
-      
-        try {
-          const { data } = await axios.get("/getChats", {
-            params: {
-              shopId: shop[0]._id,
-              userId: user.id,
-            },
-          });
-          
-          if(data.not){
-            setMessageText('')
-          }else{
-            setMessage(data)
-          }
-
-        } catch (error) {
-          console.log(error)
-          toast.error('Something went wrong please re login')
-        }
-      }
-     
-      getChats();
-     }, [])
-     
-
-    
-
-    const handleSendMessage = async() => {
-
-      
-      
+  console.log(message);
+  useEffect(() => {
+    async function getChats() {
       try {
-       const {data} = await axios.post('/sendedMsg',{
-        msg:messageText,
-        shopId:shop[0]._id,
-        userId:user.id,
-        sender:"user"
-       })
-       if(data.error){
-        toast.error(data.error)
-       }else if(data.not){
-        setMessageText('')
-       }else{
-         setMessage([...message, { sender: "user", message: data.message }]);
+        const { data } = await axios.get("/getChats", {
+          params: {
+            shopId: shop[0]._id,
+            userId: user.id,
+          },
+        });
 
-         setMessageText(""); 
-       }
-        
+        if (data.not) {
+          setMessageText("");
+        } else {
+          setMessage(data);
+        }
       } catch (error) {
-        console.log(error)
-        toast.error('Something went wrong please re-Login')
+        console.log(error);
+        toast.error("Something went wrong please re login");
       }
+    }
 
+    getChats();
+  }, []);
 
-    };
-    
-   
+  const handleSendMessage = async () => {
+    try {
+      const { data } = await axios.post("/sendedMsg", {
+        msg: messageText,
+        shopId: shop[0]._id,
+        userId: user.id,
+        sender: "user",
+      });
+      if (data.error) {
+        toast.error(data.error);
+      } else if (data.not) {
+        setMessageText("");
+      } else {
+        setMessage([...message, { sender: "user", message: data.message }]);
+
+        setMessageText("");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong please re-Login");
+    }
+  };
 
   return (
     <div
@@ -133,11 +115,6 @@ const EmailForm = (props) => {
             ) : (
               <></>
             )}
-
-            {/* <div style={styles.message}>Bot: I'm just a static example.</div> */}
-            {/* <div style={{ ...styles.message, ...styles.userMessage }}>
-              User: That's okay. Can you help me with something?
-            </div> */}
           </div>
 
           <div style={styles.inputContainer}>
@@ -199,11 +176,6 @@ const EmailForm = (props) => {
       )}
     </div>
   );
-}
+};
 
-export default EmailForm
-
-
-
-
-
+export default EmailForm;

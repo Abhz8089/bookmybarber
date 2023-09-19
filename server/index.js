@@ -16,8 +16,13 @@ import adminRoutes from './Routes/adminRoute.js'
 //data base connection
 connectDB()
 
-
+//dirname configuration
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename); 
 //middlewares
+app.use("/uploads",express.static(__dirname+"/uploads"))
 app.use(express.json())
 // app.use(cors({ origin: process.env.FRONT_END_URL, credentials: true }));
 const corsOptions = {
@@ -29,11 +34,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
-//dirname configuration
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 
 const buildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(buildPath));

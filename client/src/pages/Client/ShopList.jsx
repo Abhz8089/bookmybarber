@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import {Button,Card} from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Pagination from "@mui/material/Pagination";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import Stack from "@mui/material/Stack";
-
 
 import Navbar from "../../components/users/Navbar";
 import Footer from "../../components/Footer";
 
 import Style from "../ClientStyles/ShopList.module.css";
-import {employeeList,logoutClient,shop as saveShop,clearShopList} from '../../globelContext/clientSlice'
+import {
+  employeeList,
+  logoutClient,
+  shop as saveShop,
+  clearShopList,
+} from "../../globelContext/clientSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
 
 const ShopLists = () => {
   const [shop, setShop] = useState([]);
@@ -22,7 +24,6 @@ const ShopLists = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const shoplist = useSelector((state) => state.client.shopList);
-
 
   // Define items per page
   const itemsPerPage = 3;
@@ -61,12 +62,10 @@ const ShopLists = () => {
   // Slice the shoplist to get the items for the current page
   const shopsToDisplay = shoplist.slice(startIndex, endIndex);
 
-
   const goShop = async (id) => {
-    
     try {
       const { data } = await axios.post("/s/getEmployee", { id });
-     
+
       if (data.error) {
         toast.error(data.error);
       } else {
@@ -83,42 +82,6 @@ const ShopLists = () => {
     <>
       <Navbar />
       <div className={Style.container}>
-        {/* {shopsToDisplay.map((list, key) => (
-          <Card key={key} className={Style.card}>
-        
-            {list.photos.length ? (
-              <Card.Img
-                className={Style.image}
-                variant="top"
-                src={`../../../uploads/${list.photos[0]}`}
-              />
-            ) : (
-              <Card.Img
-                className={Style.image}
-                variant="top"
-                src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyc2hvcHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
-              />
-            )}
-
-            <Card.Body className={Style.cardBody}>
-              <Card.Title>
-                {" "}
-                <b>{list.businessName}</b>
-              </Card.Title>
-              <Card.Text>
-                {" "}
-                <i>{list.address}</i>{" "}
-              </Card.Text>
-              <Button
-                className={Style.button}
-                onClick={() => goShop(list._id)}
-                variant="primary"
-              >
-                CHECK
-              </Button>
-            </Card.Body>
-          </Card>
-        ))} */}
         {shopsToDisplay.map((list, key) => (
           <Card key={key} className={Style.card}>
             <Card.Img
@@ -126,7 +89,7 @@ const ShopLists = () => {
               variant="top"
               src={
                 list.photos && list.photos.length
-                  ? `../../../uploads/${list.photos[0]}`
+                  ? `http://www.dabj.online/uploads/${list.photos[0]}`
                   : "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyc2hvcHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
               }
             />
