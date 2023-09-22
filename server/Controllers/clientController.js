@@ -485,23 +485,30 @@ const ifUser = async(req,res) => {
     if(!token){
       return res.json({error:"User logged out please re login"})
     }else{
-      const details = getData(token)
+      const details = await getData(token)
      
 
       let userData
       if(details && !details.userId ){
         
           userData = await client.find({ email: details.gEmail });
+           if (userData[0].isBlock) {
+             return res.json({
+               error: "Sorry you cannot enter this website....",
+             });
+           }
+          return res.json(userData)
       }else{
-   userData = await client.find({ _id: details.userId });
+       userData = await client.find({ _id: details.userId });
+        if (userData[0].isBlock) {
+          return res.json({ error: "Sorry you cannot enter this website...." });
+        }
  
-    
+       return res.json(userData)
       }
       
     
-      if(userData[0].isBlock){
-        return res.json({error:'Sorry you cannot enter this website....'})
-      }
+     
     }
   } catch (error) {
     console.log(error)
