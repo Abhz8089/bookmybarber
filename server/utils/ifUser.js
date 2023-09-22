@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
-const ifUserHave = (req) => {
-  const token = req.headers.authorization || getTokenFromCookies(req);
+const ifUserHave = async (req) => {
+  const token = req.headers.authorization || await getTokenFromCookies(req);
 
   if (!token) {
     return false;
@@ -12,8 +12,8 @@ const ifUserHave = (req) => {
 
 };
 
-const getTokenFromCookies = (req) => {
-  let cookieHeaderValue = req.headers.cookie;
+const getTokenFromCookies = async (req) => {
+  let cookieHeaderValue =  req.headers.cookie;
   if (cookieHeaderValue) {
     let cookies = cookieHeaderValue.split(";");
     for (let cookie of cookies) {
