@@ -492,16 +492,23 @@ const ifUser = async(req,res) => {
       if(details && !details.userId ){
         
           userData = await client.find({ email: details.gEmail });
+           if (userData[0].isBlock) {
+             return res.json({
+               error: "Sorry you cannot enter this website....",
+             });
+           }
+          return res.json(userData)
       }else{
-   userData = await client.find({ _id: details.userId });
+       userData = await client.find({ _id: details.userId });
+        if (userData[0].isBlock) {
+          return res.json({ error: "Sorry you cannot enter this website...." });
+        }
  
-    
+       return res.json(userData)
       }
       
     
-      if(userData[0].isBlock){
-        return res.json({error:'Sorry you cannot enter this website....'})
-      }
+     
     }
   } catch (error) {
     console.log(error)
