@@ -480,7 +480,7 @@ const searchShop = async (req, res) => {
 
 const ifUser = async(req,res) => {
   try {
-    const result = await ifUserHave(req)
+    const result = await getToken(req)
    
     if(!result){
       return res.json({error:"User logged out please re login"})
