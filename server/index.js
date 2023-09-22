@@ -25,13 +25,16 @@ const __dirname = dirname(__filename);
 app.use("/uploads",express.static(__dirname+"/uploads"))
 app.use(express.json())
 // app.use(cors({ origin: process.env.FRONT_END_URL, credentials: true }));
-app.use(cors({ origin: "https://www.dabj.online", credentials: true }));
-// const corsOptions = {
-//   origin: [ "https://www.dabj.online"],
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: [
+    "https://dabj.online",
+    "https://www.dabj.online",
+    "http://localhost:8000",
+  ],
+  credentials: true,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 
