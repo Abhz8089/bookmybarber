@@ -20,24 +20,24 @@ const FirstPage_shopSearch = () => {
   })
   // const [name, setName] = useState('')
   
-  useEffect(() => {
+  // useEffect(() => {
    
-    const ifUser = async ()=>{
-      try {
-        const {data} = await axios.get('/ifUser')
-        if(data.error){
-            dispatch(logoutClient());
-            toast.error(data.error);
-        }
+  //   const ifUser = async ()=>{
+  //     try {
+  //       const {data} = await axios.get('/ifUser')
+  //       if(data.error){
+  //           dispatch(logoutClient());
+  //           toast.error(data.error);
+  //       }
 
-      } catch (error) {
-        dispatch(logoutClient())
-        toast.error('Server please re login')
-      }
-    }
-   ifUser()
+  //     } catch (error) {
+  //       dispatch(logoutClient())
+  //       toast.error('Server please re login')
+  //     }
+  //   }
+  //  ifUser()
    
-  }, [])
+  // }, [])
   
 
 console.log('ok')
