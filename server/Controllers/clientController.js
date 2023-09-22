@@ -485,7 +485,7 @@ const ifUser = async(req,res) => {
     if(!token){
       return res.json({error:"User logged out please re login"})
     }else{
-      const details = getData(token)
+      const details = await getData(token)
      
 
       let userData
